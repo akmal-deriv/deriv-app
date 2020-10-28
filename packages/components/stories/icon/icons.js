@@ -1,8 +1,15 @@
 // auto-generated file. DO NOT MODIFY.
 
-export const icons = {
-    brand: ['IcBrandDbot', 'IcBrandDeriv', 'IcBrandDmt5', 'IcBrandDtrader', 'IcBrandSmarttrader'],
-    cashier: [
+export const icons =
+{
+    'brand': [
+        'IcBrandDbot',
+        'IcBrandDeriv',
+        'IcBrandDmt5',
+        'IcBrandDtrader',
+        'IcBrandSmarttrader'
+    ],
+    'cashier': [
         'IcCashierApplePay',
         'IcCashierAuthenticate',
         'IcCashierBanxaDark',
@@ -49,9 +56,9 @@ export const icons = {
         'IcCashierWithdrawalLock',
         'IcCashierWithdrawal',
         'IcCashierWyre',
-        'IcCashierXanpool',
+        'IcCashierXanpool'
     ],
-    common: [
+    'common': [
         'IcAccountError',
         'IcAccountLimits',
         'IcAccountMissingDetails',
@@ -230,9 +237,9 @@ export const icons = {
         'IcWebsite',
         'IcWip',
         'IcZoomIn',
-        'IcZoomOut',
+        'IcZoomOut'
     ],
-    contract: [
+    'contract': [
         'IcContractBarrier',
         'IcContractBuyPrice',
         'IcContractCommission',
@@ -246,9 +253,9 @@ export const icons = {
         'IcContractSafeguard',
         'IcContractStartTimeCircle',
         'IcContractStartTime',
-        'IcContractTarget',
+        'IcContractTarget'
     ],
-    currency: [
+    'currency': [
         'IcCurrencyAud',
         'IcCurrencyBch',
         'IcCurrencyBtc',
@@ -268,9 +275,9 @@ export const icons = {
         'IcCurrencyUsdc',
         'IcCurrencyUsdk',
         'IcCurrencyUst',
-        'IcCurrencyVirtual',
+        'IcCurrencyVirtual'
     ],
-    flag: [
+    'flag': [
         'IcFlagDe',
         'IcFlagEn',
         'IcFlagEs',
@@ -284,9 +291,9 @@ export const icons = {
         'IcFlagUk',
         'IcFlagVi',
         'IcFlagZhCn',
-        'IcFlagZhTw',
+        'IcFlagZhTw'
     ],
-    mt5: [
+    'mt5': [
         'IcMt5DeviceDesktop',
         'IcMt5DeviceLaptop',
         'IcMt5DevicePhone',
@@ -298,9 +305,9 @@ export const icons = {
         'IcMt5Financial',
         'IcMt5PasswordUpdated',
         'IcMt5SyntheticPlatform',
-        'IcMt5Synthetic',
+        'IcMt5Synthetic'
     ],
-    tradetype: [
+    'tradetype': [
         'IcTradetypeAsiand',
         'IcTradetypeAsianu',
         'IcTradetypeCallBarrier',
@@ -333,9 +340,9 @@ export const icons = {
         'IcTradetypeRunlow',
         'IcTradetypeTickhigh',
         'IcTradetypeTicklow',
-        'IcTradetypeUpordown',
+        'IcTradetypeUpordown'
     ],
-    underlying: [
+    'underlying': [
         'IcUnderlying1HZ100V',
         'IcUnderlying1HZ10V',
         'IcUnderlying1HZ25V',
@@ -401,6 +408,6 @@ export const icons = {
         'IcUnderlyingWLDAUD',
         'IcUnderlyingWLDEUR',
         'IcUnderlyingWLDGBP',
-        'IcUnderlyingWLDUSD',
-    ],
-};
+        'IcUnderlyingWLDUSD'
+    ]
+}
