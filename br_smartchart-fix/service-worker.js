@@ -749,7 +749,7 @@ define("./service-worker.js",['./workbox-c5a866fd'], function (workbox) { 'use s
     "url": "/br_smartchart-fix/js/core.main~components_src_components_l.291479b03790bbb9ed22.js",
     "revision": null
   }, {
-    "url": "/br_smartchart-fix/js/core.main~s.5111228ca17b220dfda8.js",
+    "url": "/br_smartchart-fix/js/core.main~s.a8374a0579d760d0cd7c.js",
     "revision": null
   }, {
     "url": "/br_smartchart-fix/js/core.reality-check-modal.5602915180a80e59f20d.js",
@@ -854,10 +854,10 @@ define("./service-worker.js",['./workbox-c5a866fd'], function (workbox) { 'use s
     "url": "/br_smartchart-fix/js/core.welcome-modal~Assets_SvgComponents_onboarding_multipliers_svg_67df4c4b.6abb88bebdc085950401.js",
     "revision": null
   }, {
-    "url": "/br_smartchart-fix/js/core.welcome-modal~Assets_SvgComponents_onboarding_not-sure-mobile_svg_9ad91f0b.43085c28eb041e5caa48.js",
+    "url": "/br_smartchart-fix/js/core.welcome-modal~Assets_SvgComponents_onboarding_not-sure-mobile_svg_9ad91f0b.e7936a1256f5f8e09184.js",
     "revision": null
   }, {
-    "url": "/br_smartchart-fix/js/core.welcome-modal~Assets_SvgComponents_onboarding_not-sure_svg_a469acfa.d1e64cda062c0633500e.js",
+    "url": "/br_smartchart-fix/js/core.welcome-modal~Assets_SvgComponents_onboarding_not-sure_svg_a469acfa.ac3c58af4715d181ec41.js",
     "revision": null
   }, {
     "url": "/br_smartchart-fix/js/dashboard/assets/images/app-card-bg.svg",
