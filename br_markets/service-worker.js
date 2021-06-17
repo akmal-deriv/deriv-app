@@ -749,7 +749,7 @@ define("./service-worker.js",['./workbox-c5a866fd'], function (workbox) { 'use s
     "url": "/br_markets/js/core.main~components_src_components_l.291479b03790bbb9ed22.js",
     "revision": null
   }, {
-    "url": "/br_markets/js/core.main~s.eab4fbbd4d08f76da79f.js",
+    "url": "/br_markets/js/core.main~s.34a6f9d9eff292057843.js",
     "revision": null
   }, {
     "url": "/br_markets/js/core.reality-check-modal.5602915180a80e59f20d.js",
@@ -842,22 +842,22 @@ define("./service-worker.js",['./workbox-c5a866fd'], function (workbox) { 'use s
     "url": "/br_markets/js/core.welcome-modal~Assets_SvgComponents_onboarding_cfds_svg_af25ac66.147285bbec28895e2681.js",
     "revision": null
   }, {
-    "url": "/br_markets/js/core.welcome-modal~Assets_SvgComponents_onboarding_digital-options-mobile_svg_a765406b.8d73fbc188c199fa4151.js",
+    "url": "/br_markets/js/core.welcome-modal~Assets_SvgComponents_onboarding_digital-options-mobile_svg_a765406b.50ee8c80d79d665e656c.js",
     "revision": null
   }, {
     "url": "/br_markets/js/core.welcome-modal~Assets_SvgComponents_onboarding_digital-options_svg_6a6a8cad.3f076158b31e483514d3.js",
     "revision": null
   }, {
-    "url": "/br_markets/js/core.welcome-modal~Assets_SvgComponents_onboarding_multipliers-mobile_svg_48db1f53.5297a8469fae19dadc09.js",
+    "url": "/br_markets/js/core.welcome-modal~Assets_SvgComponents_onboarding_multipliers-mobile_svg_48db1f53.a535629de715112465ab.js",
     "revision": null
   }, {
-    "url": "/br_markets/js/core.welcome-modal~Assets_SvgComponents_onboarding_multipliers_svg_67df4c4b.046beedf21bf4aec4fd1.js",
+    "url": "/br_markets/js/core.welcome-modal~Assets_SvgComponents_onboarding_multipliers_svg_67df4c4b.6abb88bebdc085950401.js",
     "revision": null
   }, {
-    "url": "/br_markets/js/core.welcome-modal~Assets_SvgComponents_onboarding_not-sure-mobile_svg_9ad91f0b.43085c28eb041e5caa48.js",
+    "url": "/br_markets/js/core.welcome-modal~Assets_SvgComponents_onboarding_not-sure-mobile_svg_9ad91f0b.e7936a1256f5f8e09184.js",
     "revision": null
   }, {
-    "url": "/br_markets/js/core.welcome-modal~Assets_SvgComponents_onboarding_not-sure_svg_a469acfa.92f2937011968dc746c5.js",
+    "url": "/br_markets/js/core.welcome-modal~Assets_SvgComponents_onboarding_not-sure_svg_a469acfa.ac3c58af4715d181ec41.js",
     "revision": null
   }, {
     "url": "/br_markets/js/dashboard/assets/images/app-card-bg.svg",
