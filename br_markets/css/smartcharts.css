@@ -3404,9 +3404,11 @@
 .cq-chart-title .cq-symbol-select-btn .cq-symbol-info {
       display: flex;
       flex-direction: column;
-      margin: 0 0 0 20px;
-      min-width: 15rem;
-      min-height: 4.2rem; }
+      margin: 0 0 0 20px; }
+@media (min-width: 768px) {
+        .cq-chart-title .cq-symbol-select-btn .cq-symbol-info {
+          min-width: 15rem;
+          min-height: 4.2rem; } }
 .cq-chart-title .cq-symbol-select-btn .cq-symbol-info .cq-market {
         font-size: 1em;
         line-height: 1.5; }
