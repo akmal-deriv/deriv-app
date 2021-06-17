@@ -297,7 +297,7 @@ define("./service-worker.js",['./workbox-c5a866fd'], function (workbox) { 'use s
     "revision": "1800a24cddc6c991a77e6996bb0db67a"
   }, {
     "url": "/css/smartcharts.css",
-    "revision": "f378a73010f18a02d3ee68398e7195e1"
+    "revision": "5770a6fde55a556c39d7a6f9f314b56f"
   }, {
     "url": "/css/trader.cfd.85b0e02c8c8dd9f0a3a1.css",
     "revision": "47d94eaf8d58b0da8a2c54c4e4e070d5"
@@ -749,7 +749,7 @@ define("./service-worker.js",['./workbox-c5a866fd'], function (workbox) { 'use s
     "url": "/js/core.main~components_src_components_l.291479b03790bbb9ed22.js",
     "revision": null
   }, {
-    "url": "/js/core.main~s.0e99ca3fd942b8083a62.js",
+    "url": "/js/core.main~s.6233519346bc65e417b3.js",
     "revision": null
   }, {
     "url": "/js/core.reality-check-modal.5602915180a80e59f20d.js",
