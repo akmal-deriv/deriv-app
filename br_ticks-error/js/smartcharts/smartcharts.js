@@ -34551,6 +34551,8 @@ var Feed = /*#__PURE__*/function () {
     value: function _appendChartData(quotes, key, comparisonChartSymbol) {
       var current_tick_timestamp = this._serverTime.getEpoch();
 
+      var max_tick_delay = 30;
+
       if (this._forgetIfEndEpoch(key) && !this._activeStreams[key]) {
         quotes = [];
         return;
@@ -34580,7 +34582,7 @@ var Feed = /*#__PURE__*/function () {
         console.log('FEED: ');
         console.log(current_tick_timestamp - this._last_tick_timestamp);
 
-        if (current_tick_timestamp - this._last_tick_timestamp < 60) {
+        if (current_tick_timestamp - this._last_tick_timestamp < max_tick_delay) {
           this._stx.updateChartData(quotes, null, {
             allowReplaceOHL: true
           });
