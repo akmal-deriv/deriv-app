@@ -34578,10 +34578,6 @@ var Feed = /*#__PURE__*/function () {
         // we will reload the chart instead of rendering new ticks
         // in case if the duration between the previous tick and the current one is longer than a minute
         // to avoid disturbing animation on slower devices
-        console.log('');
-        console.log('FEED: ');
-        console.log(current_tick_timestamp - this._last_tick_timestamp);
-
         if (current_tick_timestamp - this._last_tick_timestamp < max_tick_delay) {
           this._stx.updateChartData(quotes, null, {
             allowReplaceOHL: true
