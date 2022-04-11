@@ -33943,6 +33943,7 @@ var Feed = /*#__PURE__*/function () {
     this._binaryApi = void 0;
     this._connectionClosedDate = void 0;
     this._emitter = void 0;
+    this._last_tick_timeout = void 0;
     this._last_tick_timestamp = void 0;
     this._mainStore = void 0;
     this._serverTime = void 0;
@@ -34000,6 +34001,7 @@ var Feed = /*#__PURE__*/function () {
       emitDelay: 0
     });
     this._last_tick_timestamp = 0;
+    this._last_tick_timeout = null;
   }
 
   _createClass(Feed, [{
@@ -34549,9 +34551,13 @@ var Feed = /*#__PURE__*/function () {
   }, {
     key: "_appendChartData",
     value: function _appendChartData(quotes, key, comparisonChartSymbol) {
+      var _this3 = this;
+
+      clearTimeout(this._last_tick_timeout);
+
       var current_tick_timestamp = this._serverTime.getEpoch();
 
-      var max_tick_delay = 30;
+      var max_tick_delay = 30; // in seconds
 
       if (this._forgetIfEndEpoch(key) && !this._activeStreams[key]) {
         quotes = [];
@@ -34584,7 +34590,15 @@ var Feed = /*#__PURE__*/function () {
           });
 
           this._stx.createDataSet();
+
+          this._last_tick_timeout = setTimeout(function () {
+            _this3.unsubscribeAll();
+
+            _this3._mainStore.chart.refreshChart();
+          }, max_tick_delay * 2 * 1000); // refresh the chart in case if there are no new ticks within a minute
         } else {
+          this.unsubscribeAll();
+
           this._mainStore.chart.refreshChart();
         }
 
@@ -34728,7 +34742,7 @@ var Feed = /*#__PURE__*/function () {
   }, {
     key: "_resumeStream",
     value: function _resumeStream(key) {
-      var _this3 = this;
+      var _this4 = this;
 
       var _this$_unpackKey2 = this._unpackKey(key),
           symbol = _this$_unpackKey2.symbol;
@@ -34738,9 +34752,9 @@ var Feed = /*#__PURE__*/function () {
       this._activeStreams[key].resume().then(function (params) {
         var _ref4 = params,
             quotes = _ref4.quotes;
-        if (_this3._stx.isDestroyed) return;
+        if (_this4._stx.isDestroyed) return;
 
-        _this3._appendChartData(quotes, key, comparisonChartSymbol);
+        _this4._appendChartData(quotes, key, comparisonChartSymbol);
       });
     }
   }, {
@@ -34766,7 +34780,7 @@ var Feed = /*#__PURE__*/function () {
   }, {
     key: "_trimQuotes",
     value: function _trimQuotes() {
-      var _this4 = this;
+      var _this5 = this;
 
       var quotes = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       var startTickIndex = null;
@@ -34776,7 +34790,7 @@ var Feed = /*#__PURE__*/function () {
 
       if (this.startEpoch && this.margin) {
         startTickIndex = trimmedQuotes.findIndex(function (tick) {
-          return CIQ.strToDateTime(tick.Date) >= CIQ.strToDateTime(Object(_utils__WEBPACK_IMPORTED_MODULE_3__["getUTCDate"])(_this4.startEpoch));
+          return CIQ.strToDateTime(tick.Date) >= CIQ.strToDateTime(Object(_utils__WEBPACK_IMPORTED_MODULE_3__["getUTCDate"])(_this5.startEpoch));
         });
 
         if (startTickIndex > -1) {
@@ -34786,7 +34800,7 @@ var Feed = /*#__PURE__*/function () {
 
       if (this.endEpoch && this.margin) {
         endTickIndex = trimmedQuotes.findIndex(function (tick) {
-          return CIQ.strToDateTime(tick.Date) >= CIQ.strToDateTime(Object(_utils__WEBPACK_IMPORTED_MODULE_3__["getUTCDate"])(_this4.endEpoch));
+          return CIQ.strToDateTime(tick.Date) >= CIQ.strToDateTime(Object(_utils__WEBPACK_IMPORTED_MODULE_3__["getUTCDate"])(_this5.endEpoch));
         });
 
         if (endTickIndex > -1) {
