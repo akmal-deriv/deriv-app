@@ -35779,6 +35779,11 @@ var Feed = /*#__PURE__*/function () {
 
             _this3._mainStore.chart.refreshChart();
           }, max_tick_delay * 2 * 1000); // refresh the chart in case if there are no new ticks within a minute
+        } else {
+          clearTimeout(this._last_tick_timeout);
+          this.unsubscribeAll();
+
+          this._mainStore.chart.refreshChart();
         }
 
         this._last_tick_timestamp = current_tick_timestamp;
