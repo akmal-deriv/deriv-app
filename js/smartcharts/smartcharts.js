@@ -26452,6 +26452,8 @@ class TradingTimes {
   }
 
   isFeedUnavailable(symbol) {
+    var _this$_tradingTimesMa;
+
     if (!this._tradingTimesMap) {
       return;
     }
@@ -26461,13 +26463,13 @@ class TradingTimes {
       return false;
     }
 
-    return this._tradingTimesMap[symbol].feed_license === TradingTimes.FEED_UNAVAILABLE;
+    return ((_this$_tradingTimesMa = this._tradingTimesMap[symbol]) === null || _this$_tradingTimesMa === void 0 ? void 0 : _this$_tradingTimesMa.feed_license) === TradingTimes.FEED_UNAVAILABLE;
   }
 
   getDelayedMinutes(symbol) {
-    var _this$_tradingTimesMa;
+    var _this$_tradingTimesMa2;
 
-    return (_this$_tradingTimesMa = this._tradingTimesMap) === null || _this$_tradingTimesMa === void 0 ? void 0 : _this$_tradingTimesMa[symbol].delay_amount;
+    return (_this$_tradingTimesMa2 = this._tradingTimesMap) === null || _this$_tradingTimesMa2 === void 0 ? void 0 : _this$_tradingTimesMa2[symbol].delay_amount;
   }
 
   isMarketOpened(symbol) {
@@ -36502,7 +36504,7 @@ class Feed {
       // When there is end; no streaming required
       tickHistoryRequest.end = String(end);
       getHistoryOnly = true;
-    } else if (this._tradingTimes.isMarketOpened(symbol)) {
+    } else if (!this.contractInfo.validation_error) {
       let subscription;
 
       const delay = this._tradingTimes.getDelayedMinutes(symbol);
@@ -37307,7 +37309,9 @@ class RealtimeSubscription extends _Subscription__WEBPACK_IMPORTED_MODULE_2__["d
     const tickHistoryPromise = Object(_utils_PendingPromise__WEBPACK_IMPORTED_MODULE_0__["default"])();
 
     const processTickHistory = resp => {
-      if (this._stx.isDestroyed) {
+      var _this$_stx;
+
+      if ((_this$_stx = this._stx) === null || _this$_stx === void 0 ? void 0 : _this$_stx.isDestroyed) {
         var _resp$subscription;
 
         const subscriptionId = (_resp$subscription = resp.subscription) === null || _resp$subscription === void 0 ? void 0 : _resp$subscription.id;
