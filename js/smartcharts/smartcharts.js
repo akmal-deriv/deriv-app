@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("moment"), require("react"), require("react-dom"), require("react-transition-group"));
+		module.exports = factory(require("react-transition-group"), require("moment"), require("react"), require("react-dom"));
 	else if(typeof define === 'function' && define.amd)
 		define([, , , ], factory);
 	else if(typeof exports === 'object')
-		exports["smartcharts"] = factory(require("moment"), require("react"), require("react-dom"), require("react-transition-group"));
+		exports["smartcharts"] = factory(require("react-transition-group"), require("moment"), require("react"), require("react-dom"));
 	else
-		root["smartcharts"] = factory(root["moment"], root["React"], root["ReactDOM"], root["ReactTransitionGroup"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE_moment__, __WEBPACK_EXTERNAL_MODULE_react__, __WEBPACK_EXTERNAL_MODULE_react_dom__, __WEBPACK_EXTERNAL_MODULE_react_transition_group__) {
+		root["smartcharts"] = factory(root["ReactTransitionGroup"], root["moment"], root["React"], root["ReactDOM"]);
+})(window, function(__WEBPACK_EXTERNAL_MODULE_react_transition_group__, __WEBPACK_EXTERNAL_MODULE_moment__, __WEBPACK_EXTERNAL_MODULE_react__, __WEBPACK_EXTERNAL_MODULE_react_dom__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	function webpackJsonpCallback(data) {
@@ -36497,6 +36497,7 @@ class Feed {
       start: this.endEpoch ? start : undefined,
       count: this.endEpoch ? undefined : this._mainStore.lastDigitStats.count
     };
+    const validation_error = this.contractInfo.validation_error_code;
     let getHistoryOnly = false;
     let quotes;
 
@@ -36504,7 +36505,7 @@ class Feed {
       // When there is end; no streaming required
       tickHistoryRequest.end = String(end);
       getHistoryOnly = true;
-    } else if (!this.contractInfo.validation_error) {
+    } else if (validation_error !== 'MarketIsClosed' && validation_error !== 'MarketIsClosedTryVolatility') {
       let subscription;
 
       const delay = this._tradingTimes.getDelayedMinutes(symbol);
