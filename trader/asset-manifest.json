@@ -1,16 +1,16 @@
 {
   "trader.js": "/trader/js/trader.js",
   "trader-app.css": "/trader/css/trader.trader-app.fc7bf6bdf76f36ddd632.css",
-  "trader-app.js": "/trader/js/trader.trader-app.2e10db9ea3eff0eced87.js",
+  "trader-app.js": "/trader/js/trader.trader-app.0bffb17b66f69f5c4b61.js",
   "trade-modals.js": "/trader/js/trader.trade-modals.2519820e4c2bcfca20ca.js",
   "error-component.js": "/trader/js/trader.error-component.b5cb747e20e5562becf6.js",
-  "contract.js": "/trader/js/trader.contract.166358b83135b8e0b321.js",
-  "smart_chart_beta.js": "/trader/js/trader.smart_chart_beta.3648629c47445fdefb09.js",
+  "contract.js": "/trader/js/trader.contract.43a5010958618384bf3d.js",
+  "smart_chart_beta.js": "/trader/js/trader.smart_chart_beta.e3c78d2aa80acf7918fa.js",
   "screen-small.css": "/trader/css/trader.screen-small.25405d6942c01eba71ff.css",
   "screen-small.js": "/trader/js/trader.screen-small.889a6d521e34eca26a22.js",
   "screen-large.js": "/trader/js/trader.screen-large.f07de4d77e784429861a.js",
   "settings-chart.js": "/trader/js/trader.settings-chart.11b1c0730e1ca8945139.js",
   "trader/js/trader.vendors-node_modules_deriv_analytics_lib_index_js-node_modules_deriv_deriv-api_dist_DerivAPIB-917d57.js": "/trader/js/trader.vendors-node_modules_deriv_analytics_lib_index_js-node_modules_deriv_deriv-api_dist_DerivAPIB-917d57.a9526a7a4f795d0f6931.js",
   "trader/js/trader.vendors-node_modules_binary-com_binary-document-uploader_DocumentUploader_js.js": "/trader/js/trader.vendors-node_modules_binary-com_binary-document-uploader_DocumentUploader_js.7a1aca442ce3d04ada34.js",
-  "trader/js/trader.src_Modules_Trading_Components_Form_TradeParams_Accumulator_accumulators-info-display_tsx-src-9d80cb.js": "/trader/js/trader.src_Modules_Trading_Components_Form_TradeParams_Accumulator_accumulators-info-display_tsx-src-9d80cb.585eebfb5874385b0093.js"
+  "trader/js/trader.src_Modules_Trading_Components_Form_TradeParams_Accumulator_accumulators-info-display_tsx-src-9d80cb.js": "/trader/js/trader.src_Modules_Trading_Components_Form_TradeParams_Accumulator_accumulators-info-display_tsx-src-9d80cb.6bcbb03de992ffcfa63b.js"
 }
