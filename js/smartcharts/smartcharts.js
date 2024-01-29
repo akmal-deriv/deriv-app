@@ -13644,6 +13644,10 @@ const Languages = [{
   name: '한국어',
   icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Icons__WEBPACK_IMPORTED_MODULE_1__.FlagIcons.Korean, null)
 }, {
+  key: 'pt',
+  name: 'Português',
+  icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Icons__WEBPACK_IMPORTED_MODULE_1__.FlagIcons.Portugal, null)
+}, {
   key: 'tr',
   name: 'Türkçe',
   icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Icons__WEBPACK_IMPORTED_MODULE_1__.FlagIcons.Turkey, null)
@@ -14946,7 +14950,8 @@ const Chart = props => {
     chartType,
     state,
     loader,
-    chartAdapter
+    chartAdapter,
+    crosshair
   } = (0,src_store__WEBPACK_IMPORTED_MODULE_4__.useStores)();
   const {
     chartId,
@@ -14956,6 +14961,9 @@ const Chart = props => {
     chartContainerHeight,
     containerWidth
   } = chart;
+  const {
+    setCrosshairState
+  } = crosshair;
   const {
     settingsDialog: studiesSettingsDialog
   } = studies;
@@ -15034,7 +15042,12 @@ const Chart = props => {
   }, []);
   react__WEBPACK_IMPORTED_MODULE_2___default().useEffect(() => {
     chartAdapter.updateContracts(contracts_array);
-  }, [contracts_array]);
+  }, [contracts_array]); // to always show price info on mobile screen
+
+  if (isMobile && crosshair.state !== 2) {
+    setCrosshairState(2);
+  }
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
     id: id || chartId,
     className: classnames__WEBPACK_IMPORTED_MODULE_0___default()('smartcharts', `smartcharts-${theme}`, {
@@ -16348,7 +16361,21 @@ const FastMarker = props => {
   }, []);
   react__WEBPACK_IMPORTED_MODULE_1___default().useEffect(() => {
     updateCSS();
-  }, [chartAdapter.epochBounds, chartAdapter.quoteBounds, chartAdapter.isFeedLoaded, chartAdapter.isChartLoaded]);
+  }, [chartAdapter.epochBounds, chartAdapter.quoteBounds, chartAdapter.isFeedLoaded, chartAdapter.isChartLoaded, chartStore.lastQuote]); // TODO: Do a proper fix to detect the right padding
+
+  react__WEBPACK_IMPORTED_MODULE_1___default().useEffect(() => {
+    const hasTooltip = elem_ref.current?.querySelector('.chart-spot-label-profit');
+
+    if (hasTooltip) {
+      chartAdapter.updateRightPadding(110);
+    }
+
+    return () => {
+      if (hasTooltip) {
+        chartAdapter.updateRightPadding(0);
+      }
+    };
+  }, [chartAdapter]);
 
   const setPosition = _ref => {
     let {
@@ -17498,268 +17525,271 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sass_icons_flags_italy_svg__WEBPACK_IMPORTED_MODULE_98___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_italy_svg__WEBPACK_IMPORTED_MODULE_98__);
 /* harmony import */ var _sass_icons_flags_korean_svg__WEBPACK_IMPORTED_MODULE_99__ = __webpack_require__(/*! ../../sass/icons/flags/korean.svg */ "./sass/icons/flags/korean.svg");
 /* harmony import */ var _sass_icons_flags_korean_svg__WEBPACK_IMPORTED_MODULE_99___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_korean_svg__WEBPACK_IMPORTED_MODULE_99__);
-/* harmony import */ var _sass_icons_flags_chinese_svg__WEBPACK_IMPORTED_MODULE_100__ = __webpack_require__(/*! ../../sass/icons/flags/chinese.svg */ "./sass/icons/flags/chinese.svg");
-/* harmony import */ var _sass_icons_flags_chinese_svg__WEBPACK_IMPORTED_MODULE_100___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_chinese_svg__WEBPACK_IMPORTED_MODULE_100__);
-/* harmony import */ var _sass_icons_flags_chinese_traditional_svg__WEBPACK_IMPORTED_MODULE_101__ = __webpack_require__(/*! ../../sass/icons/flags/chinese-traditional.svg */ "./sass/icons/flags/chinese-traditional.svg");
-/* harmony import */ var _sass_icons_flags_chinese_traditional_svg__WEBPACK_IMPORTED_MODULE_101___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_chinese_traditional_svg__WEBPACK_IMPORTED_MODULE_101__);
-/* harmony import */ var _sass_icons_flags_german_svg__WEBPACK_IMPORTED_MODULE_102__ = __webpack_require__(/*! ../../sass/icons/flags/german.svg */ "./sass/icons/flags/german.svg");
-/* harmony import */ var _sass_icons_flags_german_svg__WEBPACK_IMPORTED_MODULE_102___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_german_svg__WEBPACK_IMPORTED_MODULE_102__);
-/* harmony import */ var _sass_icons_flags_hong_kong_svg__WEBPACK_IMPORTED_MODULE_103__ = __webpack_require__(/*! ../../sass/icons/flags/hong kong.svg */ "./sass/icons/flags/hong kong.svg");
-/* harmony import */ var _sass_icons_flags_hong_kong_svg__WEBPACK_IMPORTED_MODULE_103___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_hong_kong_svg__WEBPACK_IMPORTED_MODULE_103__);
-/* harmony import */ var _sass_icons_flags_french_svg__WEBPACK_IMPORTED_MODULE_104__ = __webpack_require__(/*! ../../sass/icons/flags/french.svg */ "./sass/icons/flags/french.svg");
-/* harmony import */ var _sass_icons_flags_french_svg__WEBPACK_IMPORTED_MODULE_104___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_french_svg__WEBPACK_IMPORTED_MODULE_104__);
-/* harmony import */ var _sass_icons_flags_dutch_svg__WEBPACK_IMPORTED_MODULE_105__ = __webpack_require__(/*! ../../sass/icons/flags/dutch.svg */ "./sass/icons/flags/dutch.svg");
-/* harmony import */ var _sass_icons_flags_dutch_svg__WEBPACK_IMPORTED_MODULE_105___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_dutch_svg__WEBPACK_IMPORTED_MODULE_105__);
-/* harmony import */ var _sass_icons_flags_spanish_svg__WEBPACK_IMPORTED_MODULE_106__ = __webpack_require__(/*! ../../sass/icons/flags/spanish.svg */ "./sass/icons/flags/spanish.svg");
-/* harmony import */ var _sass_icons_flags_spanish_svg__WEBPACK_IMPORTED_MODULE_106___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_spanish_svg__WEBPACK_IMPORTED_MODULE_106__);
-/* harmony import */ var _sass_icons_flags_wallstreet_svg__WEBPACK_IMPORTED_MODULE_107__ = __webpack_require__(/*! ../../sass/icons/flags/wallstreet.svg */ "./sass/icons/flags/wallstreet.svg");
-/* harmony import */ var _sass_icons_flags_wallstreet_svg__WEBPACK_IMPORTED_MODULE_107___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_wallstreet_svg__WEBPACK_IMPORTED_MODULE_107__);
-/* harmony import */ var _sass_icons_active_symbols_energy_oil_usd_ic_oilusd_svg__WEBPACK_IMPORTED_MODULE_108__ = __webpack_require__(/*! ../../sass/icons/active-symbols/energy/oil usd/ic-oilusd.svg */ "./sass/icons/active-symbols/energy/oil usd/ic-oilusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_energy_oil_usd_ic_oilusd_svg__WEBPACK_IMPORTED_MODULE_108___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_energy_oil_usd_ic_oilusd_svg__WEBPACK_IMPORTED_MODULE_108__);
-/* harmony import */ var _sass_icons_active_symbols_metals_ic_metal_svg__WEBPACK_IMPORTED_MODULE_109__ = __webpack_require__(/*! ../../sass/icons/active-symbols/metals/ic-metal.svg */ "./sass/icons/active-symbols/metals/ic-metal.svg");
-/* harmony import */ var _sass_icons_active_symbols_metals_ic_metal_svg__WEBPACK_IMPORTED_MODULE_109___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_metals_ic_metal_svg__WEBPACK_IMPORTED_MODULE_109__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_10_index_ic_10_index_v_svg__WEBPACK_IMPORTED_MODULE_110__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/10 index/ic-10-index-v.svg */ "./sass/icons/active-symbols/volatility/10 index/ic-10-index-v.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_10_index_ic_10_index_v_svg__WEBPACK_IMPORTED_MODULE_110___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_10_index_ic_10_index_v_svg__WEBPACK_IMPORTED_MODULE_110__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_25_index_ic_25_index_v_svg__WEBPACK_IMPORTED_MODULE_111__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/25 index/ic-25-index-v.svg */ "./sass/icons/active-symbols/volatility/25 index/ic-25-index-v.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_25_index_ic_25_index_v_svg__WEBPACK_IMPORTED_MODULE_111___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_25_index_ic_25_index_v_svg__WEBPACK_IMPORTED_MODULE_111__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_50_index_ic_50_index_v_svg__WEBPACK_IMPORTED_MODULE_112__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/50 index/ic-50-index-v.svg */ "./sass/icons/active-symbols/volatility/50 index/ic-50-index-v.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_50_index_ic_50_index_v_svg__WEBPACK_IMPORTED_MODULE_112___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_50_index_ic_50_index_v_svg__WEBPACK_IMPORTED_MODULE_112__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_75_index_ic_75_index_v_svg__WEBPACK_IMPORTED_MODULE_113__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/75 index/ic-75-index-v.svg */ "./sass/icons/active-symbols/volatility/75 index/ic-75-index-v.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_75_index_ic_75_index_v_svg__WEBPACK_IMPORTED_MODULE_113___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_75_index_ic_75_index_v_svg__WEBPACK_IMPORTED_MODULE_113__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_100_index_ic_100_index_v_svg__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/100 index/ic-100-index-v.svg */ "./sass/icons/active-symbols/volatility/100 index/ic-100-index-v.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_100_index_ic_100_index_v_svg__WEBPACK_IMPORTED_MODULE_114___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_100_index_ic_100_index_v_svg__WEBPACK_IMPORTED_MODULE_114__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s10_index_ic_10_1s_index_svg__WEBPACK_IMPORTED_MODULE_115__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s10 index/ic-10-1s-index.svg */ "./sass/icons/active-symbols/volatility/1s10 index/ic-10-1s-index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s10_index_ic_10_1s_index_svg__WEBPACK_IMPORTED_MODULE_115___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s10_index_ic_10_1s_index_svg__WEBPACK_IMPORTED_MODULE_115__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s25_index_light_25_1s_index_svg__WEBPACK_IMPORTED_MODULE_116__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s25 index/light-25(1s)index.svg */ "./sass/icons/active-symbols/volatility/1s25 index/light-25(1s)index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s25_index_light_25_1s_index_svg__WEBPACK_IMPORTED_MODULE_116___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s25_index_light_25_1s_index_svg__WEBPACK_IMPORTED_MODULE_116__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s50_index_light_50_1s_index_svg__WEBPACK_IMPORTED_MODULE_117__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s50 index/light-50(1s) index.svg */ "./sass/icons/active-symbols/volatility/1s50 index/light-50(1s) index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s50_index_light_50_1s_index_svg__WEBPACK_IMPORTED_MODULE_117___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s50_index_light_50_1s_index_svg__WEBPACK_IMPORTED_MODULE_117__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s75_index_light_75_1s_index_svg__WEBPACK_IMPORTED_MODULE_118__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s75 index/light-75(1s) index.svg */ "./sass/icons/active-symbols/volatility/1s75 index/light-75(1s) index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s75_index_light_75_1s_index_svg__WEBPACK_IMPORTED_MODULE_118___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s75_index_light_75_1s_index_svg__WEBPACK_IMPORTED_MODULE_118__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s100_index_ic_100_1s_index_svg__WEBPACK_IMPORTED_MODULE_119__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s100 index/ic-100-1s-index.svg */ "./sass/icons/active-symbols/volatility/1s100 index/ic-100-1s-index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s100_index_ic_100_1s_index_svg__WEBPACK_IMPORTED_MODULE_119___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s100_index_ic_100_1s_index_svg__WEBPACK_IMPORTED_MODULE_119__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s150_index_ic_150_1s_index_svg__WEBPACK_IMPORTED_MODULE_120__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s150 index/ic-150-1s-index.svg */ "./sass/icons/active-symbols/volatility/1s150 index/ic-150-1s-index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s150_index_ic_150_1s_index_svg__WEBPACK_IMPORTED_MODULE_120___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s150_index_ic_150_1s_index_svg__WEBPACK_IMPORTED_MODULE_120__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s200_index_ic_200_1s_index_svg__WEBPACK_IMPORTED_MODULE_121__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s200 index/ic-200-1s-index.svg */ "./sass/icons/active-symbols/volatility/1s200 index/ic-200-1s-index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s200_index_ic_200_1s_index_svg__WEBPACK_IMPORTED_MODULE_121___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s200_index_ic_200_1s_index_svg__WEBPACK_IMPORTED_MODULE_121__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s250_index_ic_250_1s_index_svg__WEBPACK_IMPORTED_MODULE_122__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s250 index/ic-250-1s-index.svg */ "./sass/icons/active-symbols/volatility/1s250 index/ic-250-1s-index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s250_index_ic_250_1s_index_svg__WEBPACK_IMPORTED_MODULE_122___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s250_index_ic_250_1s_index_svg__WEBPACK_IMPORTED_MODULE_122__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s300_index_ic_300_1s_index_svg__WEBPACK_IMPORTED_MODULE_123__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s300 index/ic-300-1s-index.svg */ "./sass/icons/active-symbols/volatility/1s300 index/ic-300-1s-index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_1s300_index_ic_300_1s_index_svg__WEBPACK_IMPORTED_MODULE_123___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s300_index_ic_300_1s_index_svg__WEBPACK_IMPORTED_MODULE_123__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_crash300_index_crash300_index_svg__WEBPACK_IMPORTED_MODULE_124__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/crash300 index/crash300 index.svg */ "./sass/icons/active-symbols/volatility/crash300 index/crash300 index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_crash300_index_crash300_index_svg__WEBPACK_IMPORTED_MODULE_124___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_crash300_index_crash300_index_svg__WEBPACK_IMPORTED_MODULE_124__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_crash500_index_crash500_index_svg__WEBPACK_IMPORTED_MODULE_125__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/crash500 index/crash500 index.svg */ "./sass/icons/active-symbols/volatility/crash500 index/crash500 index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_crash500_index_crash500_index_svg__WEBPACK_IMPORTED_MODULE_125___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_crash500_index_crash500_index_svg__WEBPACK_IMPORTED_MODULE_125__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_crash1000_index_crash1000_index_svg__WEBPACK_IMPORTED_MODULE_126__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/crash1000 index/crash1000 index.svg */ "./sass/icons/active-symbols/volatility/crash1000 index/crash1000 index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_crash1000_index_crash1000_index_svg__WEBPACK_IMPORTED_MODULE_126___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_crash1000_index_crash1000_index_svg__WEBPACK_IMPORTED_MODULE_126__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_boom300_index_boom300_index_svg__WEBPACK_IMPORTED_MODULE_127__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/boom300 index/boom300 index.svg */ "./sass/icons/active-symbols/volatility/boom300 index/boom300 index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_boom300_index_boom300_index_svg__WEBPACK_IMPORTED_MODULE_127___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_boom300_index_boom300_index_svg__WEBPACK_IMPORTED_MODULE_127__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_boom500_index_boom500_index_svg__WEBPACK_IMPORTED_MODULE_128__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/boom500 index/boom500 index.svg */ "./sass/icons/active-symbols/volatility/boom500 index/boom500 index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_boom500_index_boom500_index_svg__WEBPACK_IMPORTED_MODULE_128___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_boom500_index_boom500_index_svg__WEBPACK_IMPORTED_MODULE_128__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_boom1000_index_boom1000_index_svg__WEBPACK_IMPORTED_MODULE_129__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/boom1000 index/boom1000 index.svg */ "./sass/icons/active-symbols/volatility/boom1000 index/boom1000 index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_boom1000_index_boom1000_index_svg__WEBPACK_IMPORTED_MODULE_129___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_boom1000_index_boom1000_index_svg__WEBPACK_IMPORTED_MODULE_129__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_bear_market_ic_marketbear_svg__WEBPACK_IMPORTED_MODULE_130__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/bear market/ic-marketbear.svg */ "./sass/icons/active-symbols/volatility/bear market/ic-marketbear.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_bear_market_ic_marketbear_svg__WEBPACK_IMPORTED_MODULE_130___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_bear_market_ic_marketbear_svg__WEBPACK_IMPORTED_MODULE_130__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_bull_market_ic_marketbull_svg__WEBPACK_IMPORTED_MODULE_131__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/bull market/ic-marketbull.svg */ "./sass/icons/active-symbols/volatility/bull market/ic-marketbull.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_bull_market_ic_marketbull_svg__WEBPACK_IMPORTED_MODULE_131___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_bull_market_ic_marketbull_svg__WEBPACK_IMPORTED_MODULE_131__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_step_index_step_index_svg__WEBPACK_IMPORTED_MODULE_132__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/step index/step index.svg */ "./sass/icons/active-symbols/volatility/step index/step index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_step_index_step_index_svg__WEBPACK_IMPORTED_MODULE_132___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_step_index_step_index_svg__WEBPACK_IMPORTED_MODULE_132__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_jd10_index_ic_10_index_svg__WEBPACK_IMPORTED_MODULE_133__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/jd10 index/ic-10-index.svg */ "./sass/icons/active-symbols/volatility/jd10 index/ic-10-index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_jd10_index_ic_10_index_svg__WEBPACK_IMPORTED_MODULE_133___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_jd10_index_ic_10_index_svg__WEBPACK_IMPORTED_MODULE_133__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_jd25_index_ic_25_index_svg__WEBPACK_IMPORTED_MODULE_134__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/jd25 index/ic-25-index.svg */ "./sass/icons/active-symbols/volatility/jd25 index/ic-25-index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_jd25_index_ic_25_index_svg__WEBPACK_IMPORTED_MODULE_134___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_jd25_index_ic_25_index_svg__WEBPACK_IMPORTED_MODULE_134__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_jd50_index_ic_50_index_svg__WEBPACK_IMPORTED_MODULE_135__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/jd50 index/ic-50-index.svg */ "./sass/icons/active-symbols/volatility/jd50 index/ic-50-index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_jd50_index_ic_50_index_svg__WEBPACK_IMPORTED_MODULE_135___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_jd50_index_ic_50_index_svg__WEBPACK_IMPORTED_MODULE_135__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_jd75_index_ic_75_index_svg__WEBPACK_IMPORTED_MODULE_136__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/jd75 index/ic-75-index.svg */ "./sass/icons/active-symbols/volatility/jd75 index/ic-75-index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_jd75_index_ic_75_index_svg__WEBPACK_IMPORTED_MODULE_136___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_jd75_index_ic_75_index_svg__WEBPACK_IMPORTED_MODULE_136__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_jd100_index_ic_100_index_svg__WEBPACK_IMPORTED_MODULE_137__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/jd100 index/ic-100-index.svg */ "./sass/icons/active-symbols/volatility/jd100 index/ic-100-index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_jd100_index_ic_100_index_svg__WEBPACK_IMPORTED_MODULE_137___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_jd100_index_ic_100_index_svg__WEBPACK_IMPORTED_MODULE_137__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_jd150_index_ic_150_index_svg__WEBPACK_IMPORTED_MODULE_138__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/jd150 index/ic-150-index.svg */ "./sass/icons/active-symbols/volatility/jd150 index/ic-150-index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_jd150_index_ic_150_index_svg__WEBPACK_IMPORTED_MODULE_138___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_jd150_index_ic_150_index_svg__WEBPACK_IMPORTED_MODULE_138__);
-/* harmony import */ var _sass_icons_active_symbols_volatility_jd200_index_ic_200_index_svg__WEBPACK_IMPORTED_MODULE_139__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/jd200 index/ic-200-index.svg */ "./sass/icons/active-symbols/volatility/jd200 index/ic-200-index.svg");
-/* harmony import */ var _sass_icons_active_symbols_volatility_jd200_index_ic_200_index_svg__WEBPACK_IMPORTED_MODULE_139___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_jd200_index_ic_200_index_svg__WEBPACK_IMPORTED_MODULE_139__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_bnbusd_svg__WEBPACK_IMPORTED_MODULE_140__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-bnbusd.svg */ "./sass/icons/active-symbols/cryptos/ic-bnbusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_bnbusd_svg__WEBPACK_IMPORTED_MODULE_140___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_bnbusd_svg__WEBPACK_IMPORTED_MODULE_140__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_btcltc_svg__WEBPACK_IMPORTED_MODULE_141__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-btcltc.svg */ "./sass/icons/active-symbols/cryptos/ic-btcltc.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_btcltc_svg__WEBPACK_IMPORTED_MODULE_141___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_btcltc_svg__WEBPACK_IMPORTED_MODULE_141__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_iotusd_svg__WEBPACK_IMPORTED_MODULE_142__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-iotusd.svg */ "./sass/icons/active-symbols/cryptos/ic-iotusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_iotusd_svg__WEBPACK_IMPORTED_MODULE_142___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_iotusd_svg__WEBPACK_IMPORTED_MODULE_142__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_neousd_svg__WEBPACK_IMPORTED_MODULE_143__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-neousd.svg */ "./sass/icons/active-symbols/cryptos/ic-neousd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_neousd_svg__WEBPACK_IMPORTED_MODULE_143___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_neousd_svg__WEBPACK_IMPORTED_MODULE_143__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_omgusd_svg__WEBPACK_IMPORTED_MODULE_144__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-omgusd.svg */ "./sass/icons/active-symbols/cryptos/ic-omgusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_omgusd_svg__WEBPACK_IMPORTED_MODULE_144___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_omgusd_svg__WEBPACK_IMPORTED_MODULE_144__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_trxusd_svg__WEBPACK_IMPORTED_MODULE_145__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-trxusd.svg */ "./sass/icons/active-symbols/cryptos/ic-trxusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_trxusd_svg__WEBPACK_IMPORTED_MODULE_145___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_trxusd_svg__WEBPACK_IMPORTED_MODULE_145__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_xlmusd_svg__WEBPACK_IMPORTED_MODULE_146__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-xlmusd.svg */ "./sass/icons/active-symbols/cryptos/ic-xlmusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_xlmusd_svg__WEBPACK_IMPORTED_MODULE_146___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_xlmusd_svg__WEBPACK_IMPORTED_MODULE_146__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_xmrusd_svg__WEBPACK_IMPORTED_MODULE_147__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-xmrusd.svg */ "./sass/icons/active-symbols/cryptos/ic-xmrusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_xmrusd_svg__WEBPACK_IMPORTED_MODULE_147___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_xmrusd_svg__WEBPACK_IMPORTED_MODULE_147__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_zecusd_svg__WEBPACK_IMPORTED_MODULE_148__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-zecusd.svg */ "./sass/icons/active-symbols/cryptos/ic-zecusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_zecusd_svg__WEBPACK_IMPORTED_MODULE_148___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_zecusd_svg__WEBPACK_IMPORTED_MODULE_148__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_btceth_svg__WEBPACK_IMPORTED_MODULE_149__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-btceth.svg */ "./sass/icons/active-symbols/cryptos/ic-btceth.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_btceth_svg__WEBPACK_IMPORTED_MODULE_149___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_btceth_svg__WEBPACK_IMPORTED_MODULE_149__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_dshusd_svg__WEBPACK_IMPORTED_MODULE_150__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-dshusd.svg */ "./sass/icons/active-symbols/cryptos/ic-dshusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_dshusd_svg__WEBPACK_IMPORTED_MODULE_150___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_dshusd_svg__WEBPACK_IMPORTED_MODULE_150__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_ethusd_svg__WEBPACK_IMPORTED_MODULE_151__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-ethusd.svg */ "./sass/icons/active-symbols/cryptos/ic-ethusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_ethusd_svg__WEBPACK_IMPORTED_MODULE_151___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_ethusd_svg__WEBPACK_IMPORTED_MODULE_151__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_bchusd_svg__WEBPACK_IMPORTED_MODULE_152__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-bchusd.svg */ "./sass/icons/active-symbols/cryptos/ic-bchusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_bchusd_svg__WEBPACK_IMPORTED_MODULE_152___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_bchusd_svg__WEBPACK_IMPORTED_MODULE_152__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_ltcusd_svg__WEBPACK_IMPORTED_MODULE_153__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-ltcusd.svg */ "./sass/icons/active-symbols/cryptos/ic-ltcusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_ltcusd_svg__WEBPACK_IMPORTED_MODULE_153___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_ltcusd_svg__WEBPACK_IMPORTED_MODULE_153__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_eosusd_svg__WEBPACK_IMPORTED_MODULE_154__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-eosusd.svg */ "./sass/icons/active-symbols/cryptos/ic-eosusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_eosusd_svg__WEBPACK_IMPORTED_MODULE_154___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_eosusd_svg__WEBPACK_IMPORTED_MODULE_154__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_xrpusd_svg__WEBPACK_IMPORTED_MODULE_155__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-xrpusd.svg */ "./sass/icons/active-symbols/cryptos/ic-xrpusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_xrpusd_svg__WEBPACK_IMPORTED_MODULE_155___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_xrpusd_svg__WEBPACK_IMPORTED_MODULE_155__);
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_btcusd_svg__WEBPACK_IMPORTED_MODULE_156__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-btcusd.svg */ "./sass/icons/active-symbols/cryptos/ic-btcusd.svg");
-/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_btcusd_svg__WEBPACK_IMPORTED_MODULE_156___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_btcusd_svg__WEBPACK_IMPORTED_MODULE_156__);
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_usd_500_svg__WEBPACK_IMPORTED_MODULE_157__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-usd-500.svg */ "./sass/icons/active-symbols/stock-indices/ic-usd-500.svg");
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_usd_500_svg__WEBPACK_IMPORTED_MODULE_157___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_usd_500_svg__WEBPACK_IMPORTED_MODULE_157__);
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_usd_tech_100_svg__WEBPACK_IMPORTED_MODULE_158__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-usd-tech-100.svg */ "./sass/icons/active-symbols/stock-indices/ic-usd-tech-100.svg");
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_usd_tech_100_svg__WEBPACK_IMPORTED_MODULE_158___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_usd_tech_100_svg__WEBPACK_IMPORTED_MODULE_158__);
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_wallstreet_30_svg__WEBPACK_IMPORTED_MODULE_159__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-wallstreet-30.svg */ "./sass/icons/active-symbols/stock-indices/ic-wallstreet-30.svg");
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_wallstreet_30_svg__WEBPACK_IMPORTED_MODULE_159___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_wallstreet_30_svg__WEBPACK_IMPORTED_MODULE_159__);
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_uk_100_svg__WEBPACK_IMPORTED_MODULE_160__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-uk-100.svg */ "./sass/icons/active-symbols/stock-indices/ic-uk-100.svg");
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_uk_100_svg__WEBPACK_IMPORTED_MODULE_160___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_uk_100_svg__WEBPACK_IMPORTED_MODULE_160__);
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_swiss_20_svg__WEBPACK_IMPORTED_MODULE_161__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-swiss-20.svg */ "./sass/icons/active-symbols/stock-indices/ic-swiss-20.svg");
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_swiss_20_svg__WEBPACK_IMPORTED_MODULE_161___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_swiss_20_svg__WEBPACK_IMPORTED_MODULE_161__);
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_netherland_25_svg__WEBPACK_IMPORTED_MODULE_162__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-netherland-25.svg */ "./sass/icons/active-symbols/stock-indices/ic-netherland-25.svg");
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_netherland_25_svg__WEBPACK_IMPORTED_MODULE_162___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_netherland_25_svg__WEBPACK_IMPORTED_MODULE_162__);
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_japan_225_svg__WEBPACK_IMPORTED_MODULE_163__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-japan-225.svg */ "./sass/icons/active-symbols/stock-indices/ic-japan-225.svg");
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_japan_225_svg__WEBPACK_IMPORTED_MODULE_163___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_japan_225_svg__WEBPACK_IMPORTED_MODULE_163__);
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_hong_kong_50_svg__WEBPACK_IMPORTED_MODULE_164__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-hong-kong-50.svg */ "./sass/icons/active-symbols/stock-indices/ic-hong-kong-50.svg");
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_hong_kong_50_svg__WEBPACK_IMPORTED_MODULE_164___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_hong_kong_50_svg__WEBPACK_IMPORTED_MODULE_164__);
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_germany_40_svg__WEBPACK_IMPORTED_MODULE_165__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-germany-40.svg */ "./sass/icons/active-symbols/stock-indices/ic-germany-40.svg");
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_germany_40_svg__WEBPACK_IMPORTED_MODULE_165___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_germany_40_svg__WEBPACK_IMPORTED_MODULE_165__);
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_france_40_svg__WEBPACK_IMPORTED_MODULE_166__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-france-40.svg */ "./sass/icons/active-symbols/stock-indices/ic-france-40.svg");
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_france_40_svg__WEBPACK_IMPORTED_MODULE_166___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_france_40_svg__WEBPACK_IMPORTED_MODULE_166__);
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_euro_50_svg__WEBPACK_IMPORTED_MODULE_167__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-euro-50.svg */ "./sass/icons/active-symbols/stock-indices/ic-euro-50.svg");
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_euro_50_svg__WEBPACK_IMPORTED_MODULE_167___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_euro_50_svg__WEBPACK_IMPORTED_MODULE_167__);
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_australian_200_svg__WEBPACK_IMPORTED_MODULE_168__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-australian-200.svg */ "./sass/icons/active-symbols/stock-indices/ic-australian-200.svg");
-/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_australian_200_svg__WEBPACK_IMPORTED_MODULE_168___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_australian_200_svg__WEBPACK_IMPORTED_MODULE_168__);
-/* harmony import */ var _sass_icons_active_symbols_ic_otcbadge_svg__WEBPACK_IMPORTED_MODULE_169__ = __webpack_require__(/*! ../../sass/icons/active-symbols/ic-otcbadge.svg */ "./sass/icons/active-symbols/ic-otcbadge.svg");
-/* harmony import */ var _sass_icons_active_symbols_ic_otcbadge_svg__WEBPACK_IMPORTED_MODULE_169___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_ic_otcbadge_svg__WEBPACK_IMPORTED_MODULE_169__);
-/* harmony import */ var _sass_icons_shape_ic_empty_state_svg__WEBPACK_IMPORTED_MODULE_170__ = __webpack_require__(/*! ../../sass/icons/shape/ic-empty-state.svg */ "./sass/icons/shape/ic-empty-state.svg");
-/* harmony import */ var _sass_icons_shape_ic_empty_state_svg__WEBPACK_IMPORTED_MODULE_170___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_shape_ic_empty_state_svg__WEBPACK_IMPORTED_MODULE_170__);
-/* harmony import */ var _sass_icons_shape_ic_overwrite_state_svg__WEBPACK_IMPORTED_MODULE_171__ = __webpack_require__(/*! ../../sass/icons/shape/ic-overwrite-state.svg */ "./sass/icons/shape/ic-overwrite-state.svg");
-/* harmony import */ var _sass_icons_shape_ic_overwrite_state_svg__WEBPACK_IMPORTED_MODULE_171___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_shape_ic_overwrite_state_svg__WEBPACK_IMPORTED_MODULE_171__);
-/* harmony import */ var _sass_icons_common_ic_info_svg__WEBPACK_IMPORTED_MODULE_172__ = __webpack_require__(/*! ../../sass/icons/common/ic-info.svg */ "./sass/icons/common/ic-info.svg");
-/* harmony import */ var _sass_icons_common_ic_info_svg__WEBPACK_IMPORTED_MODULE_172___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_common_ic_info_svg__WEBPACK_IMPORTED_MODULE_172__);
-/* harmony import */ var _sass_icons_common_ic_language_svg__WEBPACK_IMPORTED_MODULE_173__ = __webpack_require__(/*! ../../sass/icons/common/ic-language.svg */ "./sass/icons/common/ic-language.svg");
-/* harmony import */ var _sass_icons_common_ic_language_svg__WEBPACK_IMPORTED_MODULE_173___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_common_ic_language_svg__WEBPACK_IMPORTED_MODULE_173__);
-/* harmony import */ var _sass_icons_common_ic_theme_svg__WEBPACK_IMPORTED_MODULE_174__ = __webpack_require__(/*! ../../sass/icons/common/ic-theme.svg */ "./sass/icons/common/ic-theme.svg");
-/* harmony import */ var _sass_icons_common_ic_theme_svg__WEBPACK_IMPORTED_MODULE_174___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_common_ic_theme_svg__WEBPACK_IMPORTED_MODULE_174__);
-/* harmony import */ var _sass_icons_common_ic_charts_svg__WEBPACK_IMPORTED_MODULE_175__ = __webpack_require__(/*! ../../sass/icons/common/ic-charts.svg */ "./sass/icons/common/ic-charts.svg");
-/* harmony import */ var _sass_icons_common_ic_charts_svg__WEBPACK_IMPORTED_MODULE_175___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_common_ic_charts_svg__WEBPACK_IMPORTED_MODULE_175__);
-/* harmony import */ var _sass_icons_common_ic_checkbox_svg__WEBPACK_IMPORTED_MODULE_176__ = __webpack_require__(/*! ../../sass/icons/common/ic-checkbox.svg */ "./sass/icons/common/ic-checkbox.svg");
-/* harmony import */ var _sass_icons_common_ic_checkbox_svg__WEBPACK_IMPORTED_MODULE_176___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_common_ic_checkbox_svg__WEBPACK_IMPORTED_MODULE_176__);
-/* harmony import */ var _sass_icons_common_ic_checkbox_active_svg__WEBPACK_IMPORTED_MODULE_177__ = __webpack_require__(/*! ../../sass/icons/common/ic-checkbox-active.svg */ "./sass/icons/common/ic-checkbox-active.svg");
-/* harmony import */ var _sass_icons_common_ic_checkbox_active_svg__WEBPACK_IMPORTED_MODULE_177___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_common_ic_checkbox_active_svg__WEBPACK_IMPORTED_MODULE_177__);
-/* harmony import */ var _sass_icons_setting_ic_theme_light_svg__WEBPACK_IMPORTED_MODULE_178__ = __webpack_require__(/*! ../../sass/icons/setting/ic-theme-light.svg */ "./sass/icons/setting/ic-theme-light.svg");
-/* harmony import */ var _sass_icons_setting_ic_theme_light_svg__WEBPACK_IMPORTED_MODULE_178___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_ic_theme_light_svg__WEBPACK_IMPORTED_MODULE_178__);
-/* harmony import */ var _sass_icons_setting_ic_theme_dark_svg__WEBPACK_IMPORTED_MODULE_179__ = __webpack_require__(/*! ../../sass/icons/setting/ic-theme-dark.svg */ "./sass/icons/setting/ic-theme-dark.svg");
-/* harmony import */ var _sass_icons_setting_ic_theme_dark_svg__WEBPACK_IMPORTED_MODULE_179___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_ic_theme_dark_svg__WEBPACK_IMPORTED_MODULE_179__);
-/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_light_normal_svg__WEBPACK_IMPORTED_MODULE_180__ = __webpack_require__(/*! ../../sass/icons/setting/countdown/ic-countdown-light-normal.svg */ "./sass/icons/setting/countdown/ic-countdown-light-normal.svg");
-/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_light_normal_svg__WEBPACK_IMPORTED_MODULE_180___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_countdown_ic_countdown_light_normal_svg__WEBPACK_IMPORTED_MODULE_180__);
-/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_light_active_svg__WEBPACK_IMPORTED_MODULE_181__ = __webpack_require__(/*! ../../sass/icons/setting/countdown/ic-countdown-light-active.svg */ "./sass/icons/setting/countdown/ic-countdown-light-active.svg");
-/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_light_active_svg__WEBPACK_IMPORTED_MODULE_181___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_countdown_ic_countdown_light_active_svg__WEBPACK_IMPORTED_MODULE_181__);
-/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_dark_normal_svg__WEBPACK_IMPORTED_MODULE_182__ = __webpack_require__(/*! ../../sass/icons/setting/countdown/ic-countdown-dark-normal.svg */ "./sass/icons/setting/countdown/ic-countdown-dark-normal.svg");
-/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_dark_normal_svg__WEBPACK_IMPORTED_MODULE_182___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_countdown_ic_countdown_dark_normal_svg__WEBPACK_IMPORTED_MODULE_182__);
-/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_dark_active_svg__WEBPACK_IMPORTED_MODULE_183__ = __webpack_require__(/*! ../../sass/icons/setting/countdown/ic-countdown-dark-active.svg */ "./sass/icons/setting/countdown/ic-countdown-dark-active.svg");
-/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_dark_active_svg__WEBPACK_IMPORTED_MODULE_183___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_countdown_ic_countdown_dark_active_svg__WEBPACK_IMPORTED_MODULE_183__);
-/* harmony import */ var _sass_icons_setting_historical_ic_historical_light_normal_svg__WEBPACK_IMPORTED_MODULE_184__ = __webpack_require__(/*! ../../sass/icons/setting/historical/ic-historical-light-normal.svg */ "./sass/icons/setting/historical/ic-historical-light-normal.svg");
-/* harmony import */ var _sass_icons_setting_historical_ic_historical_light_normal_svg__WEBPACK_IMPORTED_MODULE_184___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_historical_ic_historical_light_normal_svg__WEBPACK_IMPORTED_MODULE_184__);
-/* harmony import */ var _sass_icons_setting_historical_ic_historical_light_active_svg__WEBPACK_IMPORTED_MODULE_185__ = __webpack_require__(/*! ../../sass/icons/setting/historical/ic-historical-light-active.svg */ "./sass/icons/setting/historical/ic-historical-light-active.svg");
-/* harmony import */ var _sass_icons_setting_historical_ic_historical_light_active_svg__WEBPACK_IMPORTED_MODULE_185___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_historical_ic_historical_light_active_svg__WEBPACK_IMPORTED_MODULE_185__);
-/* harmony import */ var _sass_icons_setting_historical_ic_historical_dark_normal_svg__WEBPACK_IMPORTED_MODULE_186__ = __webpack_require__(/*! ../../sass/icons/setting/historical/ic-historical-dark-normal.svg */ "./sass/icons/setting/historical/ic-historical-dark-normal.svg");
-/* harmony import */ var _sass_icons_setting_historical_ic_historical_dark_normal_svg__WEBPACK_IMPORTED_MODULE_186___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_historical_ic_historical_dark_normal_svg__WEBPACK_IMPORTED_MODULE_186__);
-/* harmony import */ var _sass_icons_setting_historical_ic_historical_dark_active_svg__WEBPACK_IMPORTED_MODULE_187__ = __webpack_require__(/*! ../../sass/icons/setting/historical/ic-historical-dark-active.svg */ "./sass/icons/setting/historical/ic-historical-dark-active.svg");
-/* harmony import */ var _sass_icons_setting_historical_ic_historical_dark_active_svg__WEBPACK_IMPORTED_MODULE_187___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_historical_ic_historical_dark_active_svg__WEBPACK_IMPORTED_MODULE_187__);
-/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_light_normal_svg__WEBPACK_IMPORTED_MODULE_188__ = __webpack_require__(/*! ../../sass/icons/setting/highest-lowest/ic-highest-lowest-light-normal.svg */ "./sass/icons/setting/highest-lowest/ic-highest-lowest-light-normal.svg");
-/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_light_normal_svg__WEBPACK_IMPORTED_MODULE_188___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_highest_lowest_ic_highest_lowest_light_normal_svg__WEBPACK_IMPORTED_MODULE_188__);
-/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_light_active_svg__WEBPACK_IMPORTED_MODULE_189__ = __webpack_require__(/*! ../../sass/icons/setting/highest-lowest/ic-highest-lowest-light-active.svg */ "./sass/icons/setting/highest-lowest/ic-highest-lowest-light-active.svg");
-/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_light_active_svg__WEBPACK_IMPORTED_MODULE_189___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_highest_lowest_ic_highest_lowest_light_active_svg__WEBPACK_IMPORTED_MODULE_189__);
-/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_dark_normal_svg__WEBPACK_IMPORTED_MODULE_190__ = __webpack_require__(/*! ../../sass/icons/setting/highest-lowest/ic-highest-lowest-dark-normal.svg */ "./sass/icons/setting/highest-lowest/ic-highest-lowest-dark-normal.svg");
-/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_dark_normal_svg__WEBPACK_IMPORTED_MODULE_190___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_highest_lowest_ic_highest_lowest_dark_normal_svg__WEBPACK_IMPORTED_MODULE_190__);
-/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_dark_active_svg__WEBPACK_IMPORTED_MODULE_191__ = __webpack_require__(/*! ../../sass/icons/setting/highest-lowest/ic-highest-lowest-dark-active.svg */ "./sass/icons/setting/highest-lowest/ic-highest-lowest-dark-active.svg");
-/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_dark_active_svg__WEBPACK_IMPORTED_MODULE_191___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_highest_lowest_ic_highest_lowest_dark_active_svg__WEBPACK_IMPORTED_MODULE_191__);
-/* harmony import */ var _sass_icons_indicators_ic_momentum_svg__WEBPACK_IMPORTED_MODULE_192__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-momentum.svg */ "./sass/icons/indicators/ic-momentum.svg");
-/* harmony import */ var _sass_icons_indicators_ic_momentum_svg__WEBPACK_IMPORTED_MODULE_192___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_momentum_svg__WEBPACK_IMPORTED_MODULE_192__);
-/* harmony import */ var _sass_icons_indicators_ic_trend_light_svg__WEBPACK_IMPORTED_MODULE_193__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-trend-light.svg */ "./sass/icons/indicators/ic-trend-light.svg");
-/* harmony import */ var _sass_icons_indicators_ic_trend_light_svg__WEBPACK_IMPORTED_MODULE_193___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_trend_light_svg__WEBPACK_IMPORTED_MODULE_193__);
-/* harmony import */ var _sass_icons_indicators_ic_trend_dark_svg__WEBPACK_IMPORTED_MODULE_194__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-trend-dark.svg */ "./sass/icons/indicators/ic-trend-dark.svg");
-/* harmony import */ var _sass_icons_indicators_ic_trend_dark_svg__WEBPACK_IMPORTED_MODULE_194___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_trend_dark_svg__WEBPACK_IMPORTED_MODULE_194__);
-/* harmony import */ var _sass_icons_indicators_ic_volatility_svg__WEBPACK_IMPORTED_MODULE_195__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-volatility.svg */ "./sass/icons/indicators/ic-volatility.svg");
-/* harmony import */ var _sass_icons_indicators_ic_volatility_svg__WEBPACK_IMPORTED_MODULE_195___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_volatility_svg__WEBPACK_IMPORTED_MODULE_195__);
-/* harmony import */ var _sass_icons_indicators_ic_cat_averages_svg__WEBPACK_IMPORTED_MODULE_196__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-cat-averages.svg */ "./sass/icons/indicators/ic-cat-averages.svg");
-/* harmony import */ var _sass_icons_indicators_ic_cat_averages_svg__WEBPACK_IMPORTED_MODULE_196___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_cat_averages_svg__WEBPACK_IMPORTED_MODULE_196__);
-/* harmony import */ var _sass_icons_indicators_ic_other_svg__WEBPACK_IMPORTED_MODULE_197__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-other.svg */ "./sass/icons/indicators/ic-other.svg");
-/* harmony import */ var _sass_icons_indicators_ic_other_svg__WEBPACK_IMPORTED_MODULE_197___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_other_svg__WEBPACK_IMPORTED_MODULE_197__);
-/* harmony import */ var _sass_icons_indicators_ic_awesome_oscillator_svg__WEBPACK_IMPORTED_MODULE_198__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-awesome-oscillator.svg */ "./sass/icons/indicators/ic-awesome-oscillator.svg");
-/* harmony import */ var _sass_icons_indicators_ic_awesome_oscillator_svg__WEBPACK_IMPORTED_MODULE_198___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_awesome_oscillator_svg__WEBPACK_IMPORTED_MODULE_198__);
-/* harmony import */ var _sass_icons_indicators_ic_dtrended_svg__WEBPACK_IMPORTED_MODULE_199__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-dtrended.svg */ "./sass/icons/indicators/ic-dtrended.svg");
-/* harmony import */ var _sass_icons_indicators_ic_dtrended_svg__WEBPACK_IMPORTED_MODULE_199___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_dtrended_svg__WEBPACK_IMPORTED_MODULE_199__);
-/* harmony import */ var _sass_icons_indicators_ic_gator_svg__WEBPACK_IMPORTED_MODULE_200__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-gator.svg */ "./sass/icons/indicators/ic-gator.svg");
-/* harmony import */ var _sass_icons_indicators_ic_gator_svg__WEBPACK_IMPORTED_MODULE_200___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_gator_svg__WEBPACK_IMPORTED_MODULE_200__);
-/* harmony import */ var _sass_icons_indicators_ic_macd_svg__WEBPACK_IMPORTED_MODULE_201__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-macd.svg */ "./sass/icons/indicators/ic-macd.svg");
-/* harmony import */ var _sass_icons_indicators_ic_macd_svg__WEBPACK_IMPORTED_MODULE_201___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_macd_svg__WEBPACK_IMPORTED_MODULE_201__);
-/* harmony import */ var _sass_icons_indicators_ic_rate_of_change_svg__WEBPACK_IMPORTED_MODULE_202__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-rate-of-change.svg */ "./sass/icons/indicators/ic-rate-of-change.svg");
-/* harmony import */ var _sass_icons_indicators_ic_rate_of_change_svg__WEBPACK_IMPORTED_MODULE_202___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_rate_of_change_svg__WEBPACK_IMPORTED_MODULE_202__);
-/* harmony import */ var _sass_icons_indicators_ic_rsi_svg__WEBPACK_IMPORTED_MODULE_203__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-rsi.svg */ "./sass/icons/indicators/ic-rsi.svg");
-/* harmony import */ var _sass_icons_indicators_ic_rsi_svg__WEBPACK_IMPORTED_MODULE_203___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_rsi_svg__WEBPACK_IMPORTED_MODULE_203__);
-/* harmony import */ var _sass_icons_indicators_ic_stochastic_oscillator_svg__WEBPACK_IMPORTED_MODULE_204__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-stochastic-oscillator.svg */ "./sass/icons/indicators/ic-stochastic-oscillator.svg");
-/* harmony import */ var _sass_icons_indicators_ic_stochastic_oscillator_svg__WEBPACK_IMPORTED_MODULE_204___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_stochastic_oscillator_svg__WEBPACK_IMPORTED_MODULE_204__);
-/* harmony import */ var _sass_icons_indicators_ic_stochastic_momentum_svg__WEBPACK_IMPORTED_MODULE_205__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-stochastic-momentum.svg */ "./sass/icons/indicators/ic-stochastic-momentum.svg");
-/* harmony import */ var _sass_icons_indicators_ic_stochastic_momentum_svg__WEBPACK_IMPORTED_MODULE_205___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_stochastic_momentum_svg__WEBPACK_IMPORTED_MODULE_205__);
-/* harmony import */ var _sass_icons_indicators_ic_william_percent_svg__WEBPACK_IMPORTED_MODULE_206__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-william-percent.svg */ "./sass/icons/indicators/ic-william-percent.svg");
-/* harmony import */ var _sass_icons_indicators_ic_william_percent_svg__WEBPACK_IMPORTED_MODULE_206___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_william_percent_svg__WEBPACK_IMPORTED_MODULE_206__);
-/* harmony import */ var _sass_icons_indicators_ic_aroon_svg__WEBPACK_IMPORTED_MODULE_207__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-aroon.svg */ "./sass/icons/indicators/ic-aroon.svg");
-/* harmony import */ var _sass_icons_indicators_ic_aroon_svg__WEBPACK_IMPORTED_MODULE_207___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_aroon_svg__WEBPACK_IMPORTED_MODULE_207__);
-/* harmony import */ var _sass_icons_indicators_ic_adx_svg__WEBPACK_IMPORTED_MODULE_208__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-adx.svg */ "./sass/icons/indicators/ic-adx.svg");
-/* harmony import */ var _sass_icons_indicators_ic_adx_svg__WEBPACK_IMPORTED_MODULE_208___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_adx_svg__WEBPACK_IMPORTED_MODULE_208__);
-/* harmony import */ var _sass_icons_indicators_ic_commodity_channel_index_svg__WEBPACK_IMPORTED_MODULE_209__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-commodity-channel-index.svg */ "./sass/icons/indicators/ic-commodity-channel-index.svg");
-/* harmony import */ var _sass_icons_indicators_ic_commodity_channel_index_svg__WEBPACK_IMPORTED_MODULE_209___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_commodity_channel_index_svg__WEBPACK_IMPORTED_MODULE_209__);
-/* harmony import */ var _sass_icons_indicators_ic_ichimoku_svg__WEBPACK_IMPORTED_MODULE_210__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-ichimoku.svg */ "./sass/icons/indicators/ic-ichimoku.svg");
-/* harmony import */ var _sass_icons_indicators_ic_ichimoku_svg__WEBPACK_IMPORTED_MODULE_210___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_ichimoku_svg__WEBPACK_IMPORTED_MODULE_210__);
-/* harmony import */ var _sass_icons_indicators_ic_parabolic_svg__WEBPACK_IMPORTED_MODULE_211__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-parabolic.svg */ "./sass/icons/indicators/ic-parabolic.svg");
-/* harmony import */ var _sass_icons_indicators_ic_parabolic_svg__WEBPACK_IMPORTED_MODULE_211___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_parabolic_svg__WEBPACK_IMPORTED_MODULE_211__);
-/* harmony import */ var _sass_icons_indicators_ic_zig_zag_svg__WEBPACK_IMPORTED_MODULE_212__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-zig-zag.svg */ "./sass/icons/indicators/ic-zig-zag.svg");
-/* harmony import */ var _sass_icons_indicators_ic_zig_zag_svg__WEBPACK_IMPORTED_MODULE_212___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_zig_zag_svg__WEBPACK_IMPORTED_MODULE_212__);
-/* harmony import */ var _sass_icons_indicators_ic_bollinger_svg__WEBPACK_IMPORTED_MODULE_213__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-bollinger.svg */ "./sass/icons/indicators/ic-bollinger.svg");
-/* harmony import */ var _sass_icons_indicators_ic_bollinger_svg__WEBPACK_IMPORTED_MODULE_213___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_bollinger_svg__WEBPACK_IMPORTED_MODULE_213__);
-/* harmony import */ var _sass_icons_indicators_ic_donchian_svg__WEBPACK_IMPORTED_MODULE_214__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-donchian.svg */ "./sass/icons/indicators/ic-donchian.svg");
-/* harmony import */ var _sass_icons_indicators_ic_donchian_svg__WEBPACK_IMPORTED_MODULE_214___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_donchian_svg__WEBPACK_IMPORTED_MODULE_214__);
-/* harmony import */ var _sass_icons_indicators_ic_averages_svg__WEBPACK_IMPORTED_MODULE_215__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-averages.svg */ "./sass/icons/indicators/ic-averages.svg");
-/* harmony import */ var _sass_icons_indicators_ic_averages_svg__WEBPACK_IMPORTED_MODULE_215___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_averages_svg__WEBPACK_IMPORTED_MODULE_215__);
-/* harmony import */ var _sass_icons_indicators_ic_envelope_svg__WEBPACK_IMPORTED_MODULE_216__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-envelope.svg */ "./sass/icons/indicators/ic-envelope.svg");
-/* harmony import */ var _sass_icons_indicators_ic_envelope_svg__WEBPACK_IMPORTED_MODULE_216___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_envelope_svg__WEBPACK_IMPORTED_MODULE_216__);
-/* harmony import */ var _sass_icons_indicators_ic_alligator_svg__WEBPACK_IMPORTED_MODULE_217__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-alligator.svg */ "./sass/icons/indicators/ic-alligator.svg");
-/* harmony import */ var _sass_icons_indicators_ic_alligator_svg__WEBPACK_IMPORTED_MODULE_217___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_alligator_svg__WEBPACK_IMPORTED_MODULE_217__);
-/* harmony import */ var _sass_icons_indicators_ic_fractal_chaos_svg__WEBPACK_IMPORTED_MODULE_218__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-fractal-chaos.svg */ "./sass/icons/indicators/ic-fractal-chaos.svg");
-/* harmony import */ var _sass_icons_indicators_ic_fractal_chaos_svg__WEBPACK_IMPORTED_MODULE_218___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_fractal_chaos_svg__WEBPACK_IMPORTED_MODULE_218__);
-/* harmony import */ var _sass_icons_indicators_ic_rainbow_svg__WEBPACK_IMPORTED_MODULE_219__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-rainbow.svg */ "./sass/icons/indicators/ic-rainbow.svg");
-/* harmony import */ var _sass_icons_indicators_ic_rainbow_svg__WEBPACK_IMPORTED_MODULE_219___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_rainbow_svg__WEBPACK_IMPORTED_MODULE_219__);
-/* harmony import */ var _sass_icons_draw_tools_ic_channel_svg__WEBPACK_IMPORTED_MODULE_220__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-channel.svg */ "./sass/icons/draw-tools/ic-channel.svg");
-/* harmony import */ var _sass_icons_draw_tools_ic_channel_svg__WEBPACK_IMPORTED_MODULE_220___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_channel_svg__WEBPACK_IMPORTED_MODULE_220__);
-/* harmony import */ var _sass_icons_draw_tools_ic_continuous_svg__WEBPACK_IMPORTED_MODULE_221__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-continuous.svg */ "./sass/icons/draw-tools/ic-continuous.svg");
-/* harmony import */ var _sass_icons_draw_tools_ic_continuous_svg__WEBPACK_IMPORTED_MODULE_221___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_continuous_svg__WEBPACK_IMPORTED_MODULE_221__);
-/* harmony import */ var _sass_icons_draw_tools_ic_fibonacci_fan_svg__WEBPACK_IMPORTED_MODULE_222__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-fibonacci-fan.svg */ "./sass/icons/draw-tools/ic-fibonacci-fan.svg");
-/* harmony import */ var _sass_icons_draw_tools_ic_fibonacci_fan_svg__WEBPACK_IMPORTED_MODULE_222___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_fibonacci_fan_svg__WEBPACK_IMPORTED_MODULE_222__);
-/* harmony import */ var _sass_icons_draw_tools_ic_horizontal_svg__WEBPACK_IMPORTED_MODULE_223__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-horizontal.svg */ "./sass/icons/draw-tools/ic-horizontal.svg");
-/* harmony import */ var _sass_icons_draw_tools_ic_horizontal_svg__WEBPACK_IMPORTED_MODULE_223___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_horizontal_svg__WEBPACK_IMPORTED_MODULE_223__);
-/* harmony import */ var _sass_icons_draw_tools_ic_line_svg__WEBPACK_IMPORTED_MODULE_224__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-line.svg */ "./sass/icons/draw-tools/ic-line.svg");
-/* harmony import */ var _sass_icons_draw_tools_ic_line_svg__WEBPACK_IMPORTED_MODULE_224___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_line_svg__WEBPACK_IMPORTED_MODULE_224__);
-/* harmony import */ var _sass_icons_draw_tools_ic_ray_svg__WEBPACK_IMPORTED_MODULE_225__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-ray.svg */ "./sass/icons/draw-tools/ic-ray.svg");
-/* harmony import */ var _sass_icons_draw_tools_ic_ray_svg__WEBPACK_IMPORTED_MODULE_225___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_ray_svg__WEBPACK_IMPORTED_MODULE_225__);
-/* harmony import */ var _sass_icons_draw_tools_ic_rectangle_svg__WEBPACK_IMPORTED_MODULE_226__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-rectangle.svg */ "./sass/icons/draw-tools/ic-rectangle.svg");
-/* harmony import */ var _sass_icons_draw_tools_ic_rectangle_svg__WEBPACK_IMPORTED_MODULE_226___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_rectangle_svg__WEBPACK_IMPORTED_MODULE_226__);
-/* harmony import */ var _sass_icons_draw_tools_ic_trend_svg__WEBPACK_IMPORTED_MODULE_227__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-trend.svg */ "./sass/icons/draw-tools/ic-trend.svg");
-/* harmony import */ var _sass_icons_draw_tools_ic_trend_svg__WEBPACK_IMPORTED_MODULE_227___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_trend_svg__WEBPACK_IMPORTED_MODULE_227__);
-/* harmony import */ var _sass_icons_draw_tools_ic_vertical_svg__WEBPACK_IMPORTED_MODULE_228__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-vertical.svg */ "./sass/icons/draw-tools/ic-vertical.svg");
-/* harmony import */ var _sass_icons_draw_tools_ic_vertical_svg__WEBPACK_IMPORTED_MODULE_228___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_vertical_svg__WEBPACK_IMPORTED_MODULE_228__);
+/* harmony import */ var _sass_icons_flags_portugal_svg__WEBPACK_IMPORTED_MODULE_100__ = __webpack_require__(/*! ../../sass/icons/flags/portugal.svg */ "./sass/icons/flags/portugal.svg");
+/* harmony import */ var _sass_icons_flags_portugal_svg__WEBPACK_IMPORTED_MODULE_100___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_portugal_svg__WEBPACK_IMPORTED_MODULE_100__);
+/* harmony import */ var _sass_icons_flags_chinese_svg__WEBPACK_IMPORTED_MODULE_101__ = __webpack_require__(/*! ../../sass/icons/flags/chinese.svg */ "./sass/icons/flags/chinese.svg");
+/* harmony import */ var _sass_icons_flags_chinese_svg__WEBPACK_IMPORTED_MODULE_101___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_chinese_svg__WEBPACK_IMPORTED_MODULE_101__);
+/* harmony import */ var _sass_icons_flags_chinese_traditional_svg__WEBPACK_IMPORTED_MODULE_102__ = __webpack_require__(/*! ../../sass/icons/flags/chinese-traditional.svg */ "./sass/icons/flags/chinese-traditional.svg");
+/* harmony import */ var _sass_icons_flags_chinese_traditional_svg__WEBPACK_IMPORTED_MODULE_102___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_chinese_traditional_svg__WEBPACK_IMPORTED_MODULE_102__);
+/* harmony import */ var _sass_icons_flags_german_svg__WEBPACK_IMPORTED_MODULE_103__ = __webpack_require__(/*! ../../sass/icons/flags/german.svg */ "./sass/icons/flags/german.svg");
+/* harmony import */ var _sass_icons_flags_german_svg__WEBPACK_IMPORTED_MODULE_103___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_german_svg__WEBPACK_IMPORTED_MODULE_103__);
+/* harmony import */ var _sass_icons_flags_hong_kong_svg__WEBPACK_IMPORTED_MODULE_104__ = __webpack_require__(/*! ../../sass/icons/flags/hong kong.svg */ "./sass/icons/flags/hong kong.svg");
+/* harmony import */ var _sass_icons_flags_hong_kong_svg__WEBPACK_IMPORTED_MODULE_104___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_hong_kong_svg__WEBPACK_IMPORTED_MODULE_104__);
+/* harmony import */ var _sass_icons_flags_french_svg__WEBPACK_IMPORTED_MODULE_105__ = __webpack_require__(/*! ../../sass/icons/flags/french.svg */ "./sass/icons/flags/french.svg");
+/* harmony import */ var _sass_icons_flags_french_svg__WEBPACK_IMPORTED_MODULE_105___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_french_svg__WEBPACK_IMPORTED_MODULE_105__);
+/* harmony import */ var _sass_icons_flags_dutch_svg__WEBPACK_IMPORTED_MODULE_106__ = __webpack_require__(/*! ../../sass/icons/flags/dutch.svg */ "./sass/icons/flags/dutch.svg");
+/* harmony import */ var _sass_icons_flags_dutch_svg__WEBPACK_IMPORTED_MODULE_106___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_dutch_svg__WEBPACK_IMPORTED_MODULE_106__);
+/* harmony import */ var _sass_icons_flags_spanish_svg__WEBPACK_IMPORTED_MODULE_107__ = __webpack_require__(/*! ../../sass/icons/flags/spanish.svg */ "./sass/icons/flags/spanish.svg");
+/* harmony import */ var _sass_icons_flags_spanish_svg__WEBPACK_IMPORTED_MODULE_107___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_spanish_svg__WEBPACK_IMPORTED_MODULE_107__);
+/* harmony import */ var _sass_icons_flags_wallstreet_svg__WEBPACK_IMPORTED_MODULE_108__ = __webpack_require__(/*! ../../sass/icons/flags/wallstreet.svg */ "./sass/icons/flags/wallstreet.svg");
+/* harmony import */ var _sass_icons_flags_wallstreet_svg__WEBPACK_IMPORTED_MODULE_108___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_flags_wallstreet_svg__WEBPACK_IMPORTED_MODULE_108__);
+/* harmony import */ var _sass_icons_active_symbols_energy_oil_usd_ic_oilusd_svg__WEBPACK_IMPORTED_MODULE_109__ = __webpack_require__(/*! ../../sass/icons/active-symbols/energy/oil usd/ic-oilusd.svg */ "./sass/icons/active-symbols/energy/oil usd/ic-oilusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_energy_oil_usd_ic_oilusd_svg__WEBPACK_IMPORTED_MODULE_109___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_energy_oil_usd_ic_oilusd_svg__WEBPACK_IMPORTED_MODULE_109__);
+/* harmony import */ var _sass_icons_active_symbols_metals_ic_metal_svg__WEBPACK_IMPORTED_MODULE_110__ = __webpack_require__(/*! ../../sass/icons/active-symbols/metals/ic-metal.svg */ "./sass/icons/active-symbols/metals/ic-metal.svg");
+/* harmony import */ var _sass_icons_active_symbols_metals_ic_metal_svg__WEBPACK_IMPORTED_MODULE_110___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_metals_ic_metal_svg__WEBPACK_IMPORTED_MODULE_110__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_10_index_ic_10_index_v_svg__WEBPACK_IMPORTED_MODULE_111__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/10 index/ic-10-index-v.svg */ "./sass/icons/active-symbols/volatility/10 index/ic-10-index-v.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_10_index_ic_10_index_v_svg__WEBPACK_IMPORTED_MODULE_111___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_10_index_ic_10_index_v_svg__WEBPACK_IMPORTED_MODULE_111__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_25_index_ic_25_index_v_svg__WEBPACK_IMPORTED_MODULE_112__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/25 index/ic-25-index-v.svg */ "./sass/icons/active-symbols/volatility/25 index/ic-25-index-v.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_25_index_ic_25_index_v_svg__WEBPACK_IMPORTED_MODULE_112___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_25_index_ic_25_index_v_svg__WEBPACK_IMPORTED_MODULE_112__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_50_index_ic_50_index_v_svg__WEBPACK_IMPORTED_MODULE_113__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/50 index/ic-50-index-v.svg */ "./sass/icons/active-symbols/volatility/50 index/ic-50-index-v.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_50_index_ic_50_index_v_svg__WEBPACK_IMPORTED_MODULE_113___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_50_index_ic_50_index_v_svg__WEBPACK_IMPORTED_MODULE_113__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_75_index_ic_75_index_v_svg__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/75 index/ic-75-index-v.svg */ "./sass/icons/active-symbols/volatility/75 index/ic-75-index-v.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_75_index_ic_75_index_v_svg__WEBPACK_IMPORTED_MODULE_114___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_75_index_ic_75_index_v_svg__WEBPACK_IMPORTED_MODULE_114__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_100_index_ic_100_index_v_svg__WEBPACK_IMPORTED_MODULE_115__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/100 index/ic-100-index-v.svg */ "./sass/icons/active-symbols/volatility/100 index/ic-100-index-v.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_100_index_ic_100_index_v_svg__WEBPACK_IMPORTED_MODULE_115___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_100_index_ic_100_index_v_svg__WEBPACK_IMPORTED_MODULE_115__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s10_index_ic_10_1s_index_svg__WEBPACK_IMPORTED_MODULE_116__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s10 index/ic-10-1s-index.svg */ "./sass/icons/active-symbols/volatility/1s10 index/ic-10-1s-index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s10_index_ic_10_1s_index_svg__WEBPACK_IMPORTED_MODULE_116___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s10_index_ic_10_1s_index_svg__WEBPACK_IMPORTED_MODULE_116__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s25_index_light_25_1s_index_svg__WEBPACK_IMPORTED_MODULE_117__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s25 index/light-25(1s)index.svg */ "./sass/icons/active-symbols/volatility/1s25 index/light-25(1s)index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s25_index_light_25_1s_index_svg__WEBPACK_IMPORTED_MODULE_117___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s25_index_light_25_1s_index_svg__WEBPACK_IMPORTED_MODULE_117__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s50_index_light_50_1s_index_svg__WEBPACK_IMPORTED_MODULE_118__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s50 index/light-50(1s) index.svg */ "./sass/icons/active-symbols/volatility/1s50 index/light-50(1s) index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s50_index_light_50_1s_index_svg__WEBPACK_IMPORTED_MODULE_118___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s50_index_light_50_1s_index_svg__WEBPACK_IMPORTED_MODULE_118__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s75_index_light_75_1s_index_svg__WEBPACK_IMPORTED_MODULE_119__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s75 index/light-75(1s) index.svg */ "./sass/icons/active-symbols/volatility/1s75 index/light-75(1s) index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s75_index_light_75_1s_index_svg__WEBPACK_IMPORTED_MODULE_119___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s75_index_light_75_1s_index_svg__WEBPACK_IMPORTED_MODULE_119__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s100_index_ic_100_1s_index_svg__WEBPACK_IMPORTED_MODULE_120__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s100 index/ic-100-1s-index.svg */ "./sass/icons/active-symbols/volatility/1s100 index/ic-100-1s-index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s100_index_ic_100_1s_index_svg__WEBPACK_IMPORTED_MODULE_120___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s100_index_ic_100_1s_index_svg__WEBPACK_IMPORTED_MODULE_120__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s150_index_ic_150_1s_index_svg__WEBPACK_IMPORTED_MODULE_121__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s150 index/ic-150-1s-index.svg */ "./sass/icons/active-symbols/volatility/1s150 index/ic-150-1s-index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s150_index_ic_150_1s_index_svg__WEBPACK_IMPORTED_MODULE_121___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s150_index_ic_150_1s_index_svg__WEBPACK_IMPORTED_MODULE_121__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s200_index_ic_200_1s_index_svg__WEBPACK_IMPORTED_MODULE_122__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s200 index/ic-200-1s-index.svg */ "./sass/icons/active-symbols/volatility/1s200 index/ic-200-1s-index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s200_index_ic_200_1s_index_svg__WEBPACK_IMPORTED_MODULE_122___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s200_index_ic_200_1s_index_svg__WEBPACK_IMPORTED_MODULE_122__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s250_index_ic_250_1s_index_svg__WEBPACK_IMPORTED_MODULE_123__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s250 index/ic-250-1s-index.svg */ "./sass/icons/active-symbols/volatility/1s250 index/ic-250-1s-index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s250_index_ic_250_1s_index_svg__WEBPACK_IMPORTED_MODULE_123___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s250_index_ic_250_1s_index_svg__WEBPACK_IMPORTED_MODULE_123__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s300_index_ic_300_1s_index_svg__WEBPACK_IMPORTED_MODULE_124__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/1s300 index/ic-300-1s-index.svg */ "./sass/icons/active-symbols/volatility/1s300 index/ic-300-1s-index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_1s300_index_ic_300_1s_index_svg__WEBPACK_IMPORTED_MODULE_124___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_1s300_index_ic_300_1s_index_svg__WEBPACK_IMPORTED_MODULE_124__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_crash300_index_crash300_index_svg__WEBPACK_IMPORTED_MODULE_125__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/crash300 index/crash300 index.svg */ "./sass/icons/active-symbols/volatility/crash300 index/crash300 index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_crash300_index_crash300_index_svg__WEBPACK_IMPORTED_MODULE_125___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_crash300_index_crash300_index_svg__WEBPACK_IMPORTED_MODULE_125__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_crash500_index_crash500_index_svg__WEBPACK_IMPORTED_MODULE_126__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/crash500 index/crash500 index.svg */ "./sass/icons/active-symbols/volatility/crash500 index/crash500 index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_crash500_index_crash500_index_svg__WEBPACK_IMPORTED_MODULE_126___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_crash500_index_crash500_index_svg__WEBPACK_IMPORTED_MODULE_126__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_crash1000_index_crash1000_index_svg__WEBPACK_IMPORTED_MODULE_127__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/crash1000 index/crash1000 index.svg */ "./sass/icons/active-symbols/volatility/crash1000 index/crash1000 index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_crash1000_index_crash1000_index_svg__WEBPACK_IMPORTED_MODULE_127___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_crash1000_index_crash1000_index_svg__WEBPACK_IMPORTED_MODULE_127__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_boom300_index_boom300_index_svg__WEBPACK_IMPORTED_MODULE_128__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/boom300 index/boom300 index.svg */ "./sass/icons/active-symbols/volatility/boom300 index/boom300 index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_boom300_index_boom300_index_svg__WEBPACK_IMPORTED_MODULE_128___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_boom300_index_boom300_index_svg__WEBPACK_IMPORTED_MODULE_128__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_boom500_index_boom500_index_svg__WEBPACK_IMPORTED_MODULE_129__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/boom500 index/boom500 index.svg */ "./sass/icons/active-symbols/volatility/boom500 index/boom500 index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_boom500_index_boom500_index_svg__WEBPACK_IMPORTED_MODULE_129___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_boom500_index_boom500_index_svg__WEBPACK_IMPORTED_MODULE_129__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_boom1000_index_boom1000_index_svg__WEBPACK_IMPORTED_MODULE_130__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/boom1000 index/boom1000 index.svg */ "./sass/icons/active-symbols/volatility/boom1000 index/boom1000 index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_boom1000_index_boom1000_index_svg__WEBPACK_IMPORTED_MODULE_130___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_boom1000_index_boom1000_index_svg__WEBPACK_IMPORTED_MODULE_130__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_bear_market_ic_marketbear_svg__WEBPACK_IMPORTED_MODULE_131__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/bear market/ic-marketbear.svg */ "./sass/icons/active-symbols/volatility/bear market/ic-marketbear.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_bear_market_ic_marketbear_svg__WEBPACK_IMPORTED_MODULE_131___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_bear_market_ic_marketbear_svg__WEBPACK_IMPORTED_MODULE_131__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_bull_market_ic_marketbull_svg__WEBPACK_IMPORTED_MODULE_132__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/bull market/ic-marketbull.svg */ "./sass/icons/active-symbols/volatility/bull market/ic-marketbull.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_bull_market_ic_marketbull_svg__WEBPACK_IMPORTED_MODULE_132___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_bull_market_ic_marketbull_svg__WEBPACK_IMPORTED_MODULE_132__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_step_index_step_index_svg__WEBPACK_IMPORTED_MODULE_133__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/step index/step index.svg */ "./sass/icons/active-symbols/volatility/step index/step index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_step_index_step_index_svg__WEBPACK_IMPORTED_MODULE_133___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_step_index_step_index_svg__WEBPACK_IMPORTED_MODULE_133__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_jd10_index_ic_10_index_svg__WEBPACK_IMPORTED_MODULE_134__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/jd10 index/ic-10-index.svg */ "./sass/icons/active-symbols/volatility/jd10 index/ic-10-index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_jd10_index_ic_10_index_svg__WEBPACK_IMPORTED_MODULE_134___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_jd10_index_ic_10_index_svg__WEBPACK_IMPORTED_MODULE_134__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_jd25_index_ic_25_index_svg__WEBPACK_IMPORTED_MODULE_135__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/jd25 index/ic-25-index.svg */ "./sass/icons/active-symbols/volatility/jd25 index/ic-25-index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_jd25_index_ic_25_index_svg__WEBPACK_IMPORTED_MODULE_135___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_jd25_index_ic_25_index_svg__WEBPACK_IMPORTED_MODULE_135__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_jd50_index_ic_50_index_svg__WEBPACK_IMPORTED_MODULE_136__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/jd50 index/ic-50-index.svg */ "./sass/icons/active-symbols/volatility/jd50 index/ic-50-index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_jd50_index_ic_50_index_svg__WEBPACK_IMPORTED_MODULE_136___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_jd50_index_ic_50_index_svg__WEBPACK_IMPORTED_MODULE_136__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_jd75_index_ic_75_index_svg__WEBPACK_IMPORTED_MODULE_137__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/jd75 index/ic-75-index.svg */ "./sass/icons/active-symbols/volatility/jd75 index/ic-75-index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_jd75_index_ic_75_index_svg__WEBPACK_IMPORTED_MODULE_137___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_jd75_index_ic_75_index_svg__WEBPACK_IMPORTED_MODULE_137__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_jd100_index_ic_100_index_svg__WEBPACK_IMPORTED_MODULE_138__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/jd100 index/ic-100-index.svg */ "./sass/icons/active-symbols/volatility/jd100 index/ic-100-index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_jd100_index_ic_100_index_svg__WEBPACK_IMPORTED_MODULE_138___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_jd100_index_ic_100_index_svg__WEBPACK_IMPORTED_MODULE_138__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_jd150_index_ic_150_index_svg__WEBPACK_IMPORTED_MODULE_139__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/jd150 index/ic-150-index.svg */ "./sass/icons/active-symbols/volatility/jd150 index/ic-150-index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_jd150_index_ic_150_index_svg__WEBPACK_IMPORTED_MODULE_139___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_jd150_index_ic_150_index_svg__WEBPACK_IMPORTED_MODULE_139__);
+/* harmony import */ var _sass_icons_active_symbols_volatility_jd200_index_ic_200_index_svg__WEBPACK_IMPORTED_MODULE_140__ = __webpack_require__(/*! ../../sass/icons/active-symbols/volatility/jd200 index/ic-200-index.svg */ "./sass/icons/active-symbols/volatility/jd200 index/ic-200-index.svg");
+/* harmony import */ var _sass_icons_active_symbols_volatility_jd200_index_ic_200_index_svg__WEBPACK_IMPORTED_MODULE_140___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_volatility_jd200_index_ic_200_index_svg__WEBPACK_IMPORTED_MODULE_140__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_bnbusd_svg__WEBPACK_IMPORTED_MODULE_141__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-bnbusd.svg */ "./sass/icons/active-symbols/cryptos/ic-bnbusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_bnbusd_svg__WEBPACK_IMPORTED_MODULE_141___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_bnbusd_svg__WEBPACK_IMPORTED_MODULE_141__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_btcltc_svg__WEBPACK_IMPORTED_MODULE_142__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-btcltc.svg */ "./sass/icons/active-symbols/cryptos/ic-btcltc.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_btcltc_svg__WEBPACK_IMPORTED_MODULE_142___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_btcltc_svg__WEBPACK_IMPORTED_MODULE_142__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_iotusd_svg__WEBPACK_IMPORTED_MODULE_143__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-iotusd.svg */ "./sass/icons/active-symbols/cryptos/ic-iotusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_iotusd_svg__WEBPACK_IMPORTED_MODULE_143___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_iotusd_svg__WEBPACK_IMPORTED_MODULE_143__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_neousd_svg__WEBPACK_IMPORTED_MODULE_144__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-neousd.svg */ "./sass/icons/active-symbols/cryptos/ic-neousd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_neousd_svg__WEBPACK_IMPORTED_MODULE_144___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_neousd_svg__WEBPACK_IMPORTED_MODULE_144__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_omgusd_svg__WEBPACK_IMPORTED_MODULE_145__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-omgusd.svg */ "./sass/icons/active-symbols/cryptos/ic-omgusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_omgusd_svg__WEBPACK_IMPORTED_MODULE_145___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_omgusd_svg__WEBPACK_IMPORTED_MODULE_145__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_trxusd_svg__WEBPACK_IMPORTED_MODULE_146__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-trxusd.svg */ "./sass/icons/active-symbols/cryptos/ic-trxusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_trxusd_svg__WEBPACK_IMPORTED_MODULE_146___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_trxusd_svg__WEBPACK_IMPORTED_MODULE_146__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_xlmusd_svg__WEBPACK_IMPORTED_MODULE_147__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-xlmusd.svg */ "./sass/icons/active-symbols/cryptos/ic-xlmusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_xlmusd_svg__WEBPACK_IMPORTED_MODULE_147___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_xlmusd_svg__WEBPACK_IMPORTED_MODULE_147__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_xmrusd_svg__WEBPACK_IMPORTED_MODULE_148__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-xmrusd.svg */ "./sass/icons/active-symbols/cryptos/ic-xmrusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_xmrusd_svg__WEBPACK_IMPORTED_MODULE_148___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_xmrusd_svg__WEBPACK_IMPORTED_MODULE_148__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_zecusd_svg__WEBPACK_IMPORTED_MODULE_149__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-zecusd.svg */ "./sass/icons/active-symbols/cryptos/ic-zecusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_zecusd_svg__WEBPACK_IMPORTED_MODULE_149___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_zecusd_svg__WEBPACK_IMPORTED_MODULE_149__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_btceth_svg__WEBPACK_IMPORTED_MODULE_150__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-btceth.svg */ "./sass/icons/active-symbols/cryptos/ic-btceth.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_btceth_svg__WEBPACK_IMPORTED_MODULE_150___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_btceth_svg__WEBPACK_IMPORTED_MODULE_150__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_dshusd_svg__WEBPACK_IMPORTED_MODULE_151__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-dshusd.svg */ "./sass/icons/active-symbols/cryptos/ic-dshusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_dshusd_svg__WEBPACK_IMPORTED_MODULE_151___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_dshusd_svg__WEBPACK_IMPORTED_MODULE_151__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_ethusd_svg__WEBPACK_IMPORTED_MODULE_152__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-ethusd.svg */ "./sass/icons/active-symbols/cryptos/ic-ethusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_ethusd_svg__WEBPACK_IMPORTED_MODULE_152___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_ethusd_svg__WEBPACK_IMPORTED_MODULE_152__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_bchusd_svg__WEBPACK_IMPORTED_MODULE_153__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-bchusd.svg */ "./sass/icons/active-symbols/cryptos/ic-bchusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_bchusd_svg__WEBPACK_IMPORTED_MODULE_153___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_bchusd_svg__WEBPACK_IMPORTED_MODULE_153__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_ltcusd_svg__WEBPACK_IMPORTED_MODULE_154__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-ltcusd.svg */ "./sass/icons/active-symbols/cryptos/ic-ltcusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_ltcusd_svg__WEBPACK_IMPORTED_MODULE_154___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_ltcusd_svg__WEBPACK_IMPORTED_MODULE_154__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_eosusd_svg__WEBPACK_IMPORTED_MODULE_155__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-eosusd.svg */ "./sass/icons/active-symbols/cryptos/ic-eosusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_eosusd_svg__WEBPACK_IMPORTED_MODULE_155___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_eosusd_svg__WEBPACK_IMPORTED_MODULE_155__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_xrpusd_svg__WEBPACK_IMPORTED_MODULE_156__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-xrpusd.svg */ "./sass/icons/active-symbols/cryptos/ic-xrpusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_xrpusd_svg__WEBPACK_IMPORTED_MODULE_156___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_xrpusd_svg__WEBPACK_IMPORTED_MODULE_156__);
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_btcusd_svg__WEBPACK_IMPORTED_MODULE_157__ = __webpack_require__(/*! ../../sass/icons/active-symbols/cryptos/ic-btcusd.svg */ "./sass/icons/active-symbols/cryptos/ic-btcusd.svg");
+/* harmony import */ var _sass_icons_active_symbols_cryptos_ic_btcusd_svg__WEBPACK_IMPORTED_MODULE_157___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_cryptos_ic_btcusd_svg__WEBPACK_IMPORTED_MODULE_157__);
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_usd_500_svg__WEBPACK_IMPORTED_MODULE_158__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-usd-500.svg */ "./sass/icons/active-symbols/stock-indices/ic-usd-500.svg");
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_usd_500_svg__WEBPACK_IMPORTED_MODULE_158___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_usd_500_svg__WEBPACK_IMPORTED_MODULE_158__);
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_usd_tech_100_svg__WEBPACK_IMPORTED_MODULE_159__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-usd-tech-100.svg */ "./sass/icons/active-symbols/stock-indices/ic-usd-tech-100.svg");
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_usd_tech_100_svg__WEBPACK_IMPORTED_MODULE_159___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_usd_tech_100_svg__WEBPACK_IMPORTED_MODULE_159__);
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_wallstreet_30_svg__WEBPACK_IMPORTED_MODULE_160__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-wallstreet-30.svg */ "./sass/icons/active-symbols/stock-indices/ic-wallstreet-30.svg");
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_wallstreet_30_svg__WEBPACK_IMPORTED_MODULE_160___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_wallstreet_30_svg__WEBPACK_IMPORTED_MODULE_160__);
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_uk_100_svg__WEBPACK_IMPORTED_MODULE_161__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-uk-100.svg */ "./sass/icons/active-symbols/stock-indices/ic-uk-100.svg");
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_uk_100_svg__WEBPACK_IMPORTED_MODULE_161___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_uk_100_svg__WEBPACK_IMPORTED_MODULE_161__);
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_swiss_20_svg__WEBPACK_IMPORTED_MODULE_162__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-swiss-20.svg */ "./sass/icons/active-symbols/stock-indices/ic-swiss-20.svg");
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_swiss_20_svg__WEBPACK_IMPORTED_MODULE_162___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_swiss_20_svg__WEBPACK_IMPORTED_MODULE_162__);
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_netherland_25_svg__WEBPACK_IMPORTED_MODULE_163__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-netherland-25.svg */ "./sass/icons/active-symbols/stock-indices/ic-netherland-25.svg");
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_netherland_25_svg__WEBPACK_IMPORTED_MODULE_163___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_netherland_25_svg__WEBPACK_IMPORTED_MODULE_163__);
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_japan_225_svg__WEBPACK_IMPORTED_MODULE_164__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-japan-225.svg */ "./sass/icons/active-symbols/stock-indices/ic-japan-225.svg");
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_japan_225_svg__WEBPACK_IMPORTED_MODULE_164___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_japan_225_svg__WEBPACK_IMPORTED_MODULE_164__);
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_hong_kong_50_svg__WEBPACK_IMPORTED_MODULE_165__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-hong-kong-50.svg */ "./sass/icons/active-symbols/stock-indices/ic-hong-kong-50.svg");
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_hong_kong_50_svg__WEBPACK_IMPORTED_MODULE_165___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_hong_kong_50_svg__WEBPACK_IMPORTED_MODULE_165__);
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_germany_40_svg__WEBPACK_IMPORTED_MODULE_166__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-germany-40.svg */ "./sass/icons/active-symbols/stock-indices/ic-germany-40.svg");
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_germany_40_svg__WEBPACK_IMPORTED_MODULE_166___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_germany_40_svg__WEBPACK_IMPORTED_MODULE_166__);
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_france_40_svg__WEBPACK_IMPORTED_MODULE_167__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-france-40.svg */ "./sass/icons/active-symbols/stock-indices/ic-france-40.svg");
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_france_40_svg__WEBPACK_IMPORTED_MODULE_167___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_france_40_svg__WEBPACK_IMPORTED_MODULE_167__);
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_euro_50_svg__WEBPACK_IMPORTED_MODULE_168__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-euro-50.svg */ "./sass/icons/active-symbols/stock-indices/ic-euro-50.svg");
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_euro_50_svg__WEBPACK_IMPORTED_MODULE_168___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_euro_50_svg__WEBPACK_IMPORTED_MODULE_168__);
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_australian_200_svg__WEBPACK_IMPORTED_MODULE_169__ = __webpack_require__(/*! ../../sass/icons/active-symbols/stock-indices/ic-australian-200.svg */ "./sass/icons/active-symbols/stock-indices/ic-australian-200.svg");
+/* harmony import */ var _sass_icons_active_symbols_stock_indices_ic_australian_200_svg__WEBPACK_IMPORTED_MODULE_169___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_stock_indices_ic_australian_200_svg__WEBPACK_IMPORTED_MODULE_169__);
+/* harmony import */ var _sass_icons_active_symbols_ic_otcbadge_svg__WEBPACK_IMPORTED_MODULE_170__ = __webpack_require__(/*! ../../sass/icons/active-symbols/ic-otcbadge.svg */ "./sass/icons/active-symbols/ic-otcbadge.svg");
+/* harmony import */ var _sass_icons_active_symbols_ic_otcbadge_svg__WEBPACK_IMPORTED_MODULE_170___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_active_symbols_ic_otcbadge_svg__WEBPACK_IMPORTED_MODULE_170__);
+/* harmony import */ var _sass_icons_shape_ic_empty_state_svg__WEBPACK_IMPORTED_MODULE_171__ = __webpack_require__(/*! ../../sass/icons/shape/ic-empty-state.svg */ "./sass/icons/shape/ic-empty-state.svg");
+/* harmony import */ var _sass_icons_shape_ic_empty_state_svg__WEBPACK_IMPORTED_MODULE_171___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_shape_ic_empty_state_svg__WEBPACK_IMPORTED_MODULE_171__);
+/* harmony import */ var _sass_icons_shape_ic_overwrite_state_svg__WEBPACK_IMPORTED_MODULE_172__ = __webpack_require__(/*! ../../sass/icons/shape/ic-overwrite-state.svg */ "./sass/icons/shape/ic-overwrite-state.svg");
+/* harmony import */ var _sass_icons_shape_ic_overwrite_state_svg__WEBPACK_IMPORTED_MODULE_172___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_shape_ic_overwrite_state_svg__WEBPACK_IMPORTED_MODULE_172__);
+/* harmony import */ var _sass_icons_common_ic_info_svg__WEBPACK_IMPORTED_MODULE_173__ = __webpack_require__(/*! ../../sass/icons/common/ic-info.svg */ "./sass/icons/common/ic-info.svg");
+/* harmony import */ var _sass_icons_common_ic_info_svg__WEBPACK_IMPORTED_MODULE_173___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_common_ic_info_svg__WEBPACK_IMPORTED_MODULE_173__);
+/* harmony import */ var _sass_icons_common_ic_language_svg__WEBPACK_IMPORTED_MODULE_174__ = __webpack_require__(/*! ../../sass/icons/common/ic-language.svg */ "./sass/icons/common/ic-language.svg");
+/* harmony import */ var _sass_icons_common_ic_language_svg__WEBPACK_IMPORTED_MODULE_174___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_common_ic_language_svg__WEBPACK_IMPORTED_MODULE_174__);
+/* harmony import */ var _sass_icons_common_ic_theme_svg__WEBPACK_IMPORTED_MODULE_175__ = __webpack_require__(/*! ../../sass/icons/common/ic-theme.svg */ "./sass/icons/common/ic-theme.svg");
+/* harmony import */ var _sass_icons_common_ic_theme_svg__WEBPACK_IMPORTED_MODULE_175___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_common_ic_theme_svg__WEBPACK_IMPORTED_MODULE_175__);
+/* harmony import */ var _sass_icons_common_ic_charts_svg__WEBPACK_IMPORTED_MODULE_176__ = __webpack_require__(/*! ../../sass/icons/common/ic-charts.svg */ "./sass/icons/common/ic-charts.svg");
+/* harmony import */ var _sass_icons_common_ic_charts_svg__WEBPACK_IMPORTED_MODULE_176___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_common_ic_charts_svg__WEBPACK_IMPORTED_MODULE_176__);
+/* harmony import */ var _sass_icons_common_ic_checkbox_svg__WEBPACK_IMPORTED_MODULE_177__ = __webpack_require__(/*! ../../sass/icons/common/ic-checkbox.svg */ "./sass/icons/common/ic-checkbox.svg");
+/* harmony import */ var _sass_icons_common_ic_checkbox_svg__WEBPACK_IMPORTED_MODULE_177___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_common_ic_checkbox_svg__WEBPACK_IMPORTED_MODULE_177__);
+/* harmony import */ var _sass_icons_common_ic_checkbox_active_svg__WEBPACK_IMPORTED_MODULE_178__ = __webpack_require__(/*! ../../sass/icons/common/ic-checkbox-active.svg */ "./sass/icons/common/ic-checkbox-active.svg");
+/* harmony import */ var _sass_icons_common_ic_checkbox_active_svg__WEBPACK_IMPORTED_MODULE_178___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_common_ic_checkbox_active_svg__WEBPACK_IMPORTED_MODULE_178__);
+/* harmony import */ var _sass_icons_setting_ic_theme_light_svg__WEBPACK_IMPORTED_MODULE_179__ = __webpack_require__(/*! ../../sass/icons/setting/ic-theme-light.svg */ "./sass/icons/setting/ic-theme-light.svg");
+/* harmony import */ var _sass_icons_setting_ic_theme_light_svg__WEBPACK_IMPORTED_MODULE_179___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_ic_theme_light_svg__WEBPACK_IMPORTED_MODULE_179__);
+/* harmony import */ var _sass_icons_setting_ic_theme_dark_svg__WEBPACK_IMPORTED_MODULE_180__ = __webpack_require__(/*! ../../sass/icons/setting/ic-theme-dark.svg */ "./sass/icons/setting/ic-theme-dark.svg");
+/* harmony import */ var _sass_icons_setting_ic_theme_dark_svg__WEBPACK_IMPORTED_MODULE_180___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_ic_theme_dark_svg__WEBPACK_IMPORTED_MODULE_180__);
+/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_light_normal_svg__WEBPACK_IMPORTED_MODULE_181__ = __webpack_require__(/*! ../../sass/icons/setting/countdown/ic-countdown-light-normal.svg */ "./sass/icons/setting/countdown/ic-countdown-light-normal.svg");
+/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_light_normal_svg__WEBPACK_IMPORTED_MODULE_181___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_countdown_ic_countdown_light_normal_svg__WEBPACK_IMPORTED_MODULE_181__);
+/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_light_active_svg__WEBPACK_IMPORTED_MODULE_182__ = __webpack_require__(/*! ../../sass/icons/setting/countdown/ic-countdown-light-active.svg */ "./sass/icons/setting/countdown/ic-countdown-light-active.svg");
+/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_light_active_svg__WEBPACK_IMPORTED_MODULE_182___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_countdown_ic_countdown_light_active_svg__WEBPACK_IMPORTED_MODULE_182__);
+/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_dark_normal_svg__WEBPACK_IMPORTED_MODULE_183__ = __webpack_require__(/*! ../../sass/icons/setting/countdown/ic-countdown-dark-normal.svg */ "./sass/icons/setting/countdown/ic-countdown-dark-normal.svg");
+/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_dark_normal_svg__WEBPACK_IMPORTED_MODULE_183___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_countdown_ic_countdown_dark_normal_svg__WEBPACK_IMPORTED_MODULE_183__);
+/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_dark_active_svg__WEBPACK_IMPORTED_MODULE_184__ = __webpack_require__(/*! ../../sass/icons/setting/countdown/ic-countdown-dark-active.svg */ "./sass/icons/setting/countdown/ic-countdown-dark-active.svg");
+/* harmony import */ var _sass_icons_setting_countdown_ic_countdown_dark_active_svg__WEBPACK_IMPORTED_MODULE_184___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_countdown_ic_countdown_dark_active_svg__WEBPACK_IMPORTED_MODULE_184__);
+/* harmony import */ var _sass_icons_setting_historical_ic_historical_light_normal_svg__WEBPACK_IMPORTED_MODULE_185__ = __webpack_require__(/*! ../../sass/icons/setting/historical/ic-historical-light-normal.svg */ "./sass/icons/setting/historical/ic-historical-light-normal.svg");
+/* harmony import */ var _sass_icons_setting_historical_ic_historical_light_normal_svg__WEBPACK_IMPORTED_MODULE_185___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_historical_ic_historical_light_normal_svg__WEBPACK_IMPORTED_MODULE_185__);
+/* harmony import */ var _sass_icons_setting_historical_ic_historical_light_active_svg__WEBPACK_IMPORTED_MODULE_186__ = __webpack_require__(/*! ../../sass/icons/setting/historical/ic-historical-light-active.svg */ "./sass/icons/setting/historical/ic-historical-light-active.svg");
+/* harmony import */ var _sass_icons_setting_historical_ic_historical_light_active_svg__WEBPACK_IMPORTED_MODULE_186___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_historical_ic_historical_light_active_svg__WEBPACK_IMPORTED_MODULE_186__);
+/* harmony import */ var _sass_icons_setting_historical_ic_historical_dark_normal_svg__WEBPACK_IMPORTED_MODULE_187__ = __webpack_require__(/*! ../../sass/icons/setting/historical/ic-historical-dark-normal.svg */ "./sass/icons/setting/historical/ic-historical-dark-normal.svg");
+/* harmony import */ var _sass_icons_setting_historical_ic_historical_dark_normal_svg__WEBPACK_IMPORTED_MODULE_187___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_historical_ic_historical_dark_normal_svg__WEBPACK_IMPORTED_MODULE_187__);
+/* harmony import */ var _sass_icons_setting_historical_ic_historical_dark_active_svg__WEBPACK_IMPORTED_MODULE_188__ = __webpack_require__(/*! ../../sass/icons/setting/historical/ic-historical-dark-active.svg */ "./sass/icons/setting/historical/ic-historical-dark-active.svg");
+/* harmony import */ var _sass_icons_setting_historical_ic_historical_dark_active_svg__WEBPACK_IMPORTED_MODULE_188___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_historical_ic_historical_dark_active_svg__WEBPACK_IMPORTED_MODULE_188__);
+/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_light_normal_svg__WEBPACK_IMPORTED_MODULE_189__ = __webpack_require__(/*! ../../sass/icons/setting/highest-lowest/ic-highest-lowest-light-normal.svg */ "./sass/icons/setting/highest-lowest/ic-highest-lowest-light-normal.svg");
+/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_light_normal_svg__WEBPACK_IMPORTED_MODULE_189___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_highest_lowest_ic_highest_lowest_light_normal_svg__WEBPACK_IMPORTED_MODULE_189__);
+/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_light_active_svg__WEBPACK_IMPORTED_MODULE_190__ = __webpack_require__(/*! ../../sass/icons/setting/highest-lowest/ic-highest-lowest-light-active.svg */ "./sass/icons/setting/highest-lowest/ic-highest-lowest-light-active.svg");
+/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_light_active_svg__WEBPACK_IMPORTED_MODULE_190___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_highest_lowest_ic_highest_lowest_light_active_svg__WEBPACK_IMPORTED_MODULE_190__);
+/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_dark_normal_svg__WEBPACK_IMPORTED_MODULE_191__ = __webpack_require__(/*! ../../sass/icons/setting/highest-lowest/ic-highest-lowest-dark-normal.svg */ "./sass/icons/setting/highest-lowest/ic-highest-lowest-dark-normal.svg");
+/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_dark_normal_svg__WEBPACK_IMPORTED_MODULE_191___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_highest_lowest_ic_highest_lowest_dark_normal_svg__WEBPACK_IMPORTED_MODULE_191__);
+/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_dark_active_svg__WEBPACK_IMPORTED_MODULE_192__ = __webpack_require__(/*! ../../sass/icons/setting/highest-lowest/ic-highest-lowest-dark-active.svg */ "./sass/icons/setting/highest-lowest/ic-highest-lowest-dark-active.svg");
+/* harmony import */ var _sass_icons_setting_highest_lowest_ic_highest_lowest_dark_active_svg__WEBPACK_IMPORTED_MODULE_192___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_setting_highest_lowest_ic_highest_lowest_dark_active_svg__WEBPACK_IMPORTED_MODULE_192__);
+/* harmony import */ var _sass_icons_indicators_ic_momentum_svg__WEBPACK_IMPORTED_MODULE_193__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-momentum.svg */ "./sass/icons/indicators/ic-momentum.svg");
+/* harmony import */ var _sass_icons_indicators_ic_momentum_svg__WEBPACK_IMPORTED_MODULE_193___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_momentum_svg__WEBPACK_IMPORTED_MODULE_193__);
+/* harmony import */ var _sass_icons_indicators_ic_trend_light_svg__WEBPACK_IMPORTED_MODULE_194__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-trend-light.svg */ "./sass/icons/indicators/ic-trend-light.svg");
+/* harmony import */ var _sass_icons_indicators_ic_trend_light_svg__WEBPACK_IMPORTED_MODULE_194___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_trend_light_svg__WEBPACK_IMPORTED_MODULE_194__);
+/* harmony import */ var _sass_icons_indicators_ic_trend_dark_svg__WEBPACK_IMPORTED_MODULE_195__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-trend-dark.svg */ "./sass/icons/indicators/ic-trend-dark.svg");
+/* harmony import */ var _sass_icons_indicators_ic_trend_dark_svg__WEBPACK_IMPORTED_MODULE_195___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_trend_dark_svg__WEBPACK_IMPORTED_MODULE_195__);
+/* harmony import */ var _sass_icons_indicators_ic_volatility_svg__WEBPACK_IMPORTED_MODULE_196__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-volatility.svg */ "./sass/icons/indicators/ic-volatility.svg");
+/* harmony import */ var _sass_icons_indicators_ic_volatility_svg__WEBPACK_IMPORTED_MODULE_196___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_volatility_svg__WEBPACK_IMPORTED_MODULE_196__);
+/* harmony import */ var _sass_icons_indicators_ic_cat_averages_svg__WEBPACK_IMPORTED_MODULE_197__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-cat-averages.svg */ "./sass/icons/indicators/ic-cat-averages.svg");
+/* harmony import */ var _sass_icons_indicators_ic_cat_averages_svg__WEBPACK_IMPORTED_MODULE_197___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_cat_averages_svg__WEBPACK_IMPORTED_MODULE_197__);
+/* harmony import */ var _sass_icons_indicators_ic_other_svg__WEBPACK_IMPORTED_MODULE_198__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-other.svg */ "./sass/icons/indicators/ic-other.svg");
+/* harmony import */ var _sass_icons_indicators_ic_other_svg__WEBPACK_IMPORTED_MODULE_198___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_other_svg__WEBPACK_IMPORTED_MODULE_198__);
+/* harmony import */ var _sass_icons_indicators_ic_awesome_oscillator_svg__WEBPACK_IMPORTED_MODULE_199__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-awesome-oscillator.svg */ "./sass/icons/indicators/ic-awesome-oscillator.svg");
+/* harmony import */ var _sass_icons_indicators_ic_awesome_oscillator_svg__WEBPACK_IMPORTED_MODULE_199___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_awesome_oscillator_svg__WEBPACK_IMPORTED_MODULE_199__);
+/* harmony import */ var _sass_icons_indicators_ic_dtrended_svg__WEBPACK_IMPORTED_MODULE_200__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-dtrended.svg */ "./sass/icons/indicators/ic-dtrended.svg");
+/* harmony import */ var _sass_icons_indicators_ic_dtrended_svg__WEBPACK_IMPORTED_MODULE_200___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_dtrended_svg__WEBPACK_IMPORTED_MODULE_200__);
+/* harmony import */ var _sass_icons_indicators_ic_gator_svg__WEBPACK_IMPORTED_MODULE_201__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-gator.svg */ "./sass/icons/indicators/ic-gator.svg");
+/* harmony import */ var _sass_icons_indicators_ic_gator_svg__WEBPACK_IMPORTED_MODULE_201___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_gator_svg__WEBPACK_IMPORTED_MODULE_201__);
+/* harmony import */ var _sass_icons_indicators_ic_macd_svg__WEBPACK_IMPORTED_MODULE_202__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-macd.svg */ "./sass/icons/indicators/ic-macd.svg");
+/* harmony import */ var _sass_icons_indicators_ic_macd_svg__WEBPACK_IMPORTED_MODULE_202___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_macd_svg__WEBPACK_IMPORTED_MODULE_202__);
+/* harmony import */ var _sass_icons_indicators_ic_rate_of_change_svg__WEBPACK_IMPORTED_MODULE_203__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-rate-of-change.svg */ "./sass/icons/indicators/ic-rate-of-change.svg");
+/* harmony import */ var _sass_icons_indicators_ic_rate_of_change_svg__WEBPACK_IMPORTED_MODULE_203___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_rate_of_change_svg__WEBPACK_IMPORTED_MODULE_203__);
+/* harmony import */ var _sass_icons_indicators_ic_rsi_svg__WEBPACK_IMPORTED_MODULE_204__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-rsi.svg */ "./sass/icons/indicators/ic-rsi.svg");
+/* harmony import */ var _sass_icons_indicators_ic_rsi_svg__WEBPACK_IMPORTED_MODULE_204___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_rsi_svg__WEBPACK_IMPORTED_MODULE_204__);
+/* harmony import */ var _sass_icons_indicators_ic_stochastic_oscillator_svg__WEBPACK_IMPORTED_MODULE_205__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-stochastic-oscillator.svg */ "./sass/icons/indicators/ic-stochastic-oscillator.svg");
+/* harmony import */ var _sass_icons_indicators_ic_stochastic_oscillator_svg__WEBPACK_IMPORTED_MODULE_205___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_stochastic_oscillator_svg__WEBPACK_IMPORTED_MODULE_205__);
+/* harmony import */ var _sass_icons_indicators_ic_stochastic_momentum_svg__WEBPACK_IMPORTED_MODULE_206__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-stochastic-momentum.svg */ "./sass/icons/indicators/ic-stochastic-momentum.svg");
+/* harmony import */ var _sass_icons_indicators_ic_stochastic_momentum_svg__WEBPACK_IMPORTED_MODULE_206___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_stochastic_momentum_svg__WEBPACK_IMPORTED_MODULE_206__);
+/* harmony import */ var _sass_icons_indicators_ic_william_percent_svg__WEBPACK_IMPORTED_MODULE_207__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-william-percent.svg */ "./sass/icons/indicators/ic-william-percent.svg");
+/* harmony import */ var _sass_icons_indicators_ic_william_percent_svg__WEBPACK_IMPORTED_MODULE_207___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_william_percent_svg__WEBPACK_IMPORTED_MODULE_207__);
+/* harmony import */ var _sass_icons_indicators_ic_aroon_svg__WEBPACK_IMPORTED_MODULE_208__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-aroon.svg */ "./sass/icons/indicators/ic-aroon.svg");
+/* harmony import */ var _sass_icons_indicators_ic_aroon_svg__WEBPACK_IMPORTED_MODULE_208___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_aroon_svg__WEBPACK_IMPORTED_MODULE_208__);
+/* harmony import */ var _sass_icons_indicators_ic_adx_svg__WEBPACK_IMPORTED_MODULE_209__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-adx.svg */ "./sass/icons/indicators/ic-adx.svg");
+/* harmony import */ var _sass_icons_indicators_ic_adx_svg__WEBPACK_IMPORTED_MODULE_209___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_adx_svg__WEBPACK_IMPORTED_MODULE_209__);
+/* harmony import */ var _sass_icons_indicators_ic_commodity_channel_index_svg__WEBPACK_IMPORTED_MODULE_210__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-commodity-channel-index.svg */ "./sass/icons/indicators/ic-commodity-channel-index.svg");
+/* harmony import */ var _sass_icons_indicators_ic_commodity_channel_index_svg__WEBPACK_IMPORTED_MODULE_210___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_commodity_channel_index_svg__WEBPACK_IMPORTED_MODULE_210__);
+/* harmony import */ var _sass_icons_indicators_ic_ichimoku_svg__WEBPACK_IMPORTED_MODULE_211__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-ichimoku.svg */ "./sass/icons/indicators/ic-ichimoku.svg");
+/* harmony import */ var _sass_icons_indicators_ic_ichimoku_svg__WEBPACK_IMPORTED_MODULE_211___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_ichimoku_svg__WEBPACK_IMPORTED_MODULE_211__);
+/* harmony import */ var _sass_icons_indicators_ic_parabolic_svg__WEBPACK_IMPORTED_MODULE_212__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-parabolic.svg */ "./sass/icons/indicators/ic-parabolic.svg");
+/* harmony import */ var _sass_icons_indicators_ic_parabolic_svg__WEBPACK_IMPORTED_MODULE_212___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_parabolic_svg__WEBPACK_IMPORTED_MODULE_212__);
+/* harmony import */ var _sass_icons_indicators_ic_zig_zag_svg__WEBPACK_IMPORTED_MODULE_213__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-zig-zag.svg */ "./sass/icons/indicators/ic-zig-zag.svg");
+/* harmony import */ var _sass_icons_indicators_ic_zig_zag_svg__WEBPACK_IMPORTED_MODULE_213___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_zig_zag_svg__WEBPACK_IMPORTED_MODULE_213__);
+/* harmony import */ var _sass_icons_indicators_ic_bollinger_svg__WEBPACK_IMPORTED_MODULE_214__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-bollinger.svg */ "./sass/icons/indicators/ic-bollinger.svg");
+/* harmony import */ var _sass_icons_indicators_ic_bollinger_svg__WEBPACK_IMPORTED_MODULE_214___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_bollinger_svg__WEBPACK_IMPORTED_MODULE_214__);
+/* harmony import */ var _sass_icons_indicators_ic_donchian_svg__WEBPACK_IMPORTED_MODULE_215__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-donchian.svg */ "./sass/icons/indicators/ic-donchian.svg");
+/* harmony import */ var _sass_icons_indicators_ic_donchian_svg__WEBPACK_IMPORTED_MODULE_215___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_donchian_svg__WEBPACK_IMPORTED_MODULE_215__);
+/* harmony import */ var _sass_icons_indicators_ic_averages_svg__WEBPACK_IMPORTED_MODULE_216__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-averages.svg */ "./sass/icons/indicators/ic-averages.svg");
+/* harmony import */ var _sass_icons_indicators_ic_averages_svg__WEBPACK_IMPORTED_MODULE_216___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_averages_svg__WEBPACK_IMPORTED_MODULE_216__);
+/* harmony import */ var _sass_icons_indicators_ic_envelope_svg__WEBPACK_IMPORTED_MODULE_217__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-envelope.svg */ "./sass/icons/indicators/ic-envelope.svg");
+/* harmony import */ var _sass_icons_indicators_ic_envelope_svg__WEBPACK_IMPORTED_MODULE_217___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_envelope_svg__WEBPACK_IMPORTED_MODULE_217__);
+/* harmony import */ var _sass_icons_indicators_ic_alligator_svg__WEBPACK_IMPORTED_MODULE_218__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-alligator.svg */ "./sass/icons/indicators/ic-alligator.svg");
+/* harmony import */ var _sass_icons_indicators_ic_alligator_svg__WEBPACK_IMPORTED_MODULE_218___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_alligator_svg__WEBPACK_IMPORTED_MODULE_218__);
+/* harmony import */ var _sass_icons_indicators_ic_fractal_chaos_svg__WEBPACK_IMPORTED_MODULE_219__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-fractal-chaos.svg */ "./sass/icons/indicators/ic-fractal-chaos.svg");
+/* harmony import */ var _sass_icons_indicators_ic_fractal_chaos_svg__WEBPACK_IMPORTED_MODULE_219___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_fractal_chaos_svg__WEBPACK_IMPORTED_MODULE_219__);
+/* harmony import */ var _sass_icons_indicators_ic_rainbow_svg__WEBPACK_IMPORTED_MODULE_220__ = __webpack_require__(/*! ../../sass/icons/indicators/ic-rainbow.svg */ "./sass/icons/indicators/ic-rainbow.svg");
+/* harmony import */ var _sass_icons_indicators_ic_rainbow_svg__WEBPACK_IMPORTED_MODULE_220___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_indicators_ic_rainbow_svg__WEBPACK_IMPORTED_MODULE_220__);
+/* harmony import */ var _sass_icons_draw_tools_ic_channel_svg__WEBPACK_IMPORTED_MODULE_221__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-channel.svg */ "./sass/icons/draw-tools/ic-channel.svg");
+/* harmony import */ var _sass_icons_draw_tools_ic_channel_svg__WEBPACK_IMPORTED_MODULE_221___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_channel_svg__WEBPACK_IMPORTED_MODULE_221__);
+/* harmony import */ var _sass_icons_draw_tools_ic_continuous_svg__WEBPACK_IMPORTED_MODULE_222__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-continuous.svg */ "./sass/icons/draw-tools/ic-continuous.svg");
+/* harmony import */ var _sass_icons_draw_tools_ic_continuous_svg__WEBPACK_IMPORTED_MODULE_222___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_continuous_svg__WEBPACK_IMPORTED_MODULE_222__);
+/* harmony import */ var _sass_icons_draw_tools_ic_fibonacci_fan_svg__WEBPACK_IMPORTED_MODULE_223__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-fibonacci-fan.svg */ "./sass/icons/draw-tools/ic-fibonacci-fan.svg");
+/* harmony import */ var _sass_icons_draw_tools_ic_fibonacci_fan_svg__WEBPACK_IMPORTED_MODULE_223___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_fibonacci_fan_svg__WEBPACK_IMPORTED_MODULE_223__);
+/* harmony import */ var _sass_icons_draw_tools_ic_horizontal_svg__WEBPACK_IMPORTED_MODULE_224__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-horizontal.svg */ "./sass/icons/draw-tools/ic-horizontal.svg");
+/* harmony import */ var _sass_icons_draw_tools_ic_horizontal_svg__WEBPACK_IMPORTED_MODULE_224___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_horizontal_svg__WEBPACK_IMPORTED_MODULE_224__);
+/* harmony import */ var _sass_icons_draw_tools_ic_line_svg__WEBPACK_IMPORTED_MODULE_225__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-line.svg */ "./sass/icons/draw-tools/ic-line.svg");
+/* harmony import */ var _sass_icons_draw_tools_ic_line_svg__WEBPACK_IMPORTED_MODULE_225___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_line_svg__WEBPACK_IMPORTED_MODULE_225__);
+/* harmony import */ var _sass_icons_draw_tools_ic_ray_svg__WEBPACK_IMPORTED_MODULE_226__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-ray.svg */ "./sass/icons/draw-tools/ic-ray.svg");
+/* harmony import */ var _sass_icons_draw_tools_ic_ray_svg__WEBPACK_IMPORTED_MODULE_226___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_ray_svg__WEBPACK_IMPORTED_MODULE_226__);
+/* harmony import */ var _sass_icons_draw_tools_ic_rectangle_svg__WEBPACK_IMPORTED_MODULE_227__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-rectangle.svg */ "./sass/icons/draw-tools/ic-rectangle.svg");
+/* harmony import */ var _sass_icons_draw_tools_ic_rectangle_svg__WEBPACK_IMPORTED_MODULE_227___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_rectangle_svg__WEBPACK_IMPORTED_MODULE_227__);
+/* harmony import */ var _sass_icons_draw_tools_ic_trend_svg__WEBPACK_IMPORTED_MODULE_228__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-trend.svg */ "./sass/icons/draw-tools/ic-trend.svg");
+/* harmony import */ var _sass_icons_draw_tools_ic_trend_svg__WEBPACK_IMPORTED_MODULE_228___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_trend_svg__WEBPACK_IMPORTED_MODULE_228__);
+/* harmony import */ var _sass_icons_draw_tools_ic_vertical_svg__WEBPACK_IMPORTED_MODULE_229__ = __webpack_require__(/*! ../../sass/icons/draw-tools/ic-vertical.svg */ "./sass/icons/draw-tools/ic-vertical.svg");
+/* harmony import */ var _sass_icons_draw_tools_ic_vertical_svg__WEBPACK_IMPORTED_MODULE_229___default = /*#__PURE__*/__webpack_require__.n(_sass_icons_draw_tools_ic_vertical_svg__WEBPACK_IMPORTED_MODULE_229__);
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
  // Chart types:
+
 
 
 
@@ -18026,8 +18056,8 @@ const Wrapper = SvgLogo => {
   return InnerWrapper;
 };
 const DrawingCursorIcon = Wrapper((_sass_icons_pencil_ic_pencil_svg__WEBPACK_IMPORTED_MODULE_54___default()));
-const ThemeLightIcon = Wrapper((_sass_icons_setting_ic_theme_light_svg__WEBPACK_IMPORTED_MODULE_178___default()));
-const ThemeDarkIcon = Wrapper((_sass_icons_setting_ic_theme_dark_svg__WEBPACK_IMPORTED_MODULE_179___default()));
+const ThemeLightIcon = Wrapper((_sass_icons_setting_ic_theme_light_svg__WEBPACK_IMPORTED_MODULE_179___default()));
+const ThemeDarkIcon = Wrapper((_sass_icons_setting_ic_theme_dark_svg__WEBPACK_IMPORTED_MODULE_180___default()));
 const DrawToolIcon = Wrapper((_sass_icons_common_ic_drawing_tool_svg__WEBPACK_IMPORTED_MODULE_55___default()));
 const ActiveIcon = Wrapper((_sass_icons_common_ic_active_svg__WEBPACK_IMPORTED_MODULE_38___default()));
 const FullScreenIcon = Wrapper((_sass_icons_common_full_screen_svg__WEBPACK_IMPORTED_MODULE_60___default())); // Chart Types:
@@ -18078,7 +18108,7 @@ const FavoriteIcon = Wrapper((_sass_icons_favorite_ic_favorite_normal_svg__WEBPA
 const HelpCenterIcon = Wrapper((_sass_icons_common_ic_help_center_svg__WEBPACK_IMPORTED_MODULE_56___default()));
 const DownloadIcon = Wrapper((_sass_icons_common_ic_download_svg__WEBPACK_IMPORTED_MODULE_57___default()));
 const InfoIcon = Wrapper((_sass_icons_alert_message_info_svg__WEBPACK_IMPORTED_MODULE_64___default()));
-const InfoCircleIcon = Wrapper((_sass_icons_common_ic_info_svg__WEBPACK_IMPORTED_MODULE_172___default()));
+const InfoCircleIcon = Wrapper((_sass_icons_common_ic_info_svg__WEBPACK_IMPORTED_MODULE_173___default()));
 const PositionLeftIcon = Wrapper((_sass_icons_chart_settings_setting_ic_position_left_svg__WEBPACK_IMPORTED_MODULE_51___default()));
 const PositionBottomIcon = Wrapper((_sass_icons_chart_settings_setting_ic_position_bottom_svg__WEBPACK_IMPORTED_MODULE_52___default()));
 const BackIcon = Wrapper((_sass_icons_back_ic_back_svg__WEBPACK_IMPORTED_MODULE_53___default()));
@@ -18086,11 +18116,11 @@ const HomeIcon = Wrapper((_sass_icons_navigation_widgets_ic_home_svg__WEBPACK_IM
 const ScaleIcon = Wrapper((_sass_icons_navigation_widgets_ic_scale_full_svg__WEBPACK_IMPORTED_MODULE_66___default()));
 const ZoominIcon = Wrapper((_sass_icons_navigation_widgets_ic_zoomin_svg__WEBPACK_IMPORTED_MODULE_67___default()));
 const ZoomoutIcon = Wrapper((_sass_icons_navigation_widgets_ic_zoomout_svg__WEBPACK_IMPORTED_MODULE_68___default()));
-const LanguageIcon = Wrapper((_sass_icons_common_ic_language_svg__WEBPACK_IMPORTED_MODULE_173___default()));
-const ThemeIcon = Wrapper((_sass_icons_common_ic_theme_svg__WEBPACK_IMPORTED_MODULE_174___default()));
-const ChartIcon = Wrapper((_sass_icons_common_ic_charts_svg__WEBPACK_IMPORTED_MODULE_175___default()));
-const CheckboxIcon = Wrapper((_sass_icons_common_ic_checkbox_svg__WEBPACK_IMPORTED_MODULE_176___default()));
-const CheckboxActiveIcon = Wrapper((_sass_icons_common_ic_checkbox_active_svg__WEBPACK_IMPORTED_MODULE_177___default()));
+const LanguageIcon = Wrapper((_sass_icons_common_ic_language_svg__WEBPACK_IMPORTED_MODULE_174___default()));
+const ThemeIcon = Wrapper((_sass_icons_common_ic_theme_svg__WEBPACK_IMPORTED_MODULE_175___default()));
+const ChartIcon = Wrapper((_sass_icons_common_ic_charts_svg__WEBPACK_IMPORTED_MODULE_176___default()));
+const CheckboxIcon = Wrapper((_sass_icons_common_ic_checkbox_svg__WEBPACK_IMPORTED_MODULE_177___default()));
+const CheckboxActiveIcon = Wrapper((_sass_icons_common_ic_checkbox_active_svg__WEBPACK_IMPORTED_MODULE_178___default()));
 const TypeAreaIcon = Wrapper((_sass_icons_chart_type_ic_area_svg__WEBPACK_IMPORTED_MODULE_69___default()));
 const TypeCandleIcon = Wrapper((_sass_icons_chart_type_ic_candle_svg__WEBPACK_IMPORTED_MODULE_70___default()));
 const TypeHollowIcon = Wrapper((_sass_icons_chart_type_ic_hollow_svg__WEBPACK_IMPORTED_MODULE_71___default()));
@@ -18099,48 +18129,48 @@ const TypeAreaGrayscaleIcon = Wrapper((_sass_icons_chart_type_ic_area_grayscale_
 const TypeCandleGrayscaleIcon = Wrapper((_sass_icons_chart_type_ic_candle_grayscale_svg__WEBPACK_IMPORTED_MODULE_74___default()));
 const TypeHollowGrayscaleIcon = Wrapper((_sass_icons_chart_type_ic_hollow_grayscale_svg__WEBPACK_IMPORTED_MODULE_75___default()));
 const TypeOhlcGrayscaleIcon = Wrapper((_sass_icons_chart_type_ic_ohlc_grayscale_svg__WEBPACK_IMPORTED_MODULE_76___default()));
-const IndicatorCatMomentumIcon = Wrapper((_sass_icons_indicators_ic_momentum_svg__WEBPACK_IMPORTED_MODULE_192___default()));
-const IndicatorCatTrendLightIcon = Wrapper((_sass_icons_indicators_ic_trend_light_svg__WEBPACK_IMPORTED_MODULE_193___default()));
-const IndicatorCatTrendDarkIcon = Wrapper((_sass_icons_indicators_ic_trend_dark_svg__WEBPACK_IMPORTED_MODULE_194___default()));
-const IndicatorCatVolatilityIcon = Wrapper((_sass_icons_indicators_ic_volatility_svg__WEBPACK_IMPORTED_MODULE_195___default()));
-const IndicatorCatAveragesIcon = Wrapper((_sass_icons_indicators_ic_cat_averages_svg__WEBPACK_IMPORTED_MODULE_196___default()));
-const IndicatorCatOtherIcon = Wrapper((_sass_icons_indicators_ic_other_svg__WEBPACK_IMPORTED_MODULE_197___default()));
-const IndicatorAwesomeOscillatorIcon = Wrapper((_sass_icons_indicators_ic_awesome_oscillator_svg__WEBPACK_IMPORTED_MODULE_198___default()));
-const IndicatorDTrendedIcon = Wrapper((_sass_icons_indicators_ic_dtrended_svg__WEBPACK_IMPORTED_MODULE_199___default()));
-const IndicatorGatorIcon = Wrapper((_sass_icons_indicators_ic_gator_svg__WEBPACK_IMPORTED_MODULE_200___default()));
-const IndicatorMacdIcon = Wrapper((_sass_icons_indicators_ic_macd_svg__WEBPACK_IMPORTED_MODULE_201___default()));
-const IndicatorRateChangeIcon = Wrapper((_sass_icons_indicators_ic_rate_of_change_svg__WEBPACK_IMPORTED_MODULE_202___default()));
-const IndicatorRSIIcon = Wrapper((_sass_icons_indicators_ic_rsi_svg__WEBPACK_IMPORTED_MODULE_203___default()));
-const IndicatorStochasticOscillatorIcon = Wrapper((_sass_icons_indicators_ic_stochastic_oscillator_svg__WEBPACK_IMPORTED_MODULE_204___default()));
-const IndicatorStochasticMomentumIcon = Wrapper((_sass_icons_indicators_ic_stochastic_momentum_svg__WEBPACK_IMPORTED_MODULE_205___default()));
-const IndicatorWilliamPercentIcon = Wrapper((_sass_icons_indicators_ic_william_percent_svg__WEBPACK_IMPORTED_MODULE_206___default()));
-const IndicatorAroonIcon = Wrapper((_sass_icons_indicators_ic_aroon_svg__WEBPACK_IMPORTED_MODULE_207___default()));
-const IndicatorAdxIcon = Wrapper((_sass_icons_indicators_ic_adx_svg__WEBPACK_IMPORTED_MODULE_208___default()));
-const IndicatorCommodityChannelIndexIcon = Wrapper((_sass_icons_indicators_ic_commodity_channel_index_svg__WEBPACK_IMPORTED_MODULE_209___default()));
-const IndicatorIchimokuIcon = Wrapper((_sass_icons_indicators_ic_ichimoku_svg__WEBPACK_IMPORTED_MODULE_210___default()));
-const IndicatorParabolicIcon = Wrapper((_sass_icons_indicators_ic_parabolic_svg__WEBPACK_IMPORTED_MODULE_211___default()));
-const IndicatorZigZagIcon = Wrapper((_sass_icons_indicators_ic_zig_zag_svg__WEBPACK_IMPORTED_MODULE_212___default()));
-const IndicatorBollingerIcon = Wrapper((_sass_icons_indicators_ic_bollinger_svg__WEBPACK_IMPORTED_MODULE_213___default()));
-const IndicatorDonchianIcon = Wrapper((_sass_icons_indicators_ic_donchian_svg__WEBPACK_IMPORTED_MODULE_214___default()));
-const IndicatorAveragesIcon = Wrapper((_sass_icons_indicators_ic_averages_svg__WEBPACK_IMPORTED_MODULE_215___default()));
-const IndicatorEnvelopeIcon = Wrapper((_sass_icons_indicators_ic_envelope_svg__WEBPACK_IMPORTED_MODULE_216___default()));
-const IndicatorAlligatorIcon = Wrapper((_sass_icons_indicators_ic_alligator_svg__WEBPACK_IMPORTED_MODULE_217___default()));
-const IndicatorFractalChaosIcon = Wrapper((_sass_icons_indicators_ic_fractal_chaos_svg__WEBPACK_IMPORTED_MODULE_218___default()));
-const IndicatorRainbowIcon = Wrapper((_sass_icons_indicators_ic_rainbow_svg__WEBPACK_IMPORTED_MODULE_219___default()));
-const MetalIcon = Wrapper((_sass_icons_active_symbols_metals_ic_metal_svg__WEBPACK_IMPORTED_MODULE_109___default()));
-const EmptyStateIcon = Wrapper((_sass_icons_shape_ic_empty_state_svg__WEBPACK_IMPORTED_MODULE_170___default()));
-const OverwriteStateIcon = Wrapper((_sass_icons_shape_ic_overwrite_state_svg__WEBPACK_IMPORTED_MODULE_171___default()));
+const IndicatorCatMomentumIcon = Wrapper((_sass_icons_indicators_ic_momentum_svg__WEBPACK_IMPORTED_MODULE_193___default()));
+const IndicatorCatTrendLightIcon = Wrapper((_sass_icons_indicators_ic_trend_light_svg__WEBPACK_IMPORTED_MODULE_194___default()));
+const IndicatorCatTrendDarkIcon = Wrapper((_sass_icons_indicators_ic_trend_dark_svg__WEBPACK_IMPORTED_MODULE_195___default()));
+const IndicatorCatVolatilityIcon = Wrapper((_sass_icons_indicators_ic_volatility_svg__WEBPACK_IMPORTED_MODULE_196___default()));
+const IndicatorCatAveragesIcon = Wrapper((_sass_icons_indicators_ic_cat_averages_svg__WEBPACK_IMPORTED_MODULE_197___default()));
+const IndicatorCatOtherIcon = Wrapper((_sass_icons_indicators_ic_other_svg__WEBPACK_IMPORTED_MODULE_198___default()));
+const IndicatorAwesomeOscillatorIcon = Wrapper((_sass_icons_indicators_ic_awesome_oscillator_svg__WEBPACK_IMPORTED_MODULE_199___default()));
+const IndicatorDTrendedIcon = Wrapper((_sass_icons_indicators_ic_dtrended_svg__WEBPACK_IMPORTED_MODULE_200___default()));
+const IndicatorGatorIcon = Wrapper((_sass_icons_indicators_ic_gator_svg__WEBPACK_IMPORTED_MODULE_201___default()));
+const IndicatorMacdIcon = Wrapper((_sass_icons_indicators_ic_macd_svg__WEBPACK_IMPORTED_MODULE_202___default()));
+const IndicatorRateChangeIcon = Wrapper((_sass_icons_indicators_ic_rate_of_change_svg__WEBPACK_IMPORTED_MODULE_203___default()));
+const IndicatorRSIIcon = Wrapper((_sass_icons_indicators_ic_rsi_svg__WEBPACK_IMPORTED_MODULE_204___default()));
+const IndicatorStochasticOscillatorIcon = Wrapper((_sass_icons_indicators_ic_stochastic_oscillator_svg__WEBPACK_IMPORTED_MODULE_205___default()));
+const IndicatorStochasticMomentumIcon = Wrapper((_sass_icons_indicators_ic_stochastic_momentum_svg__WEBPACK_IMPORTED_MODULE_206___default()));
+const IndicatorWilliamPercentIcon = Wrapper((_sass_icons_indicators_ic_william_percent_svg__WEBPACK_IMPORTED_MODULE_207___default()));
+const IndicatorAroonIcon = Wrapper((_sass_icons_indicators_ic_aroon_svg__WEBPACK_IMPORTED_MODULE_208___default()));
+const IndicatorAdxIcon = Wrapper((_sass_icons_indicators_ic_adx_svg__WEBPACK_IMPORTED_MODULE_209___default()));
+const IndicatorCommodityChannelIndexIcon = Wrapper((_sass_icons_indicators_ic_commodity_channel_index_svg__WEBPACK_IMPORTED_MODULE_210___default()));
+const IndicatorIchimokuIcon = Wrapper((_sass_icons_indicators_ic_ichimoku_svg__WEBPACK_IMPORTED_MODULE_211___default()));
+const IndicatorParabolicIcon = Wrapper((_sass_icons_indicators_ic_parabolic_svg__WEBPACK_IMPORTED_MODULE_212___default()));
+const IndicatorZigZagIcon = Wrapper((_sass_icons_indicators_ic_zig_zag_svg__WEBPACK_IMPORTED_MODULE_213___default()));
+const IndicatorBollingerIcon = Wrapper((_sass_icons_indicators_ic_bollinger_svg__WEBPACK_IMPORTED_MODULE_214___default()));
+const IndicatorDonchianIcon = Wrapper((_sass_icons_indicators_ic_donchian_svg__WEBPACK_IMPORTED_MODULE_215___default()));
+const IndicatorAveragesIcon = Wrapper((_sass_icons_indicators_ic_averages_svg__WEBPACK_IMPORTED_MODULE_216___default()));
+const IndicatorEnvelopeIcon = Wrapper((_sass_icons_indicators_ic_envelope_svg__WEBPACK_IMPORTED_MODULE_217___default()));
+const IndicatorAlligatorIcon = Wrapper((_sass_icons_indicators_ic_alligator_svg__WEBPACK_IMPORTED_MODULE_218___default()));
+const IndicatorFractalChaosIcon = Wrapper((_sass_icons_indicators_ic_fractal_chaos_svg__WEBPACK_IMPORTED_MODULE_219___default()));
+const IndicatorRainbowIcon = Wrapper((_sass_icons_indicators_ic_rainbow_svg__WEBPACK_IMPORTED_MODULE_220___default()));
+const MetalIcon = Wrapper((_sass_icons_active_symbols_metals_ic_metal_svg__WEBPACK_IMPORTED_MODULE_110___default()));
+const EmptyStateIcon = Wrapper((_sass_icons_shape_ic_empty_state_svg__WEBPACK_IMPORTED_MODULE_171___default()));
+const OverwriteStateIcon = Wrapper((_sass_icons_shape_ic_overwrite_state_svg__WEBPACK_IMPORTED_MODULE_172___default()));
 const ArrowGreenIcon = Wrapper((_sass_icons_arrows_ic_arrow_green_svg__WEBPACK_IMPORTED_MODULE_77___default()));
 const ArrowOrangeIcon = Wrapper((_sass_icons_arrows_ic_arrow_orange_svg__WEBPACK_IMPORTED_MODULE_78___default()));
-const DrawToolsChannelIcon = Wrapper((_sass_icons_draw_tools_ic_channel_svg__WEBPACK_IMPORTED_MODULE_220___default()));
-const DrawToolsContinuousIcon = Wrapper((_sass_icons_draw_tools_ic_continuous_svg__WEBPACK_IMPORTED_MODULE_221___default()));
-const DrawToolsFibonaccifanIcon = Wrapper((_sass_icons_draw_tools_ic_fibonacci_fan_svg__WEBPACK_IMPORTED_MODULE_222___default()));
-const DrawToolsHorizontalIcon = Wrapper((_sass_icons_draw_tools_ic_horizontal_svg__WEBPACK_IMPORTED_MODULE_223___default()));
-const DrawToolsLineIcon = Wrapper((_sass_icons_draw_tools_ic_line_svg__WEBPACK_IMPORTED_MODULE_224___default()));
-const DrawToolsRayIcon = Wrapper((_sass_icons_draw_tools_ic_ray_svg__WEBPACK_IMPORTED_MODULE_225___default()));
-const DrawToolsRectangleIcon = Wrapper((_sass_icons_draw_tools_ic_rectangle_svg__WEBPACK_IMPORTED_MODULE_226___default()));
-const DrawToolsTrendIcon = Wrapper((_sass_icons_draw_tools_ic_trend_svg__WEBPACK_IMPORTED_MODULE_227___default()));
-const DrawToolsVerticalIcon = Wrapper((_sass_icons_draw_tools_ic_vertical_svg__WEBPACK_IMPORTED_MODULE_228___default()));
+const DrawToolsChannelIcon = Wrapper((_sass_icons_draw_tools_ic_channel_svg__WEBPACK_IMPORTED_MODULE_221___default()));
+const DrawToolsContinuousIcon = Wrapper((_sass_icons_draw_tools_ic_continuous_svg__WEBPACK_IMPORTED_MODULE_222___default()));
+const DrawToolsFibonaccifanIcon = Wrapper((_sass_icons_draw_tools_ic_fibonacci_fan_svg__WEBPACK_IMPORTED_MODULE_223___default()));
+const DrawToolsHorizontalIcon = Wrapper((_sass_icons_draw_tools_ic_horizontal_svg__WEBPACK_IMPORTED_MODULE_224___default()));
+const DrawToolsLineIcon = Wrapper((_sass_icons_draw_tools_ic_line_svg__WEBPACK_IMPORTED_MODULE_225___default()));
+const DrawToolsRayIcon = Wrapper((_sass_icons_draw_tools_ic_ray_svg__WEBPACK_IMPORTED_MODULE_226___default()));
+const DrawToolsRectangleIcon = Wrapper((_sass_icons_draw_tools_ic_rectangle_svg__WEBPACK_IMPORTED_MODULE_227___default()));
+const DrawToolsTrendIcon = Wrapper((_sass_icons_draw_tools_ic_trend_svg__WEBPACK_IMPORTED_MODULE_228___default()));
+const DrawToolsVerticalIcon = Wrapper((_sass_icons_draw_tools_ic_vertical_svg__WEBPACK_IMPORTED_MODULE_229___default()));
 const alertIconMap = {
   info: Wrapper((_sass_icons_alert_message_info_svg__WEBPACK_IMPORTED_MODULE_64___default())),
   success: Wrapper((_sass_icons_alert_message_success_svg__WEBPACK_IMPORTED_MODULE_63___default())),
@@ -18163,32 +18193,32 @@ const CategoryIconMap = {
 };
 const SettingCountdownMap = {
   light: {
-    normal: Wrapper((_sass_icons_setting_countdown_ic_countdown_light_normal_svg__WEBPACK_IMPORTED_MODULE_180___default())),
-    active: Wrapper((_sass_icons_setting_countdown_ic_countdown_light_active_svg__WEBPACK_IMPORTED_MODULE_181___default()))
+    normal: Wrapper((_sass_icons_setting_countdown_ic_countdown_light_normal_svg__WEBPACK_IMPORTED_MODULE_181___default())),
+    active: Wrapper((_sass_icons_setting_countdown_ic_countdown_light_active_svg__WEBPACK_IMPORTED_MODULE_182___default()))
   },
   dark: {
-    normal: Wrapper((_sass_icons_setting_countdown_ic_countdown_dark_normal_svg__WEBPACK_IMPORTED_MODULE_182___default())),
-    active: Wrapper((_sass_icons_setting_countdown_ic_countdown_dark_active_svg__WEBPACK_IMPORTED_MODULE_183___default()))
+    normal: Wrapper((_sass_icons_setting_countdown_ic_countdown_dark_normal_svg__WEBPACK_IMPORTED_MODULE_183___default())),
+    active: Wrapper((_sass_icons_setting_countdown_ic_countdown_dark_active_svg__WEBPACK_IMPORTED_MODULE_184___default()))
   }
 };
 const SettingHistoricalMap = {
   light: {
-    normal: Wrapper((_sass_icons_setting_historical_ic_historical_light_normal_svg__WEBPACK_IMPORTED_MODULE_184___default())),
-    active: Wrapper((_sass_icons_setting_historical_ic_historical_light_active_svg__WEBPACK_IMPORTED_MODULE_185___default()))
+    normal: Wrapper((_sass_icons_setting_historical_ic_historical_light_normal_svg__WEBPACK_IMPORTED_MODULE_185___default())),
+    active: Wrapper((_sass_icons_setting_historical_ic_historical_light_active_svg__WEBPACK_IMPORTED_MODULE_186___default()))
   },
   dark: {
-    normal: Wrapper((_sass_icons_setting_historical_ic_historical_dark_normal_svg__WEBPACK_IMPORTED_MODULE_186___default())),
-    active: Wrapper((_sass_icons_setting_historical_ic_historical_dark_active_svg__WEBPACK_IMPORTED_MODULE_187___default()))
+    normal: Wrapper((_sass_icons_setting_historical_ic_historical_dark_normal_svg__WEBPACK_IMPORTED_MODULE_187___default())),
+    active: Wrapper((_sass_icons_setting_historical_ic_historical_dark_active_svg__WEBPACK_IMPORTED_MODULE_188___default()))
   }
 };
 const SettingHighestLowestMap = {
   light: {
-    normal: Wrapper((_sass_icons_setting_highest_lowest_ic_highest_lowest_light_normal_svg__WEBPACK_IMPORTED_MODULE_188___default())),
-    active: Wrapper((_sass_icons_setting_highest_lowest_ic_highest_lowest_light_active_svg__WEBPACK_IMPORTED_MODULE_189___default()))
+    normal: Wrapper((_sass_icons_setting_highest_lowest_ic_highest_lowest_light_normal_svg__WEBPACK_IMPORTED_MODULE_189___default())),
+    active: Wrapper((_sass_icons_setting_highest_lowest_ic_highest_lowest_light_active_svg__WEBPACK_IMPORTED_MODULE_190___default()))
   },
   dark: {
-    normal: Wrapper((_sass_icons_setting_highest_lowest_ic_highest_lowest_dark_normal_svg__WEBPACK_IMPORTED_MODULE_190___default())),
-    active: Wrapper((_sass_icons_setting_highest_lowest_ic_highest_lowest_dark_active_svg__WEBPACK_IMPORTED_MODULE_191___default()))
+    normal: Wrapper((_sass_icons_setting_highest_lowest_ic_highest_lowest_dark_normal_svg__WEBPACK_IMPORTED_MODULE_191___default())),
+    active: Wrapper((_sass_icons_setting_highest_lowest_ic_highest_lowest_dark_active_svg__WEBPACK_IMPORTED_MODULE_192___default()))
   }
 };
 const FlagIconMap = {
@@ -18205,18 +18235,18 @@ const FlagIconMap = {
   SEK: Wrapper((_sass_icons_flags_sek_svg__WEBPACK_IMPORTED_MODULE_90___default())),
   USD: Wrapper((_sass_icons_flags_usd_svg__WEBPACK_IMPORTED_MODULE_91___default())),
   XAU: Wrapper((_sass_icons_flags_xau_svg__WEBPACK_IMPORTED_MODULE_92___default())),
-  HongKong: Wrapper((_sass_icons_flags_hong_kong_svg__WEBPACK_IMPORTED_MODULE_103___default())),
-  Dutch: Wrapper((_sass_icons_flags_dutch_svg__WEBPACK_IMPORTED_MODULE_105___default())),
-  German: Wrapper((_sass_icons_flags_german_svg__WEBPACK_IMPORTED_MODULE_102___default())),
-  French: Wrapper((_sass_icons_flags_french_svg__WEBPACK_IMPORTED_MODULE_104___default())),
-  Spanish: Wrapper((_sass_icons_flags_spanish_svg__WEBPACK_IMPORTED_MODULE_106___default())),
-  WallStreet: Wrapper((_sass_icons_flags_wallstreet_svg__WEBPACK_IMPORTED_MODULE_107___default()))
+  HongKong: Wrapper((_sass_icons_flags_hong_kong_svg__WEBPACK_IMPORTED_MODULE_104___default())),
+  Dutch: Wrapper((_sass_icons_flags_dutch_svg__WEBPACK_IMPORTED_MODULE_106___default())),
+  German: Wrapper((_sass_icons_flags_german_svg__WEBPACK_IMPORTED_MODULE_103___default())),
+  French: Wrapper((_sass_icons_flags_french_svg__WEBPACK_IMPORTED_MODULE_105___default())),
+  Spanish: Wrapper((_sass_icons_flags_spanish_svg__WEBPACK_IMPORTED_MODULE_107___default())),
+  WallStreet: Wrapper((_sass_icons_flags_wallstreet_svg__WEBPACK_IMPORTED_MODULE_108___default()))
 };
 const FlagIcons = {
   USD: Wrapper((_sass_icons_flags_usd_svg__WEBPACK_IMPORTED_MODULE_91___default())),
   GBP: Wrapper((_sass_icons_flags_gbp_svg__WEBPACK_IMPORTED_MODULE_84___default())),
-  German: Wrapper((_sass_icons_flags_german_svg__WEBPACK_IMPORTED_MODULE_102___default())),
-  French: Wrapper((_sass_icons_flags_french_svg__WEBPACK_IMPORTED_MODULE_104___default())),
+  German: Wrapper((_sass_icons_flags_german_svg__WEBPACK_IMPORTED_MODULE_103___default())),
+  French: Wrapper((_sass_icons_flags_french_svg__WEBPACK_IMPORTED_MODULE_105___default())),
   Russia: Wrapper((_sass_icons_flags_russia_svg__WEBPACK_IMPORTED_MODULE_93___default())),
   Thailand: Wrapper((_sass_icons_flags_thailand_svg__WEBPACK_IMPORTED_MODULE_94___default())),
   Turkey: Wrapper((_sass_icons_flags_turkey_svg__WEBPACK_IMPORTED_MODULE_95___default())),
@@ -18224,10 +18254,11 @@ const FlagIcons = {
   Vietnam: Wrapper((_sass_icons_flags_vietnam_svg__WEBPACK_IMPORTED_MODULE_97___default())),
   Italy: Wrapper((_sass_icons_flags_italy_svg__WEBPACK_IMPORTED_MODULE_98___default())),
   Korean: Wrapper((_sass_icons_flags_korean_svg__WEBPACK_IMPORTED_MODULE_99___default())),
-  Chinese: Wrapper((_sass_icons_flags_chinese_svg__WEBPACK_IMPORTED_MODULE_100___default())),
-  ChineseTraditional: Wrapper((_sass_icons_flags_chinese_traditional_svg__WEBPACK_IMPORTED_MODULE_101___default())),
+  Portugal: Wrapper((_sass_icons_flags_portugal_svg__WEBPACK_IMPORTED_MODULE_100___default())),
+  Chinese: Wrapper((_sass_icons_flags_chinese_svg__WEBPACK_IMPORTED_MODULE_101___default())),
+  ChineseTraditional: Wrapper((_sass_icons_flags_chinese_traditional_svg__WEBPACK_IMPORTED_MODULE_102___default())),
   Poland: Wrapper((_sass_icons_flags_pln_svg__WEBPACK_IMPORTED_MODULE_89___default())),
-  Spanish: Wrapper((_sass_icons_flags_spanish_svg__WEBPACK_IMPORTED_MODULE_106___default()))
+  Spanish: Wrapper((_sass_icons_flags_spanish_svg__WEBPACK_IMPORTED_MODULE_107___default()))
 };
 const ItemIconMap = {
   SPC: FlagIconMap.USD,
@@ -18240,76 +18271,76 @@ const ItemIconMap = {
   GDAXI: FlagIconMap.German,
 
   /* Commodities */
-  frxBROUSD: Wrapper((_sass_icons_active_symbols_energy_oil_usd_ic_oilusd_svg__WEBPACK_IMPORTED_MODULE_108___default())),
+  frxBROUSD: Wrapper((_sass_icons_active_symbols_energy_oil_usd_ic_oilusd_svg__WEBPACK_IMPORTED_MODULE_109___default())),
   frxXAUUSD: MetalIcon,
   frxXPDUSD: MetalIcon,
   frxXPTUSD: MetalIcon,
   frxXAGUSD: MetalIcon,
 
   /* Volatility Indices */
-  R_10: Wrapper((_sass_icons_active_symbols_volatility_10_index_ic_10_index_v_svg__WEBPACK_IMPORTED_MODULE_110___default())),
-  R_25: Wrapper((_sass_icons_active_symbols_volatility_25_index_ic_25_index_v_svg__WEBPACK_IMPORTED_MODULE_111___default())),
-  R_50: Wrapper((_sass_icons_active_symbols_volatility_50_index_ic_50_index_v_svg__WEBPACK_IMPORTED_MODULE_112___default())),
-  R_75: Wrapper((_sass_icons_active_symbols_volatility_75_index_ic_75_index_v_svg__WEBPACK_IMPORTED_MODULE_113___default())),
-  R_100: Wrapper((_sass_icons_active_symbols_volatility_100_index_ic_100_index_v_svg__WEBPACK_IMPORTED_MODULE_114___default())),
-  '1HZ10V': Wrapper((_sass_icons_active_symbols_volatility_1s10_index_ic_10_1s_index_svg__WEBPACK_IMPORTED_MODULE_115___default())),
-  '1HZ25V': Wrapper((_sass_icons_active_symbols_volatility_1s25_index_light_25_1s_index_svg__WEBPACK_IMPORTED_MODULE_116___default())),
-  '1HZ50V': Wrapper((_sass_icons_active_symbols_volatility_1s50_index_light_50_1s_index_svg__WEBPACK_IMPORTED_MODULE_117___default())),
-  '1HZ75V': Wrapper((_sass_icons_active_symbols_volatility_1s75_index_light_75_1s_index_svg__WEBPACK_IMPORTED_MODULE_118___default())),
-  '1HZ100V': Wrapper((_sass_icons_active_symbols_volatility_1s100_index_ic_100_1s_index_svg__WEBPACK_IMPORTED_MODULE_119___default())),
-  '1HZ150V': Wrapper((_sass_icons_active_symbols_volatility_1s150_index_ic_150_1s_index_svg__WEBPACK_IMPORTED_MODULE_120___default())),
-  '1HZ200V': Wrapper((_sass_icons_active_symbols_volatility_1s200_index_ic_200_1s_index_svg__WEBPACK_IMPORTED_MODULE_121___default())),
-  '1HZ250V': Wrapper((_sass_icons_active_symbols_volatility_1s250_index_ic_250_1s_index_svg__WEBPACK_IMPORTED_MODULE_122___default())),
-  '1HZ300V': Wrapper((_sass_icons_active_symbols_volatility_1s300_index_ic_300_1s_index_svg__WEBPACK_IMPORTED_MODULE_123___default())),
-  BOOM300N: Wrapper((_sass_icons_active_symbols_volatility_boom300_index_boom300_index_svg__WEBPACK_IMPORTED_MODULE_127___default())),
-  BOOM500: Wrapper((_sass_icons_active_symbols_volatility_boom500_index_boom500_index_svg__WEBPACK_IMPORTED_MODULE_128___default())),
-  BOOM1000: Wrapper((_sass_icons_active_symbols_volatility_boom1000_index_boom1000_index_svg__WEBPACK_IMPORTED_MODULE_129___default())),
-  CRASH300N: Wrapper((_sass_icons_active_symbols_volatility_crash300_index_crash300_index_svg__WEBPACK_IMPORTED_MODULE_124___default())),
-  CRASH500: Wrapper((_sass_icons_active_symbols_volatility_crash500_index_crash500_index_svg__WEBPACK_IMPORTED_MODULE_125___default())),
-  CRASH1000: Wrapper((_sass_icons_active_symbols_volatility_crash1000_index_crash1000_index_svg__WEBPACK_IMPORTED_MODULE_126___default())),
-  RDBEAR: Wrapper((_sass_icons_active_symbols_volatility_bear_market_ic_marketbear_svg__WEBPACK_IMPORTED_MODULE_130___default())),
-  RDBULL: Wrapper((_sass_icons_active_symbols_volatility_bull_market_ic_marketbull_svg__WEBPACK_IMPORTED_MODULE_131___default())),
-  stpRNG: Wrapper((_sass_icons_active_symbols_volatility_step_index_step_index_svg__WEBPACK_IMPORTED_MODULE_132___default())),
-  JD10: Wrapper((_sass_icons_active_symbols_volatility_jd10_index_ic_10_index_svg__WEBPACK_IMPORTED_MODULE_133___default())),
-  JD25: Wrapper((_sass_icons_active_symbols_volatility_jd25_index_ic_25_index_svg__WEBPACK_IMPORTED_MODULE_134___default())),
-  JD50: Wrapper((_sass_icons_active_symbols_volatility_jd50_index_ic_50_index_svg__WEBPACK_IMPORTED_MODULE_135___default())),
-  JD75: Wrapper((_sass_icons_active_symbols_volatility_jd75_index_ic_75_index_svg__WEBPACK_IMPORTED_MODULE_136___default())),
-  JD100: Wrapper((_sass_icons_active_symbols_volatility_jd100_index_ic_100_index_svg__WEBPACK_IMPORTED_MODULE_137___default())),
-  JD150: Wrapper((_sass_icons_active_symbols_volatility_jd150_index_ic_150_index_svg__WEBPACK_IMPORTED_MODULE_138___default())),
-  JD200: Wrapper((_sass_icons_active_symbols_volatility_jd200_index_ic_200_index_svg__WEBPACK_IMPORTED_MODULE_139___default())),
+  R_10: Wrapper((_sass_icons_active_symbols_volatility_10_index_ic_10_index_v_svg__WEBPACK_IMPORTED_MODULE_111___default())),
+  R_25: Wrapper((_sass_icons_active_symbols_volatility_25_index_ic_25_index_v_svg__WEBPACK_IMPORTED_MODULE_112___default())),
+  R_50: Wrapper((_sass_icons_active_symbols_volatility_50_index_ic_50_index_v_svg__WEBPACK_IMPORTED_MODULE_113___default())),
+  R_75: Wrapper((_sass_icons_active_symbols_volatility_75_index_ic_75_index_v_svg__WEBPACK_IMPORTED_MODULE_114___default())),
+  R_100: Wrapper((_sass_icons_active_symbols_volatility_100_index_ic_100_index_v_svg__WEBPACK_IMPORTED_MODULE_115___default())),
+  '1HZ10V': Wrapper((_sass_icons_active_symbols_volatility_1s10_index_ic_10_1s_index_svg__WEBPACK_IMPORTED_MODULE_116___default())),
+  '1HZ25V': Wrapper((_sass_icons_active_symbols_volatility_1s25_index_light_25_1s_index_svg__WEBPACK_IMPORTED_MODULE_117___default())),
+  '1HZ50V': Wrapper((_sass_icons_active_symbols_volatility_1s50_index_light_50_1s_index_svg__WEBPACK_IMPORTED_MODULE_118___default())),
+  '1HZ75V': Wrapper((_sass_icons_active_symbols_volatility_1s75_index_light_75_1s_index_svg__WEBPACK_IMPORTED_MODULE_119___default())),
+  '1HZ100V': Wrapper((_sass_icons_active_symbols_volatility_1s100_index_ic_100_1s_index_svg__WEBPACK_IMPORTED_MODULE_120___default())),
+  '1HZ150V': Wrapper((_sass_icons_active_symbols_volatility_1s150_index_ic_150_1s_index_svg__WEBPACK_IMPORTED_MODULE_121___default())),
+  '1HZ200V': Wrapper((_sass_icons_active_symbols_volatility_1s200_index_ic_200_1s_index_svg__WEBPACK_IMPORTED_MODULE_122___default())),
+  '1HZ250V': Wrapper((_sass_icons_active_symbols_volatility_1s250_index_ic_250_1s_index_svg__WEBPACK_IMPORTED_MODULE_123___default())),
+  '1HZ300V': Wrapper((_sass_icons_active_symbols_volatility_1s300_index_ic_300_1s_index_svg__WEBPACK_IMPORTED_MODULE_124___default())),
+  BOOM300N: Wrapper((_sass_icons_active_symbols_volatility_boom300_index_boom300_index_svg__WEBPACK_IMPORTED_MODULE_128___default())),
+  BOOM500: Wrapper((_sass_icons_active_symbols_volatility_boom500_index_boom500_index_svg__WEBPACK_IMPORTED_MODULE_129___default())),
+  BOOM1000: Wrapper((_sass_icons_active_symbols_volatility_boom1000_index_boom1000_index_svg__WEBPACK_IMPORTED_MODULE_130___default())),
+  CRASH300N: Wrapper((_sass_icons_active_symbols_volatility_crash300_index_crash300_index_svg__WEBPACK_IMPORTED_MODULE_125___default())),
+  CRASH500: Wrapper((_sass_icons_active_symbols_volatility_crash500_index_crash500_index_svg__WEBPACK_IMPORTED_MODULE_126___default())),
+  CRASH1000: Wrapper((_sass_icons_active_symbols_volatility_crash1000_index_crash1000_index_svg__WEBPACK_IMPORTED_MODULE_127___default())),
+  RDBEAR: Wrapper((_sass_icons_active_symbols_volatility_bear_market_ic_marketbear_svg__WEBPACK_IMPORTED_MODULE_131___default())),
+  RDBULL: Wrapper((_sass_icons_active_symbols_volatility_bull_market_ic_marketbull_svg__WEBPACK_IMPORTED_MODULE_132___default())),
+  stpRNG: Wrapper((_sass_icons_active_symbols_volatility_step_index_step_index_svg__WEBPACK_IMPORTED_MODULE_133___default())),
+  JD10: Wrapper((_sass_icons_active_symbols_volatility_jd10_index_ic_10_index_svg__WEBPACK_IMPORTED_MODULE_134___default())),
+  JD25: Wrapper((_sass_icons_active_symbols_volatility_jd25_index_ic_25_index_svg__WEBPACK_IMPORTED_MODULE_135___default())),
+  JD50: Wrapper((_sass_icons_active_symbols_volatility_jd50_index_ic_50_index_svg__WEBPACK_IMPORTED_MODULE_136___default())),
+  JD75: Wrapper((_sass_icons_active_symbols_volatility_jd75_index_ic_75_index_svg__WEBPACK_IMPORTED_MODULE_137___default())),
+  JD100: Wrapper((_sass_icons_active_symbols_volatility_jd100_index_ic_100_index_svg__WEBPACK_IMPORTED_MODULE_138___default())),
+  JD150: Wrapper((_sass_icons_active_symbols_volatility_jd150_index_ic_150_index_svg__WEBPACK_IMPORTED_MODULE_139___default())),
+  JD200: Wrapper((_sass_icons_active_symbols_volatility_jd200_index_ic_200_index_svg__WEBPACK_IMPORTED_MODULE_140___default())),
 
   /* Cryptocurrency Indices */
-  cryBNBUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_bnbusd_svg__WEBPACK_IMPORTED_MODULE_140___default())),
-  cryBTCLTC: Wrapper((_sass_icons_active_symbols_cryptos_ic_btcltc_svg__WEBPACK_IMPORTED_MODULE_141___default())),
-  cryIOTUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_iotusd_svg__WEBPACK_IMPORTED_MODULE_142___default())),
-  cryNEOUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_neousd_svg__WEBPACK_IMPORTED_MODULE_143___default())),
-  cryOMGUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_omgusd_svg__WEBPACK_IMPORTED_MODULE_144___default())),
-  cryTRXUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_trxusd_svg__WEBPACK_IMPORTED_MODULE_145___default())),
-  cryBTCETH: Wrapper((_sass_icons_active_symbols_cryptos_ic_btceth_svg__WEBPACK_IMPORTED_MODULE_149___default())),
-  cryZECUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_zecusd_svg__WEBPACK_IMPORTED_MODULE_148___default())),
-  cryXMRUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_xmrusd_svg__WEBPACK_IMPORTED_MODULE_147___default())),
-  cryXLMUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_xlmusd_svg__WEBPACK_IMPORTED_MODULE_146___default())),
-  cryDSHUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_dshusd_svg__WEBPACK_IMPORTED_MODULE_150___default())),
-  cryETHUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_ethusd_svg__WEBPACK_IMPORTED_MODULE_151___default())),
-  cryBCHUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_bchusd_svg__WEBPACK_IMPORTED_MODULE_152___default())),
-  cryLTCUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_ltcusd_svg__WEBPACK_IMPORTED_MODULE_153___default())),
-  cryEOSUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_eosusd_svg__WEBPACK_IMPORTED_MODULE_154___default())),
-  cryXRPUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_xrpusd_svg__WEBPACK_IMPORTED_MODULE_155___default())),
-  cryBTCUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_btcusd_svg__WEBPACK_IMPORTED_MODULE_156___default())),
+  cryBNBUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_bnbusd_svg__WEBPACK_IMPORTED_MODULE_141___default())),
+  cryBTCLTC: Wrapper((_sass_icons_active_symbols_cryptos_ic_btcltc_svg__WEBPACK_IMPORTED_MODULE_142___default())),
+  cryIOTUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_iotusd_svg__WEBPACK_IMPORTED_MODULE_143___default())),
+  cryNEOUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_neousd_svg__WEBPACK_IMPORTED_MODULE_144___default())),
+  cryOMGUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_omgusd_svg__WEBPACK_IMPORTED_MODULE_145___default())),
+  cryTRXUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_trxusd_svg__WEBPACK_IMPORTED_MODULE_146___default())),
+  cryBTCETH: Wrapper((_sass_icons_active_symbols_cryptos_ic_btceth_svg__WEBPACK_IMPORTED_MODULE_150___default())),
+  cryZECUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_zecusd_svg__WEBPACK_IMPORTED_MODULE_149___default())),
+  cryXMRUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_xmrusd_svg__WEBPACK_IMPORTED_MODULE_148___default())),
+  cryXLMUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_xlmusd_svg__WEBPACK_IMPORTED_MODULE_147___default())),
+  cryDSHUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_dshusd_svg__WEBPACK_IMPORTED_MODULE_151___default())),
+  cryETHUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_ethusd_svg__WEBPACK_IMPORTED_MODULE_152___default())),
+  cryBCHUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_bchusd_svg__WEBPACK_IMPORTED_MODULE_153___default())),
+  cryLTCUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_ltcusd_svg__WEBPACK_IMPORTED_MODULE_154___default())),
+  cryEOSUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_eosusd_svg__WEBPACK_IMPORTED_MODULE_155___default())),
+  cryXRPUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_xrpusd_svg__WEBPACK_IMPORTED_MODULE_156___default())),
+  cryBTCUSD: Wrapper((_sass_icons_active_symbols_cryptos_ic_btcusd_svg__WEBPACK_IMPORTED_MODULE_157___default())),
 
   /* Stock Indices */
-  OTC_AEX: Wrapper((_sass_icons_active_symbols_stock_indices_ic_netherland_25_svg__WEBPACK_IMPORTED_MODULE_162___default())),
-  OTC_FTSE: Wrapper((_sass_icons_active_symbols_stock_indices_ic_uk_100_svg__WEBPACK_IMPORTED_MODULE_160___default())),
-  OTC_SX5E: Wrapper((_sass_icons_active_symbols_stock_indices_ic_euro_50_svg__WEBPACK_IMPORTED_MODULE_167___default())),
-  OTC_FCHI: Wrapper((_sass_icons_active_symbols_stock_indices_ic_france_40_svg__WEBPACK_IMPORTED_MODULE_166___default())),
-  OTC_GDAXI: Wrapper((_sass_icons_active_symbols_stock_indices_ic_germany_40_svg__WEBPACK_IMPORTED_MODULE_165___default())),
-  OTC_N225: Wrapper((_sass_icons_active_symbols_stock_indices_ic_japan_225_svg__WEBPACK_IMPORTED_MODULE_163___default())),
-  OTC_SPC: Wrapper((_sass_icons_active_symbols_stock_indices_ic_usd_500_svg__WEBPACK_IMPORTED_MODULE_157___default())),
-  OTC_DJI: Wrapper((_sass_icons_active_symbols_stock_indices_ic_wallstreet_30_svg__WEBPACK_IMPORTED_MODULE_159___default())),
-  OTC_NDX: Wrapper((_sass_icons_active_symbols_stock_indices_ic_usd_tech_100_svg__WEBPACK_IMPORTED_MODULE_158___default())),
-  OTC_SSMI: Wrapper((_sass_icons_active_symbols_stock_indices_ic_swiss_20_svg__WEBPACK_IMPORTED_MODULE_161___default())),
-  OTC_HSI: Wrapper((_sass_icons_active_symbols_stock_indices_ic_hong_kong_50_svg__WEBPACK_IMPORTED_MODULE_164___default())),
-  OTC_AS51: Wrapper((_sass_icons_active_symbols_stock_indices_ic_australian_200_svg__WEBPACK_IMPORTED_MODULE_168___default()))
+  OTC_AEX: Wrapper((_sass_icons_active_symbols_stock_indices_ic_netherland_25_svg__WEBPACK_IMPORTED_MODULE_163___default())),
+  OTC_FTSE: Wrapper((_sass_icons_active_symbols_stock_indices_ic_uk_100_svg__WEBPACK_IMPORTED_MODULE_161___default())),
+  OTC_SX5E: Wrapper((_sass_icons_active_symbols_stock_indices_ic_euro_50_svg__WEBPACK_IMPORTED_MODULE_168___default())),
+  OTC_FCHI: Wrapper((_sass_icons_active_symbols_stock_indices_ic_france_40_svg__WEBPACK_IMPORTED_MODULE_167___default())),
+  OTC_GDAXI: Wrapper((_sass_icons_active_symbols_stock_indices_ic_germany_40_svg__WEBPACK_IMPORTED_MODULE_166___default())),
+  OTC_N225: Wrapper((_sass_icons_active_symbols_stock_indices_ic_japan_225_svg__WEBPACK_IMPORTED_MODULE_164___default())),
+  OTC_SPC: Wrapper((_sass_icons_active_symbols_stock_indices_ic_usd_500_svg__WEBPACK_IMPORTED_MODULE_158___default())),
+  OTC_DJI: Wrapper((_sass_icons_active_symbols_stock_indices_ic_wallstreet_30_svg__WEBPACK_IMPORTED_MODULE_160___default())),
+  OTC_NDX: Wrapper((_sass_icons_active_symbols_stock_indices_ic_usd_tech_100_svg__WEBPACK_IMPORTED_MODULE_159___default())),
+  OTC_SSMI: Wrapper((_sass_icons_active_symbols_stock_indices_ic_swiss_20_svg__WEBPACK_IMPORTED_MODULE_162___default())),
+  OTC_HSI: Wrapper((_sass_icons_active_symbols_stock_indices_ic_hong_kong_50_svg__WEBPACK_IMPORTED_MODULE_165___default())),
+  OTC_AS51: Wrapper((_sass_icons_active_symbols_stock_indices_ic_australian_200_svg__WEBPACK_IMPORTED_MODULE_169___default()))
 };
 
 const createCompositeIcon = (A, B, icId) => {
@@ -18332,7 +18363,7 @@ function frx(flagA, flagB) {
   ItemIconMap[`frx${flagA}${flagB}`] = createCompositeIcon(A, B, 'ic-frx');
 }
 
-const OTCBadgeIcon = Wrapper((_sass_icons_active_symbols_ic_otcbadge_svg__WEBPACK_IMPORTED_MODULE_169___default()));
+const OTCBadgeIcon = Wrapper((_sass_icons_active_symbols_ic_otcbadge_svg__WEBPACK_IMPORTED_MODULE_170___default()));
 const BasketIndexIcon = Wrapper((_sass_icons_sidebar_basket_index_ic_basket_active_svg__WEBPACK_IMPORTED_MODULE_43___default()));
 
 function wld(flag) {
@@ -19152,7 +19183,8 @@ const PriceLine = _ref => {
     opacityOnOverlap,
     hideOffscreenLine,
     hideBarrierLine,
-    store
+    store,
+    title
   } = _ref;
   const {
     className,
@@ -19168,7 +19200,6 @@ const PriceLine = _ref => {
     priceDisplay,
     priceLineWidth,
     setDragLine,
-    title,
     visible
   } = store;
   const showBarrier = react__WEBPACK_IMPORTED_MODULE_0___default().useMemo(() => !(hideOffscreenBarrier && offScreen), [hideOffscreenBarrier, offScreen]);
@@ -19179,13 +19210,11 @@ const PriceLine = _ref => {
   }, [init]);
   if (!showBarrier) return null;
   const width = priceLineWidth + 12;
+  const price_right_offset = (isOverlappingWithPriceLine ? width - overlappedBarrierWidth : 0) + (isMobile ? 20 : 4);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('barrier-area', {
       'barrier-area--zero': isOverlappingWithPriceLine
     }),
-    style: {
-      top: 0
-    },
     ref: setDragLine,
     hidden: !visible
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -19210,12 +19239,12 @@ const PriceLine = _ref => {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "draggable-area-wrapper"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: 'drag-price',
+    className: "drag-price",
     style: {
       backgroundColor: color,
       width: isOverlappingWithPriceLine ? overlappedBarrierWidth : width,
       opacity,
-      right: (isOverlappingWithPriceLine ? width - overlappedBarrierWidth : 0) + (isMobile ? 20 : 4)
+      right: price_right_offset
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_HamburgerDragIcon__WEBPACK_IMPORTED_MODULE_5__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('price', {
@@ -19228,17 +19257,17 @@ const PriceLine = _ref => {
   }, priceDisplay), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null), offScreen && offScreenDirection && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_PriceLineArrow__WEBPACK_IMPORTED_MODULE_3__["default"], {
     offScreenDirection: offScreenDirection,
     color: color
-  })), isOverlappingWithPriceLine && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  })), isOverlappingWithPriceLine && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "price-overlay",
     style: {
       backgroundColor: color,
       width: width - overlappedBarrierWidth,
       right: -6
     }
-  }))), title && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_PriceLineTitle__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  })), title && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_PriceLineTitle__WEBPACK_IMPORTED_MODULE_4__["default"], {
     color: color,
     title: title,
-    yAxiswidth: overlappedBarrierWidth,
+    yAxiswidth: width + price_right_offset,
     opacity: opacity
   })));
 };
@@ -23015,13 +23044,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createChartElement": () => (/* binding */ createChartElement)
+/* harmony export */   "createChartElement": () => (/* binding */ createChartElement),
+/* harmony export */   "runChartApp": () => (/* binding */ runChartApp)
 /* harmony export */ });
 const createChartElement = _ref => {
   let {
     onChartLoad
   } = _ref;
 
+  // Chart element is set in a window element for faster initialization
   if (window.flutterChartElement) {
     onChartLoad();
     return;
@@ -23033,16 +23064,29 @@ const createChartElement = _ref => {
   window._flutter = {
     loader: {
       didCreateEngineInitializer: async engineInitializer => {
-        const appRunner = await engineInitializer.initializeEngine({
+        window._flutter.appRunner = await engineInitializer.initializeEngine({
+          assetBase: '/',
           hostElement: window.flutterChartElement
         });
-        appRunner?.runApp();
+        window._flutter.initState.isEngineIntialized = true;
+        runChartApp();
       }
+    },
+    initState: {
+      isInitialRunCompleted: false,
+      isEngineIntialized: false,
+      isMounted: false
     }
-  }; // @ts-ignore
+  }; // @ts-expect-error chart dynamic load
 
   __webpack_require__.e(/*! import() | flutter-chart-adapter */ "flutter-chart-adapter").then(__webpack_require__.t.bind(__webpack_require__, /*! chart/main.dart.js */ "./chart_app/build/web/main.dart.js", 23));
   return flutterChartElement;
+};
+const runChartApp = () => {
+  if (window._flutter.initState.isMounted) {
+    window._flutter.appRunner?.runApp();
+    window._flutter.initState.isInitialRunCompleted = true;
+  }
 };
 
 /***/ }),
@@ -23064,8 +23108,8 @@ class Painter {
   constructor() {
     _defineProperty(this, "callbacks", []);
 
-    _defineProperty(this, "onPaint", () => {
-      this.callbacks.forEach(cb => cb());
+    _defineProperty(this, "onPaint", currentTickPercent => {
+      this.callbacks.forEach(cb => cb(currentTickPercent));
     });
 
     _defineProperty(this, "registerCallback", callback => {
@@ -23322,10 +23366,6 @@ class BarrierStore {
     return this.mainStore.chart.currentActiveSymbol?.decimal_places;
   }
 
-  get overlappedBarrierWidth() {
-    return 16;
-  }
-
   constructor(mainStore) {
     _defineProperty(this, "_high_barrier", void 0);
 
@@ -23376,6 +23416,7 @@ class BarrierStore {
     _defineProperty(this, "onChartLoaded", () => {
       this.init();
       this.disposeDrawReaction = (0,mobx__WEBPACK_IMPORTED_MODULE_4__.reaction)(() => [this.mainStore.chartAdapter.epochBounds, this.mainStore.chartAdapter.quoteBounds], this._drawShadedArea);
+      this.mainStore.chartAdapter.painter.registerCallback(this._drawShadedArea);
     });
 
     _defineProperty(this, "_onBarrierChange", null);
@@ -23429,7 +23470,6 @@ class BarrierStore {
       isSingleBarrier: mobx__WEBPACK_IMPORTED_MODULE_4__.observable,
       isTopShadeVisible: mobx__WEBPACK_IMPORTED_MODULE_4__.observable,
       lineStyle: mobx__WEBPACK_IMPORTED_MODULE_4__.observable,
-      overlappedBarrierWidth: mobx__WEBPACK_IMPORTED_MODULE_4__.computed,
       pip: mobx__WEBPACK_IMPORTED_MODULE_4__.computed,
       shadeColor: mobx__WEBPACK_IMPORTED_MODULE_4__.observable,
       updateProps: mobx__WEBPACK_IMPORTED_MODULE_4__.action.bound
@@ -23549,6 +23589,7 @@ class BarrierStore {
     this._low_barrier.destructor();
 
     this.disposeDrawReaction?.();
+    this.mainStore.chartAdapter.painter.unregisterCallback(this._drawShadedArea);
 
     const i = this.mainStore.chart._barriers.findIndex(b => b === this);
 
@@ -24534,6 +24575,13 @@ class ChartAdapterStore {
 
   onMount(element) {
     element.appendChild(window.flutterChartElement);
+    const initState = window._flutter.initState;
+    initState.isMounted = true;
+
+    if (initState.isEngineIntialized && !initState.isInitialRunCompleted) {
+      (0,src_flutter_chart__WEBPACK_IMPORTED_MODULE_2__.runChartApp)();
+    }
+
     window.flutterChartElement?.addEventListener('wheel', this.onWheel, {
       capture: true
     });
@@ -24546,6 +24594,7 @@ class ChartAdapterStore {
   }
 
   onUnmount() {
+    window._flutter.initState.isMounted = false;
     window.flutterChartElement?.removeEventListener('wheel', this.onWheel, {
       capture: true
     });
@@ -24632,6 +24681,9 @@ class ChartAdapterStore {
     const lastQuote = this.mainStore.chart.feed?.quotes[this.mainStore.chart.feed?.quotes.length - 1];
     if (lastQuote && new Date(lastQuote.Date) > new Date(quote.Date)) return;
     this.mainStore.chart.feed?.addQuote(quote);
+    (0,mobx__WEBPACK_IMPORTED_MODULE_6__.runInAction)(() => {
+      this.mainStore.chart.lastQuote = quote;
+    });
 
     if (quote.ohlc) {
       this.flutterChart?.feed.onNewCandle(quote);
@@ -24683,6 +24735,11 @@ class ChartAdapterStore {
   async setSymbolClosed(isClosed) {
     await (0,mobx__WEBPACK_IMPORTED_MODULE_6__.when)(() => this.isChartLoaded);
     this.flutterChart?.config.setSymbolClosed(isClosed);
+  }
+
+  async updateRightPadding(rightPadding) {
+    await (0,mobx__WEBPACK_IMPORTED_MODULE_6__.when)(() => this.isChartLoaded);
+    this.flutterChart?.config.updateRightPadding(rightPadding);
   }
 
   async setShowInterval(showInterval) {
@@ -25746,6 +25803,8 @@ class ChartStore {
 
     _defineProperty(this, "leftMargin", void 0);
 
+    _defineProperty(this, "lastQuote", void 0);
+
     _defineProperty(this, "feedCall", {});
 
     _defineProperty(this, "RANGE_PADDING_PX", 125);
@@ -25908,6 +25967,7 @@ class ChartStore {
       serverTime: mobx__WEBPACK_IMPORTED_MODULE_7__.observable,
       shouldRenderDialogs: mobx__WEBPACK_IMPORTED_MODULE_7__.observable,
       yAxisWidth: mobx__WEBPACK_IMPORTED_MODULE_7__.computed,
+      lastQuote: mobx__WEBPACK_IMPORTED_MODULE_7__.observable,
       _initChart: mobx__WEBPACK_IMPORTED_MODULE_7__.action.bound,
       categorizedSymbols: mobx__WEBPACK_IMPORTED_MODULE_7__.computed,
       changeSymbol: mobx__WEBPACK_IMPORTED_MODULE_7__.action.bound,
@@ -28773,11 +28833,12 @@ class PriceLineStore {
     _defineProperty(this, "disposeDrawReaction", void 0);
 
     _defineProperty(this, "onChartLoaded", () => {
-      this.disposeDrawReaction = (0,mobx__WEBPACK_IMPORTED_MODULE_2__.reaction)(() => [this.mainStore.chartAdapter.epochBounds, this.mainStore.chartAdapter.quoteBounds], () => {
+      this.disposeDrawReaction = (0,mobx__WEBPACK_IMPORTED_MODULE_2__.reaction)(() => [this.mainStore.chartAdapter.epochBounds, this.mainStore.chartAdapter.quoteBounds, this.mainStore.chart.lastQuote], () => {
         if (!this.isDragging) {
           this._draw();
         }
       });
+      this.mainStore.chartAdapter.painter.registerCallback(this.drawBarrier);
     });
 
     _defineProperty(this, "init", () => {
@@ -28840,12 +28901,12 @@ class PriceLineStore {
       }
     });
 
-    _defineProperty(this, "_calculateTop", () => {
+    _defineProperty(this, "_calculateTop", quote => {
       if (this.mainStore.chart.currentCloseQuote() === null || !this.mainStore.chartAdapter.isChartLoaded) {
         return;
       }
 
-      let top = this._locationFromPrice(+this.realPrice); // @ts-ignore
+      let top = this._locationFromPrice(quote || +this.realPrice); // @ts-ignore
 
 
       const height = window.flutterChartElement?.clientHeight || 0; // keep line on chart even if price is off viewable area:
@@ -28913,6 +28974,7 @@ class PriceLineStore {
       _dragLine: mobx__WEBPACK_IMPORTED_MODULE_2__.action.bound,
       _endDrag: mobx__WEBPACK_IMPORTED_MODULE_2__.action.bound,
       _startDrag: mobx__WEBPACK_IMPORTED_MODULE_2__.action.bound,
+      drawBarrier: mobx__WEBPACK_IMPORTED_MODULE_2__.action.bound,
       setDragLine: mobx__WEBPACK_IMPORTED_MODULE_2__.action.bound
     });
     this.mainStore = mainStore;
@@ -28922,8 +28984,22 @@ class PriceLineStore {
     (0,mobx__WEBPACK_IMPORTED_MODULE_2__.when)(() => this.mainStore.chartAdapter.isChartLoaded, this.onChartLoaded);
   }
 
+  drawBarrier(currentTickPercent) {
+    if (this.isDragging) return;
+    const quotes = this.mainStore.chart.feed?.quotes;
+    if (!quotes || quotes.length < 2) return;
+
+    const currentQuote = this._getPrice(quotes[quotes.length - 1].Close);
+
+    const previousQuote = this._getPrice(quotes[quotes.length - 2].Close);
+
+    const lerpQuote = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.lerp)(previousQuote, currentQuote, currentTickPercent);
+    this.top = this._calculateTop(lerpQuote);
+  }
+
   destructor() {
     this.disposeDrawReaction?.();
+    this.mainStore.chartAdapter.painter.unregisterCallback(this.drawBarrier);
   }
 
   static get EVENT_PRICE_CHANGED() {
@@ -29002,9 +29078,9 @@ class PriceLineStore {
   }
 
   get realPrice() {
-    const price = this.isDragging ? this.dragPrice : this.price;
-    const real_price = this.relative ? this.mainStore.chart.currentCloseQuote()?.Close + Number(price) : Number(price);
-    return real_price.toString();
+    const realPrice = this._getPrice(this.mainStore.chart.currentCloseQuote()?.Close);
+
+    return realPrice.toString();
   }
 
   get priceLineWidth() {
@@ -29013,6 +29089,11 @@ class PriceLineStore {
 
   get overlappedBarrierWidth() {
     return 16;
+  }
+
+  _getPrice(quote) {
+    const price = this.isDragging ? this.dragPrice : this.price;
+    return this.relative ? quote + Number(price) : Number(price);
   }
 
   setDragLine(el) {
@@ -32054,7 +32135,7 @@ module.exports = {"red":"#ff444f","light_chart_text":"#555975","dark_chart_text"
 module.exports = {
       id: "ic-bchusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-bchusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-bchusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32071,7 +32152,7 @@ module.exports = {
 module.exports = {
       id: "ic-bnbusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-bnbusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-bnbusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32088,7 +32169,7 @@ module.exports = {
 module.exports = {
       id: "ic-btceth-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-btceth-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-btceth-usage",
       toString: function () {
         return this.url;
       }
@@ -32105,7 +32186,7 @@ module.exports = {
 module.exports = {
       id: "ic-btcltc-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-btcltc-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-btcltc-usage",
       toString: function () {
         return this.url;
       }
@@ -32122,7 +32203,7 @@ module.exports = {
 module.exports = {
       id: "ic-btcusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-btcusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-btcusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32139,7 +32220,7 @@ module.exports = {
 module.exports = {
       id: "ic-dshusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-dshusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-dshusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32156,7 +32237,7 @@ module.exports = {
 module.exports = {
       id: "ic-eosusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-eosusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-eosusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32173,7 +32254,7 @@ module.exports = {
 module.exports = {
       id: "ic-ethusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-ethusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-ethusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32190,7 +32271,7 @@ module.exports = {
 module.exports = {
       id: "ic-iotusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-iotusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-iotusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32207,7 +32288,7 @@ module.exports = {
 module.exports = {
       id: "ic-ltcusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-ltcusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-ltcusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32224,7 +32305,7 @@ module.exports = {
 module.exports = {
       id: "ic-neousd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-neousd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-neousd-usage",
       toString: function () {
         return this.url;
       }
@@ -32241,7 +32322,7 @@ module.exports = {
 module.exports = {
       id: "ic-omgusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-omgusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-omgusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32258,7 +32339,7 @@ module.exports = {
 module.exports = {
       id: "ic-trxusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-trxusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-trxusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32275,7 +32356,7 @@ module.exports = {
 module.exports = {
       id: "ic-xlmusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-xlmusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-xlmusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32292,7 +32373,7 @@ module.exports = {
 module.exports = {
       id: "ic-xmrusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-xmrusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-xmrusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32309,7 +32390,7 @@ module.exports = {
 module.exports = {
       id: "ic-xrpusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-xrpusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-xrpusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32326,7 +32407,7 @@ module.exports = {
 module.exports = {
       id: "ic-zecusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-zecusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-zecusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32343,7 +32424,7 @@ module.exports = {
 module.exports = {
       id: "ic-oilusd-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-oilusd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-oilusd-usage",
       toString: function () {
         return this.url;
       }
@@ -32360,7 +32441,7 @@ module.exports = {
 module.exports = {
       id: "ic-otcbadge-usage",
       viewBox: "0 0 13 9",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-otcbadge-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-otcbadge-usage",
       toString: function () {
         return this.url;
       }
@@ -32377,7 +32458,7 @@ module.exports = {
 module.exports = {
       id: "ic-metal-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-metal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-metal-usage",
       toString: function () {
         return this.url;
       }
@@ -32394,7 +32475,7 @@ module.exports = {
 module.exports = {
       id: "ic-australian-200-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-australian-200-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-australian-200-usage",
       toString: function () {
         return this.url;
       }
@@ -32411,7 +32492,7 @@ module.exports = {
 module.exports = {
       id: "ic-euro-50-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-euro-50-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-euro-50-usage",
       toString: function () {
         return this.url;
       }
@@ -32428,7 +32509,7 @@ module.exports = {
 module.exports = {
       id: "ic-france-40-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-france-40-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-france-40-usage",
       toString: function () {
         return this.url;
       }
@@ -32445,7 +32526,7 @@ module.exports = {
 module.exports = {
       id: "ic-germany-40-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-germany-40-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-germany-40-usage",
       toString: function () {
         return this.url;
       }
@@ -32462,7 +32543,7 @@ module.exports = {
 module.exports = {
       id: "ic-hong-kong-50-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-hong-kong-50-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-hong-kong-50-usage",
       toString: function () {
         return this.url;
       }
@@ -32479,7 +32560,7 @@ module.exports = {
 module.exports = {
       id: "ic-japan-225-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-japan-225-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-japan-225-usage",
       toString: function () {
         return this.url;
       }
@@ -32496,7 +32577,7 @@ module.exports = {
 module.exports = {
       id: "ic-netherland-25-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-netherland-25-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-netherland-25-usage",
       toString: function () {
         return this.url;
       }
@@ -32513,7 +32594,7 @@ module.exports = {
 module.exports = {
       id: "ic-swiss-20-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-swiss-20-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-swiss-20-usage",
       toString: function () {
         return this.url;
       }
@@ -32530,7 +32611,7 @@ module.exports = {
 module.exports = {
       id: "ic-uk-100-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-uk-100-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-uk-100-usage",
       toString: function () {
         return this.url;
       }
@@ -32547,7 +32628,7 @@ module.exports = {
 module.exports = {
       id: "ic-usd-500-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-usd-500-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-usd-500-usage",
       toString: function () {
         return this.url;
       }
@@ -32564,7 +32645,7 @@ module.exports = {
 module.exports = {
       id: "ic-usd-tech-100-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-usd-tech-100-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-usd-tech-100-usage",
       toString: function () {
         return this.url;
       }
@@ -32581,7 +32662,7 @@ module.exports = {
 module.exports = {
       id: "ic-wallstreet-30-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-wallstreet-30-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-wallstreet-30-usage",
       toString: function () {
         return this.url;
       }
@@ -32598,7 +32679,7 @@ module.exports = {
 module.exports = {
       id: "ic-10-index-v-usage",
       viewBox: "0 0 33 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-10-index-v-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-10-index-v-usage",
       toString: function () {
         return this.url;
       }
@@ -32615,7 +32696,7 @@ module.exports = {
 module.exports = {
       id: "ic-100-index-v-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-100-index-v-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-100-index-v-usage",
       toString: function () {
         return this.url;
       }
@@ -32632,7 +32713,7 @@ module.exports = {
 module.exports = {
       id: "ic-10-1s-index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-10-1s-index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-10-1s-index-usage",
       toString: function () {
         return this.url;
       }
@@ -32649,7 +32730,7 @@ module.exports = {
 module.exports = {
       id: "ic-100-1s-index-usage",
       viewBox: "0 0 33 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-100-1s-index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-100-1s-index-usage",
       toString: function () {
         return this.url;
       }
@@ -32666,7 +32747,7 @@ module.exports = {
 module.exports = {
       id: "ic-150-1s-index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-150-1s-index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-150-1s-index-usage",
       toString: function () {
         return this.url;
       }
@@ -32683,7 +32764,7 @@ module.exports = {
 module.exports = {
       id: "ic-200-1s-index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-200-1s-index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-200-1s-index-usage",
       toString: function () {
         return this.url;
       }
@@ -32700,7 +32781,7 @@ module.exports = {
 module.exports = {
       id: "light-25(1s)index-usage",
       viewBox: "0 0 33 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#light-25(1s)index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#light-25(1s)index-usage",
       toString: function () {
         return this.url;
       }
@@ -32717,7 +32798,7 @@ module.exports = {
 module.exports = {
       id: "ic-250-1s-index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-250-1s-index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-250-1s-index-usage",
       toString: function () {
         return this.url;
       }
@@ -32734,7 +32815,7 @@ module.exports = {
 module.exports = {
       id: "ic-300-1s-index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-300-1s-index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-300-1s-index-usage",
       toString: function () {
         return this.url;
       }
@@ -32751,7 +32832,7 @@ module.exports = {
 module.exports = {
       id: "light-50(1s) index-usage",
       viewBox: "0 0 33 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#light-50(1s) index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#light-50(1s) index-usage",
       toString: function () {
         return this.url;
       }
@@ -32768,7 +32849,7 @@ module.exports = {
 module.exports = {
       id: "light-75(1s) index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#light-75(1s) index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#light-75(1s) index-usage",
       toString: function () {
         return this.url;
       }
@@ -32785,7 +32866,7 @@ module.exports = {
 module.exports = {
       id: "ic-25-index-v-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-25-index-v-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-25-index-v-usage",
       toString: function () {
         return this.url;
       }
@@ -32802,7 +32883,7 @@ module.exports = {
 module.exports = {
       id: "ic-50-index-v-usage",
       viewBox: "0 0 33 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-50-index-v-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-50-index-v-usage",
       toString: function () {
         return this.url;
       }
@@ -32819,7 +32900,7 @@ module.exports = {
 module.exports = {
       id: "ic-75-index-v-usage",
       viewBox: "0 0 33 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-75-index-v-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-75-index-v-usage",
       toString: function () {
         return this.url;
       }
@@ -32836,7 +32917,7 @@ module.exports = {
 module.exports = {
       id: "ic-marketbear-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-marketbear-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-marketbear-usage",
       toString: function () {
         return this.url;
       }
@@ -32853,7 +32934,7 @@ module.exports = {
 module.exports = {
       id: "boom1000 index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#boom1000 index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#boom1000 index-usage",
       toString: function () {
         return this.url;
       }
@@ -32870,7 +32951,7 @@ module.exports = {
 module.exports = {
       id: "boom300 index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#boom300 index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#boom300 index-usage",
       toString: function () {
         return this.url;
       }
@@ -32887,7 +32968,7 @@ module.exports = {
 module.exports = {
       id: "boom500 index-usage",
       viewBox: "0 0 33 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#boom500 index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#boom500 index-usage",
       toString: function () {
         return this.url;
       }
@@ -32904,7 +32985,7 @@ module.exports = {
 module.exports = {
       id: "ic-marketbull-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-marketbull-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-marketbull-usage",
       toString: function () {
         return this.url;
       }
@@ -32921,7 +33002,7 @@ module.exports = {
 module.exports = {
       id: "crash1000 index-usage",
       viewBox: "0 0 33 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#crash1000 index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#crash1000 index-usage",
       toString: function () {
         return this.url;
       }
@@ -32938,7 +33019,7 @@ module.exports = {
 module.exports = {
       id: "crash300 index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#crash300 index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#crash300 index-usage",
       toString: function () {
         return this.url;
       }
@@ -32955,7 +33036,7 @@ module.exports = {
 module.exports = {
       id: "crash500 index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#crash500 index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#crash500 index-usage",
       toString: function () {
         return this.url;
       }
@@ -32972,7 +33053,7 @@ module.exports = {
 module.exports = {
       id: "ic-10-index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-10-index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-10-index-usage",
       toString: function () {
         return this.url;
       }
@@ -32989,7 +33070,7 @@ module.exports = {
 module.exports = {
       id: "ic-100-index-usage",
       viewBox: "0 0 33 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-100-index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-100-index-usage",
       toString: function () {
         return this.url;
       }
@@ -33006,7 +33087,7 @@ module.exports = {
 module.exports = {
       id: "ic-150-index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-150-index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-150-index-usage",
       toString: function () {
         return this.url;
       }
@@ -33023,7 +33104,7 @@ module.exports = {
 module.exports = {
       id: "ic-200-index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-200-index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-200-index-usage",
       toString: function () {
         return this.url;
       }
@@ -33040,7 +33121,7 @@ module.exports = {
 module.exports = {
       id: "ic-25-index-usage",
       viewBox: "0 0 33 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-25-index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-25-index-usage",
       toString: function () {
         return this.url;
       }
@@ -33057,7 +33138,7 @@ module.exports = {
 module.exports = {
       id: "ic-50-index-usage",
       viewBox: "0 0 33 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-50-index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-50-index-usage",
       toString: function () {
         return this.url;
       }
@@ -33074,7 +33155,7 @@ module.exports = {
 module.exports = {
       id: "ic-75-index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-75-index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-75-index-usage",
       toString: function () {
         return this.url;
       }
@@ -33091,7 +33172,7 @@ module.exports = {
 module.exports = {
       id: "step index-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#step index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#step index-usage",
       toString: function () {
         return this.url;
       }
@@ -33108,7 +33189,7 @@ module.exports = {
 module.exports = {
       id: "error-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#error-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#error-usage",
       toString: function () {
         return this.url;
       }
@@ -33125,7 +33206,7 @@ module.exports = {
 module.exports = {
       id: "info-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#info-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#info-usage",
       toString: function () {
         return this.url;
       }
@@ -33142,7 +33223,7 @@ module.exports = {
 module.exports = {
       id: "success-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#success-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#success-usage",
       toString: function () {
         return this.url;
       }
@@ -33159,7 +33240,7 @@ module.exports = {
 module.exports = {
       id: "warning-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#warning-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#warning-usage",
       toString: function () {
         return this.url;
       }
@@ -33176,7 +33257,7 @@ module.exports = {
 module.exports = {
       id: "ic-arrow-green-usage",
       viewBox: "0 0 22 31",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-arrow-green-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-arrow-green-usage",
       toString: function () {
         return this.url;
       }
@@ -33193,7 +33274,7 @@ module.exports = {
 module.exports = {
       id: "ic-arrow-orange-usage",
       viewBox: "0 0 22 31",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-arrow-orange-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-arrow-orange-usage",
       toString: function () {
         return this.url;
       }
@@ -33210,7 +33291,7 @@ module.exports = {
 module.exports = {
       id: "ic-back-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-back-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-back-usage",
       toString: function () {
         return this.url;
       }
@@ -33227,7 +33308,7 @@ module.exports = {
 module.exports = {
       id: "ic-baseline-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-baseline-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-baseline-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33244,7 +33325,7 @@ module.exports = {
 module.exports = {
       id: "ic-candle-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-candle-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-candle-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33261,7 +33342,7 @@ module.exports = {
 module.exports = {
       id: "ic-dot-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-dot-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-dot-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33278,7 +33359,7 @@ module.exports = {
 module.exports = {
       id: "ic-hollowcandle-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-hollowcandle-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-hollowcandle-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33295,7 +33376,7 @@ module.exports = {
 module.exports = {
       id: "ic-heikin-ashi-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-heikin-ashi-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-heikin-ashi-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33312,7 +33393,7 @@ module.exports = {
 module.exports = {
       id: "ic-kagi-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-kagi-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-kagi-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33329,7 +33410,7 @@ module.exports = {
 module.exports = {
       id: "ic-linebreak-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-linebreak-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-linebreak-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33346,7 +33427,7 @@ module.exports = {
 module.exports = {
       id: "ic-pointfigure-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-pointfigure-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-pointfigure-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33363,7 +33444,7 @@ module.exports = {
 module.exports = {
       id: "ic-rangebars-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-rangebars-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-rangebars-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33380,7 +33461,7 @@ module.exports = {
 module.exports = {
       id: "ic-renko-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-renko-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-renko-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33397,7 +33478,7 @@ module.exports = {
 module.exports = {
       id: "ic-linedot-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-linedot-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-linedot-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33414,7 +33495,7 @@ module.exports = {
 module.exports = {
       id: "ic-line-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-line-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-line-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33431,7 +33512,7 @@ module.exports = {
 module.exports = {
       id: "ic-ohlc-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-ohlc-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-ohlc-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33448,7 +33529,7 @@ module.exports = {
 module.exports = {
       id: "ic-spline-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-spline-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-spline-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33465,7 +33546,7 @@ module.exports = {
 module.exports = {
       id: "table-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#table-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#table-usage",
       toString: function () {
         return this.url;
       }
@@ -33482,7 +33563,7 @@ module.exports = {
 module.exports = {
       id: "ic-comparison-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-comparison-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-comparison-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33499,7 +33580,7 @@ module.exports = {
 module.exports = {
       id: "ic-crosshair-off-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-crosshair-off-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-crosshair-off-usage",
       toString: function () {
         return this.url;
       }
@@ -33516,7 +33597,7 @@ module.exports = {
 module.exports = {
       id: "ic-crosshair-on-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-crosshair-on-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-crosshair-on-usage",
       toString: function () {
         return this.url;
       }
@@ -33533,7 +33614,7 @@ module.exports = {
 module.exports = {
       id: "ic-crosshair-tooltip-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-crosshair-tooltip-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-crosshair-tooltip-usage",
       toString: function () {
         return this.url;
       }
@@ -33550,7 +33631,7 @@ module.exports = {
 module.exports = {
       id: "ic-drawingtools-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-drawingtools-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-drawingtools-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -33567,7 +33648,7 @@ module.exports = {
 module.exports = {
       id: "ic-position-bottom-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-position-bottom-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-position-bottom-usage",
       toString: function () {
         return this.url;
       }
@@ -33584,7 +33665,7 @@ module.exports = {
 module.exports = {
       id: "ic-position-left-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-position-left-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-position-left-usage",
       toString: function () {
         return this.url;
       }
@@ -33601,7 +33682,7 @@ module.exports = {
 module.exports = {
       id: "ic-zoomin-light-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-zoomin-light-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-zoomin-light-usage",
       toString: function () {
         return this.url;
       }
@@ -33618,7 +33699,7 @@ module.exports = {
 module.exports = {
       id: "ic-zoomout-light-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-zoomout-light-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-zoomout-light-usage",
       toString: function () {
         return this.url;
       }
@@ -33635,7 +33716,7 @@ module.exports = {
 module.exports = {
       id: "ic-area-grayscale-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-area-grayscale-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-area-grayscale-usage",
       toString: function () {
         return this.url;
       }
@@ -33652,7 +33733,7 @@ module.exports = {
 module.exports = {
       id: "ic-area-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-area-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-area-usage",
       toString: function () {
         return this.url;
       }
@@ -33669,7 +33750,7 @@ module.exports = {
 module.exports = {
       id: "ic-candle-grayscale-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-candle-grayscale-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-candle-grayscale-usage",
       toString: function () {
         return this.url;
       }
@@ -33686,7 +33767,7 @@ module.exports = {
 module.exports = {
       id: "ic-candle-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-candle-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-candle-usage",
       toString: function () {
         return this.url;
       }
@@ -33703,7 +33784,7 @@ module.exports = {
 module.exports = {
       id: "ic-hollow-grayscale-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-hollow-grayscale-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-hollow-grayscale-usage",
       toString: function () {
         return this.url;
       }
@@ -33720,7 +33801,7 @@ module.exports = {
 module.exports = {
       id: "ic-hollow-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-hollow-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-hollow-usage",
       toString: function () {
         return this.url;
       }
@@ -33737,7 +33818,7 @@ module.exports = {
 module.exports = {
       id: "ic-ohlc-grayscale-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-ohlc-grayscale-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-ohlc-grayscale-usage",
       toString: function () {
         return this.url;
       }
@@ -33754,7 +33835,7 @@ module.exports = {
 module.exports = {
       id: "ic-ohlc-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-ohlc-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-ohlc-usage",
       toString: function () {
         return this.url;
       }
@@ -33771,7 +33852,7 @@ module.exports = {
 module.exports = {
       id: "ic-clear-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-clear-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-clear-usage",
       toString: function () {
         return this.url;
       }
@@ -33788,7 +33869,7 @@ module.exports = {
 module.exports = {
       id: "ic-close-bold-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-close-bold-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-close-bold-usage",
       toString: function () {
         return this.url;
       }
@@ -33805,7 +33886,7 @@ module.exports = {
 module.exports = {
       id: "ic-close-circle-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-close-circle-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-close-circle-usage",
       toString: function () {
         return this.url;
       }
@@ -33822,7 +33903,7 @@ module.exports = {
 module.exports = {
       id: "full-screen-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#full-screen-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#full-screen-usage",
       toString: function () {
         return this.url;
       }
@@ -33839,7 +33920,7 @@ module.exports = {
 module.exports = {
       id: "ic-active-usage",
       viewBox: "0 0 17 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-active-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-active-usage",
       toString: function () {
         return this.url;
       }
@@ -33856,7 +33937,7 @@ module.exports = {
 module.exports = {
       id: "ic-add-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-add-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-add-usage",
       toString: function () {
         return this.url;
       }
@@ -33873,7 +33954,7 @@ module.exports = {
 module.exports = {
       id: "ic-charts-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-charts-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-charts-usage",
       toString: function () {
         return this.url;
       }
@@ -33890,7 +33971,7 @@ module.exports = {
 module.exports = {
       id: "ic-checkbox-active-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-checkbox-active-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-checkbox-active-usage",
       toString: function () {
         return this.url;
       }
@@ -33907,7 +33988,7 @@ module.exports = {
 module.exports = {
       id: "ic-checkbox-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-checkbox-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-checkbox-usage",
       toString: function () {
         return this.url;
       }
@@ -33924,7 +34005,7 @@ module.exports = {
 module.exports = {
       id: "ic-close-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-close-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-close-usage",
       toString: function () {
         return this.url;
       }
@@ -33941,7 +34022,7 @@ module.exports = {
 module.exports = {
       id: "ic-download-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-download-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-download-usage",
       toString: function () {
         return this.url;
       }
@@ -33958,7 +34039,7 @@ module.exports = {
 module.exports = {
       id: "ic-drawing-tool-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-drawing-tool-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-drawing-tool-usage",
       toString: function () {
         return this.url;
       }
@@ -33975,7 +34056,7 @@ module.exports = {
 module.exports = {
       id: "ic-help-center-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-help-center-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-help-center-usage",
       toString: function () {
         return this.url;
       }
@@ -33992,7 +34073,7 @@ module.exports = {
 module.exports = {
       id: "ic-indicators-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-indicators-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-indicators-usage",
       toString: function () {
         return this.url;
       }
@@ -34009,7 +34090,7 @@ module.exports = {
 module.exports = {
       id: "ic-info-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-info-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-info-usage",
       toString: function () {
         return this.url;
       }
@@ -34026,7 +34107,7 @@ module.exports = {
 module.exports = {
       id: "ic-input-number-minus-usage",
       viewBox: "0 0 8 8",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-input-number-minus-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-input-number-minus-usage",
       toString: function () {
         return this.url;
       }
@@ -34043,7 +34124,7 @@ module.exports = {
 module.exports = {
       id: "ic-input-number-plus-usage",
       viewBox: "0 0 8 8",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-input-number-plus-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-input-number-plus-usage",
       toString: function () {
         return this.url;
       }
@@ -34060,7 +34141,7 @@ module.exports = {
 module.exports = {
       id: "ic-language-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-language-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-language-usage",
       toString: function () {
         return this.url;
       }
@@ -34077,7 +34158,7 @@ module.exports = {
 module.exports = {
       id: "ic-templates-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-templates-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-templates-usage",
       toString: function () {
         return this.url;
       }
@@ -34094,7 +34175,7 @@ module.exports = {
 module.exports = {
       id: "ic-theme-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-theme-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-theme-usage",
       toString: function () {
         return this.url;
       }
@@ -34111,7 +34192,7 @@ module.exports = {
 module.exports = {
       id: "ic-delete-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-delete-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-delete-usage",
       toString: function () {
         return this.url;
       }
@@ -34128,7 +34209,7 @@ module.exports = {
 module.exports = {
       id: "ic-csv-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-csv-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-csv-usage",
       toString: function () {
         return this.url;
       }
@@ -34145,7 +34226,7 @@ module.exports = {
 module.exports = {
       id: "ic-png-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-png-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-png-usage",
       toString: function () {
         return this.url;
       }
@@ -34162,7 +34243,7 @@ module.exports = {
 module.exports = {
       id: "ic-channel-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-channel-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-channel-usage",
       toString: function () {
         return this.url;
       }
@@ -34179,7 +34260,7 @@ module.exports = {
 module.exports = {
       id: "ic-continuous-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-continuous-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-continuous-usage",
       toString: function () {
         return this.url;
       }
@@ -34196,7 +34277,7 @@ module.exports = {
 module.exports = {
       id: "ic-fibonacci-fan-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-fibonacci-fan-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-fibonacci-fan-usage",
       toString: function () {
         return this.url;
       }
@@ -34213,7 +34294,7 @@ module.exports = {
 module.exports = {
       id: "ic-horizontal-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-horizontal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-horizontal-usage",
       toString: function () {
         return this.url;
       }
@@ -34230,7 +34311,7 @@ module.exports = {
 module.exports = {
       id: "ic-line-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-line-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-line-usage",
       toString: function () {
         return this.url;
       }
@@ -34247,7 +34328,7 @@ module.exports = {
 module.exports = {
       id: "ic-ray-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-ray-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-ray-usage",
       toString: function () {
         return this.url;
       }
@@ -34264,7 +34345,7 @@ module.exports = {
 module.exports = {
       id: "ic-rectangle-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-rectangle-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-rectangle-usage",
       toString: function () {
         return this.url;
       }
@@ -34281,7 +34362,7 @@ module.exports = {
 module.exports = {
       id: "ic-trend-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-trend-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-trend-usage",
       toString: function () {
         return this.url;
       }
@@ -34298,7 +34379,7 @@ module.exports = {
 module.exports = {
       id: "ic-vertical-usage",
       viewBox: "0 0 24 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-vertical-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-vertical-usage",
       toString: function () {
         return this.url;
       }
@@ -34315,7 +34396,7 @@ module.exports = {
 module.exports = {
       id: "ic-dropdown-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-dropdown-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-dropdown-usage",
       toString: function () {
         return this.url;
       }
@@ -34332,7 +34413,7 @@ module.exports = {
 module.exports = {
       id: "ic-edit-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-edit-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-edit-usage",
       toString: function () {
         return this.url;
       }
@@ -34349,7 +34430,7 @@ module.exports = {
 module.exports = {
       id: "ic-favorite-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-favorite-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-favorite-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -34366,7 +34447,7 @@ module.exports = {
 module.exports = {
       id: "aud-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#aud-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#aud-usage",
       toString: function () {
         return this.url;
       }
@@ -34383,7 +34464,7 @@ module.exports = {
 module.exports = {
       id: "cad-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#cad-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#cad-usage",
       toString: function () {
         return this.url;
       }
@@ -34400,7 +34481,7 @@ module.exports = {
 module.exports = {
       id: "chf-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#chf-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#chf-usage",
       toString: function () {
         return this.url;
       }
@@ -34417,7 +34498,7 @@ module.exports = {
 module.exports = {
       id: "chinese-traditional-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#chinese-traditional-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#chinese-traditional-usage",
       toString: function () {
         return this.url;
       }
@@ -34434,7 +34515,7 @@ module.exports = {
 module.exports = {
       id: "chinese-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#chinese-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#chinese-usage",
       toString: function () {
         return this.url;
       }
@@ -34451,7 +34532,7 @@ module.exports = {
 module.exports = {
       id: "dutch-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#dutch-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#dutch-usage",
       toString: function () {
         return this.url;
       }
@@ -34468,7 +34549,7 @@ module.exports = {
 module.exports = {
       id: "eur-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#eur-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#eur-usage",
       toString: function () {
         return this.url;
       }
@@ -34485,7 +34566,7 @@ module.exports = {
 module.exports = {
       id: "french-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#french-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#french-usage",
       toString: function () {
         return this.url;
       }
@@ -34502,7 +34583,7 @@ module.exports = {
 module.exports = {
       id: "gbp-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#gbp-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#gbp-usage",
       toString: function () {
         return this.url;
       }
@@ -34519,7 +34600,7 @@ module.exports = {
 module.exports = {
       id: "german-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#german-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#german-usage",
       toString: function () {
         return this.url;
       }
@@ -34536,7 +34617,7 @@ module.exports = {
 module.exports = {
       id: "hong kong-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#hong kong-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#hong kong-usage",
       toString: function () {
         return this.url;
       }
@@ -34553,7 +34634,7 @@ module.exports = {
 module.exports = {
       id: "indonesia-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#indonesia-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#indonesia-usage",
       toString: function () {
         return this.url;
       }
@@ -34570,7 +34651,7 @@ module.exports = {
 module.exports = {
       id: "italy-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#italy-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#italy-usage",
       toString: function () {
         return this.url;
       }
@@ -34587,7 +34668,7 @@ module.exports = {
 module.exports = {
       id: "jpy-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#jpy-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#jpy-usage",
       toString: function () {
         return this.url;
       }
@@ -34604,7 +34685,7 @@ module.exports = {
 module.exports = {
       id: "korean-usage",
       viewBox: "0 0 36 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#korean-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#korean-usage",
       toString: function () {
         return this.url;
       }
@@ -34621,7 +34702,7 @@ module.exports = {
 module.exports = {
       id: "mxn-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#mxn-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#mxn-usage",
       toString: function () {
         return this.url;
       }
@@ -34638,7 +34719,7 @@ module.exports = {
 module.exports = {
       id: "nok-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#nok-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#nok-usage",
       toString: function () {
         return this.url;
       }
@@ -34655,7 +34736,7 @@ module.exports = {
 module.exports = {
       id: "nzd-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#nzd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#nzd-usage",
       toString: function () {
         return this.url;
       }
@@ -34672,7 +34753,24 @@ module.exports = {
 module.exports = {
       id: "pln-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#pln-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#pln-usage",
+      toString: function () {
+        return this.url;
+      }
+    }
+
+/***/ }),
+
+/***/ "./sass/icons/flags/portugal.svg":
+/*!***************************************!*\
+  !*** ./sass/icons/flags/portugal.svg ***!
+  \***************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = {
+      id: "portugal-usage",
+      viewBox: "0 0 24 17",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#portugal-usage",
       toString: function () {
         return this.url;
       }
@@ -34689,7 +34787,7 @@ module.exports = {
 module.exports = {
       id: "russia-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#russia-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#russia-usage",
       toString: function () {
         return this.url;
       }
@@ -34706,7 +34804,7 @@ module.exports = {
 module.exports = {
       id: "sek-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#sek-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#sek-usage",
       toString: function () {
         return this.url;
       }
@@ -34723,7 +34821,7 @@ module.exports = {
 module.exports = {
       id: "spanish-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#spanish-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#spanish-usage",
       toString: function () {
         return this.url;
       }
@@ -34740,7 +34838,7 @@ module.exports = {
 module.exports = {
       id: "thailand-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#thailand-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#thailand-usage",
       toString: function () {
         return this.url;
       }
@@ -34757,7 +34855,7 @@ module.exports = {
 module.exports = {
       id: "turkey-usage",
       viewBox: "0 0 24 17",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#turkey-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#turkey-usage",
       toString: function () {
         return this.url;
       }
@@ -34774,7 +34872,7 @@ module.exports = {
 module.exports = {
       id: "usd-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#usd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#usd-usage",
       toString: function () {
         return this.url;
       }
@@ -34791,7 +34889,7 @@ module.exports = {
 module.exports = {
       id: "vietnam-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#vietnam-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#vietnam-usage",
       toString: function () {
         return this.url;
       }
@@ -34808,7 +34906,7 @@ module.exports = {
 module.exports = {
       id: "wallstreet-usage",
       viewBox: "0 0 24 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#wallstreet-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#wallstreet-usage",
       toString: function () {
         return this.url;
       }
@@ -34825,7 +34923,7 @@ module.exports = {
 module.exports = {
       id: "xau-usage",
       viewBox: "0 0 8 8",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#xau-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#xau-usage",
       toString: function () {
         return this.url;
       }
@@ -34842,7 +34940,7 @@ module.exports = {
 module.exports = {
       id: "ic-adx-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-adx-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-adx-usage",
       toString: function () {
         return this.url;
       }
@@ -34859,7 +34957,7 @@ module.exports = {
 module.exports = {
       id: "ic-alligator-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-alligator-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-alligator-usage",
       toString: function () {
         return this.url;
       }
@@ -34876,7 +34974,7 @@ module.exports = {
 module.exports = {
       id: "ic-aroon-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-aroon-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-aroon-usage",
       toString: function () {
         return this.url;
       }
@@ -34893,7 +34991,7 @@ module.exports = {
 module.exports = {
       id: "ic-averages-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-averages-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-averages-usage",
       toString: function () {
         return this.url;
       }
@@ -34910,7 +35008,7 @@ module.exports = {
 module.exports = {
       id: "ic-awesome-oscillator-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-awesome-oscillator-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-awesome-oscillator-usage",
       toString: function () {
         return this.url;
       }
@@ -34927,7 +35025,7 @@ module.exports = {
 module.exports = {
       id: "ic-bollinger-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-bollinger-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-bollinger-usage",
       toString: function () {
         return this.url;
       }
@@ -34944,7 +35042,7 @@ module.exports = {
 module.exports = {
       id: "ic-cat-averages-usage",
       viewBox: "0 0 17 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-cat-averages-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-cat-averages-usage",
       toString: function () {
         return this.url;
       }
@@ -34961,7 +35059,7 @@ module.exports = {
 module.exports = {
       id: "ic-commodity-channel-index-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-commodity-channel-index-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-commodity-channel-index-usage",
       toString: function () {
         return this.url;
       }
@@ -34978,7 +35076,7 @@ module.exports = {
 module.exports = {
       id: "ic-donchian-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-donchian-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-donchian-usage",
       toString: function () {
         return this.url;
       }
@@ -34995,7 +35093,7 @@ module.exports = {
 module.exports = {
       id: "ic-dtrended-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-dtrended-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-dtrended-usage",
       toString: function () {
         return this.url;
       }
@@ -35012,7 +35110,7 @@ module.exports = {
 module.exports = {
       id: "ic-envelope-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-envelope-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-envelope-usage",
       toString: function () {
         return this.url;
       }
@@ -35029,7 +35127,7 @@ module.exports = {
 module.exports = {
       id: "ic-fractal-chaos-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-fractal-chaos-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-fractal-chaos-usage",
       toString: function () {
         return this.url;
       }
@@ -35046,7 +35144,7 @@ module.exports = {
 module.exports = {
       id: "ic-gator-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-gator-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-gator-usage",
       toString: function () {
         return this.url;
       }
@@ -35063,7 +35161,7 @@ module.exports = {
 module.exports = {
       id: "ic-ichimoku-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-ichimoku-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-ichimoku-usage",
       toString: function () {
         return this.url;
       }
@@ -35080,7 +35178,7 @@ module.exports = {
 module.exports = {
       id: "ic-macd-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-macd-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-macd-usage",
       toString: function () {
         return this.url;
       }
@@ -35097,7 +35195,7 @@ module.exports = {
 module.exports = {
       id: "ic-momentum-usage",
       viewBox: "0 0 17 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-momentum-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-momentum-usage",
       toString: function () {
         return this.url;
       }
@@ -35114,7 +35212,7 @@ module.exports = {
 module.exports = {
       id: "ic-other-usage",
       viewBox: "0 0 17 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-other-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-other-usage",
       toString: function () {
         return this.url;
       }
@@ -35131,7 +35229,7 @@ module.exports = {
 module.exports = {
       id: "ic-parabolic-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-parabolic-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-parabolic-usage",
       toString: function () {
         return this.url;
       }
@@ -35148,7 +35246,7 @@ module.exports = {
 module.exports = {
       id: "ic-rainbow-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-rainbow-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-rainbow-usage",
       toString: function () {
         return this.url;
       }
@@ -35165,7 +35263,7 @@ module.exports = {
 module.exports = {
       id: "ic-rate-of-change-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-rate-of-change-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-rate-of-change-usage",
       toString: function () {
         return this.url;
       }
@@ -35182,7 +35280,7 @@ module.exports = {
 module.exports = {
       id: "ic-rsi-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-rsi-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-rsi-usage",
       toString: function () {
         return this.url;
       }
@@ -35199,7 +35297,7 @@ module.exports = {
 module.exports = {
       id: "ic-stochastic-momentum-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-stochastic-momentum-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-stochastic-momentum-usage",
       toString: function () {
         return this.url;
       }
@@ -35216,7 +35314,7 @@ module.exports = {
 module.exports = {
       id: "ic-stochastic-oscillator-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-stochastic-oscillator-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-stochastic-oscillator-usage",
       toString: function () {
         return this.url;
       }
@@ -35233,7 +35331,7 @@ module.exports = {
 module.exports = {
       id: "ic-trend-dark-usage",
       viewBox: "0 0 17 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-trend-dark-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-trend-dark-usage",
       toString: function () {
         return this.url;
       }
@@ -35250,7 +35348,7 @@ module.exports = {
 module.exports = {
       id: "ic-trend-light-usage",
       viewBox: "0 0 17 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-trend-light-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-trend-light-usage",
       toString: function () {
         return this.url;
       }
@@ -35267,7 +35365,7 @@ module.exports = {
 module.exports = {
       id: "ic-volatility-usage",
       viewBox: "0 0 17 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-volatility-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-volatility-usage",
       toString: function () {
         return this.url;
       }
@@ -35284,7 +35382,7 @@ module.exports = {
 module.exports = {
       id: "ic-william-percent-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-william-percent-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-william-percent-usage",
       toString: function () {
         return this.url;
       }
@@ -35301,7 +35399,7 @@ module.exports = {
 module.exports = {
       id: "ic-zig-zag-usage",
       viewBox: "0 0 25 24",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-zig-zag-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-zig-zag-usage",
       toString: function () {
         return this.url;
       }
@@ -35318,7 +35416,7 @@ module.exports = {
 module.exports = {
       id: "ic-measure-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-measure-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-measure-usage",
       toString: function () {
         return this.url;
       }
@@ -35335,7 +35433,7 @@ module.exports = {
 module.exports = {
       id: "ic-home-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-home-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-home-usage",
       toString: function () {
         return this.url;
       }
@@ -35352,7 +35450,7 @@ module.exports = {
 module.exports = {
       id: "ic-scale-full-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-scale-full-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-scale-full-usage",
       toString: function () {
         return this.url;
       }
@@ -35369,7 +35467,7 @@ module.exports = {
 module.exports = {
       id: "ic-zoomin-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-zoomin-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-zoomin-usage",
       toString: function () {
         return this.url;
       }
@@ -35386,7 +35484,7 @@ module.exports = {
 module.exports = {
       id: "ic-zoomout-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-zoomout-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-zoomout-usage",
       toString: function () {
         return this.url;
       }
@@ -35403,7 +35501,7 @@ module.exports = {
 module.exports = {
       id: "ic-pencil-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-pencil-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-pencil-usage",
       toString: function () {
         return this.url;
       }
@@ -35420,7 +35518,7 @@ module.exports = {
 module.exports = {
       id: "ic-placeholder-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-placeholder-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-placeholder-usage",
       toString: function () {
         return this.url;
       }
@@ -35437,7 +35535,7 @@ module.exports = {
 module.exports = {
       id: "ic-search-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-search-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-search-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35454,7 +35552,7 @@ module.exports = {
 module.exports = {
       id: "ic-countdown-dark-active-usage",
       viewBox: "0 0 160 120",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-countdown-dark-active-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-countdown-dark-active-usage",
       toString: function () {
         return this.url;
       }
@@ -35471,7 +35569,7 @@ module.exports = {
 module.exports = {
       id: "ic-countdown-dark-normal-usage",
       viewBox: "0 0 160 120",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-countdown-dark-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-countdown-dark-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35488,7 +35586,7 @@ module.exports = {
 module.exports = {
       id: "ic-countdown-light-active-usage",
       viewBox: "0 0 160 120",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-countdown-light-active-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-countdown-light-active-usage",
       toString: function () {
         return this.url;
       }
@@ -35505,7 +35603,7 @@ module.exports = {
 module.exports = {
       id: "ic-countdown-light-normal-usage",
       viewBox: "0 0 160 120",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-countdown-light-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-countdown-light-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35522,7 +35620,7 @@ module.exports = {
 module.exports = {
       id: "ic-highest-lowest-dark-active-usage",
       viewBox: "0 0 160 120",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-highest-lowest-dark-active-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-highest-lowest-dark-active-usage",
       toString: function () {
         return this.url;
       }
@@ -35539,7 +35637,7 @@ module.exports = {
 module.exports = {
       id: "ic-highest-lowest-dark-normal-usage",
       viewBox: "0 0 160 120",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-highest-lowest-dark-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-highest-lowest-dark-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35556,7 +35654,7 @@ module.exports = {
 module.exports = {
       id: "ic-highest-lowest-light-active-usage",
       viewBox: "0 0 160 120",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-highest-lowest-light-active-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-highest-lowest-light-active-usage",
       toString: function () {
         return this.url;
       }
@@ -35573,7 +35671,7 @@ module.exports = {
 module.exports = {
       id: "ic-highest-lowest-light-normal-usage",
       viewBox: "0 0 160 120",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-highest-lowest-light-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-highest-lowest-light-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35590,7 +35688,7 @@ module.exports = {
 module.exports = {
       id: "ic-historical-dark-active-usage",
       viewBox: "0 0 160 120",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-historical-dark-active-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-historical-dark-active-usage",
       toString: function () {
         return this.url;
       }
@@ -35607,7 +35705,7 @@ module.exports = {
 module.exports = {
       id: "ic-historical-dark-normal-usage",
       viewBox: "0 0 160 120",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-historical-dark-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-historical-dark-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35624,7 +35722,7 @@ module.exports = {
 module.exports = {
       id: "ic-historical-light-active-usage",
       viewBox: "0 0 160 120",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-historical-light-active-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-historical-light-active-usage",
       toString: function () {
         return this.url;
       }
@@ -35641,7 +35739,7 @@ module.exports = {
 module.exports = {
       id: "ic-historical-light-normal-usage",
       viewBox: "0 0 160 120",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-historical-light-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-historical-light-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35658,7 +35756,7 @@ module.exports = {
 module.exports = {
       id: "ic-theme-dark-usage",
       viewBox: "0 0 236 180",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-theme-dark-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-theme-dark-usage",
       toString: function () {
         return this.url;
       }
@@ -35675,7 +35773,7 @@ module.exports = {
 module.exports = {
       id: "ic-theme-light-usage",
       viewBox: "0 0 236 180",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-theme-light-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-theme-light-usage",
       toString: function () {
         return this.url;
       }
@@ -35692,7 +35790,7 @@ module.exports = {
 module.exports = {
       id: "ic-empty-state-usage",
       viewBox: "0 0 128 118",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-empty-state-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-empty-state-usage",
       toString: function () {
         return this.url;
       }
@@ -35709,7 +35807,7 @@ module.exports = {
 module.exports = {
       id: "ic-overwrite-state-usage",
       viewBox: "0 0 128 128",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-overwrite-state-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-overwrite-state-usage",
       toString: function () {
         return this.url;
       }
@@ -35726,7 +35824,7 @@ module.exports = {
 module.exports = {
       id: "ic-basket-active-usage",
       viewBox: "0 0 32 32",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-basket-active-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-basket-active-usage",
       toString: function () {
         return this.url;
       }
@@ -35743,7 +35841,7 @@ module.exports = {
 module.exports = {
       id: "ic-basket-normal-usage",
       viewBox: "0 0 16 15",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-basket-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-basket-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35760,7 +35858,7 @@ module.exports = {
 module.exports = {
       id: "ic-commodities-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-commodities-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-commodities-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35777,7 +35875,7 @@ module.exports = {
 module.exports = {
       id: "ic-cryptocurrency-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-cryptocurrency-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-cryptocurrency-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35794,7 +35892,7 @@ module.exports = {
 module.exports = {
       id: "ic-forex-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-forex-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-forex-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35811,7 +35909,7 @@ module.exports = {
 module.exports = {
       id: "ic-indices-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-indices-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-indices-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35828,7 +35926,7 @@ module.exports = {
 module.exports = {
       id: "ic-otc-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-otc-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-otc-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35845,7 +35943,7 @@ module.exports = {
 module.exports = {
       id: "ic-synth-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-synth-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-synth-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35862,7 +35960,7 @@ module.exports = {
 module.exports = {
       id: "ic-volatility-normal-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-volatility-normal-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-volatility-normal-usage",
       toString: function () {
         return this.url;
       }
@@ -35879,7 +35977,7 @@ module.exports = {
 module.exports = {
       id: "ic-tick-usage",
       viewBox: "0 0 16 16",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-tick-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-tick-usage",
       toString: function () {
         return this.url;
       }
@@ -35896,7 +35994,7 @@ module.exports = {
 module.exports = {
       id: "ic-time-usage",
       viewBox: "0 0 12 12",
-      url: __webpack_require__.p + "sprite-a6820f.smartcharts.svg#ic-time-usage",
+      url: __webpack_require__.p + "sprite-0e6043.smartcharts.svg#ic-time-usage",
       toString: function () {
         return this.url;
       }
@@ -36158,7 +36256,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_moment__;
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + "-" + {"ar-json":"646390","bn-json":"ef1a8e","de-json":"21a098","es-json":"aab9ab","fr-json":"6d7336","id-json":"cccc5d","it-json":"49c544","ko-json":"8a4521","messages-json":"25dbdf","nl-json":"01ab10","pl-json":"3ba93e","pt-json":"ea148a","ru-json":"34cc42","si-json":"717521","th-json":"7c1492","tr-json":"9ba125","vi-json":"05c446","zh-json":"3b763c","zh_cn-json":"ecbeca","zh_tw-json":"fde027","resize-observer-polyfill":"8d7e7d","html2canvas":"094fa7","flutter-chart-adapter":"a37f9c"}[chunkId] + ".smartcharts.js";
+/******/ 			return "" + chunkId + "-" + {"ar-json":"646390","bn-json":"ef1a8e","de-json":"21a098","es-json":"aab9ab","fr-json":"6d7336","id-json":"cccc5d","it-json":"49c544","ko-json":"8a4521","messages-json":"25dbdf","nl-json":"01ab10","pl-json":"3ba93e","pt-json":"ea148a","ru-json":"34cc42","si-json":"717521","th-json":"7c1492","tr-json":"9ba125","vi-json":"05c446","zh-json":"3b763c","zh_cn-json":"ecbeca","zh_tw-json":"fde027","resize-observer-polyfill":"8d7e7d","html2canvas":"094fa7","flutter-chart-adapter":"d078f8"}[chunkId] + ".smartcharts.js";
 /******/ 		};
 /******/ 	})();
 /******/ 	

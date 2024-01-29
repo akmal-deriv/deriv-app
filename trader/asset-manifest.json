@@ -1,16 +1,16 @@
 {
   "trader.js": "/trader/js/trader.js",
-  "trader-app.css": "/trader/css/trader.trader-app.fc7bf6bdf76f36ddd632.css",
-  "trader-app.js": "/trader/js/trader.trader-app.0bffb17b66f69f5c4b61.js",
-  "trade-modals.js": "/trader/js/trader.trade-modals.2519820e4c2bcfca20ca.js",
-  "error-component.js": "/trader/js/trader.error-component.b5cb747e20e5562becf6.js",
-  "contract.js": "/trader/js/trader.contract.43a5010958618384bf3d.js",
-  "smart_chart_beta.js": "/trader/js/trader.smart_chart_beta.e3c78d2aa80acf7918fa.js",
-  "screen-small.css": "/trader/css/trader.screen-small.25405d6942c01eba71ff.css",
-  "screen-small.js": "/trader/js/trader.screen-small.889a6d521e34eca26a22.js",
-  "screen-large.js": "/trader/js/trader.screen-large.f07de4d77e784429861a.js",
+  "trader-app.css": "/trader/css/trader.trader-app.634169c3e42d6e7034c4.css",
+  "trader-app.js": "/trader/js/trader.trader-app.6f3c51a95c2d593e5723.js",
+  "trade-modals.js": "/trader/js/trader.trade-modals.4c9e685bf3c0d44c7ce9.js",
+  "error-component.js": "/trader/js/trader.error-component.463fa115836c33a4af3d.js",
+  "contract.js": "/trader/js/trader.contract.da433e8fd4d47b23fa17.js",
+  "screen-small.css": "/trader/css/trader.screen-small.1dbcd7d620d12597596c.css",
+  "screen-small.js": "/trader/js/trader.screen-small.03201e9b58ef3849903b.js",
+  "screen-large.js": "/trader/js/trader.screen-large.3d4e3b50df5ec5fb735b.js",
   "settings-chart.js": "/trader/js/trader.settings-chart.11b1c0730e1ca8945139.js",
-  "trader/js/trader.vendors-node_modules_deriv_analytics_lib_index_js-node_modules_deriv_deriv-api_dist_DerivAPIB-917d57.js": "/trader/js/trader.vendors-node_modules_deriv_analytics_lib_index_js-node_modules_deriv_deriv-api_dist_DerivAPIB-917d57.a9526a7a4f795d0f6931.js",
   "trader/js/trader.vendors-node_modules_binary-com_binary-document-uploader_DocumentUploader_js.js": "/trader/js/trader.vendors-node_modules_binary-com_binary-document-uploader_DocumentUploader_js.7a1aca442ce3d04ada34.js",
-  "trader/js/trader.src_Modules_Trading_Components_Form_TradeParams_Accumulator_accumulators-info-display_tsx-src-9d80cb.js": "/trader/js/trader.src_Modules_Trading_Components_Form_TradeParams_Accumulator_accumulators-info-display_tsx-src-9d80cb.6bcbb03de992ffcfa63b.js"
+  "trader/js/trader.vendors-node_modules_deriv_deriv-api_dist_DerivAPIBasic_js-node_modules_bowser_es5_js-node_mo-161bcf.js": "/trader/js/trader.vendors-node_modules_deriv_deriv-api_dist_DerivAPIBasic_js-node_modules_bowser_es5_js-node_mo-161bcf.044b60caf7c3e4fe0c26.js",
+  "trader/js/trader.hooks_src_index_ts.js": "/trader/js/trader.hooks_src_index_ts.e3493978067f9f835cf6.js",
+  "trader/js/trader.src_Modules_Trading_Components_Form_TradeParams_Accumulator_accumulators-info-display_tsx-src-457838.js": "/trader/js/trader.src_Modules_Trading_Components_Form_TradeParams_Accumulator_accumulators-info-display_tsx-src-457838.b4ad5177f58bd574fec2.js"
 }
