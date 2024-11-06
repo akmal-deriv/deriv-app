@@ -6,13 +6,13 @@ It will cover:
 
 -   Brief explanation on the test framework used in the project.(**Jest**)
 
--   `react-testing-library` configuration.
+-   `react-testing-library` configuration
 
 -   Examples
 
     ## Test Framework
 
-    ​ We are using [Jest](https://jestjs.io/)  as test runner and [React Testing library](https://testing-library.com/docs/react-testing-library/intro/) as our main test component to have the ultimate needed utilities.
+    ​ We are using [Jest](https://jestjs.io/) as test runner and [React Testing library](https://testing-library.com/docs/react-testing-library/intro/) as our main test component to have the ultimate needed utilities.
 
     ### Jest
 
